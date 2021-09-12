@@ -6,7 +6,6 @@ import DateRangeIcon from '@material-ui/icons/DateRangeOutlined';
 import AnnouncementOutlinedIcon from '@material-ui/icons/AnnouncementOutlined';
 
 import ProfileImage from "../images/bob.jpeg";
-
 const SIDEBAR_ITEMS = [
   {
     title: "Home",
@@ -31,6 +30,7 @@ const SIDEBAR_ITEMS = [
 function Dashboard() {
   const renderSidebarItems = () => {
     return SIDEBAR_ITEMS.map(item => {
+      const Icon = item.icon;
       const selectedStyles = item.selected ? { color: "purple.700", background: "purple.100" } : {};
       return (
         <Flex 
@@ -40,12 +40,14 @@ function Dashboard() {
           color="gray.500" 
           p="0.5rem 0.75rem" 
           minW="12rem" 
+          fontSize="1.25rem"
           borderRadius="0.5rem" 
           _hover={{ background: !item.selected && "gray.100" }} 
           {...selectedStyles}
         >
-          <Icon as={item.icon} boxSize={12}  mr="0.5rem" />
-          <Text  fontWeight="600" fontSize="0.875rem" >{item.title}</Text>
+          <Icon fontSize="inherit"/>
+          {/* <Icon as={item.icon} w={2} h={2}  mr="0.5rem" /> */}
+          <Text  ml="0.5rem" fontWeight="600" fontSize="0.875rem" >{item.title}</Text>
         </Flex>
       )
     });
