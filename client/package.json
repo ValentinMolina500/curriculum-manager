@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.3.0",
     "@fontsource/inter": "^4.5.0",
     "@fontsource/merriweather": "^4.5.1",
+    "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

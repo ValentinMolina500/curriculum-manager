@@ -38,7 +38,7 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Grid w="100vw" h="100vh">
+      <Grid w="100vw" h="100vh"  bg="#F8F7FC">
         {renderApp()}
       </Grid>
     </ChakraProvider>

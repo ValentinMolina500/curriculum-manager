@@ -25,9 +25,13 @@ function Login(props) {
   }
 
   return (
+    <Box   w="100%"
+    h="100%"background="black">
+
     <Grid
       background={`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${mountainsImage})`}
       backgroundPosition="50% 12%"
+      backgroundRepeat="no-repeat"
       w="100%"
       h="100%"
       gridTemplateColumns="1fr 1fr"
@@ -80,6 +84,7 @@ function Login(props) {
 
       </GridItem>
     </Grid>
+    </Box>
 
   );
 }
