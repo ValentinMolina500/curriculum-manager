@@ -14,7 +14,9 @@ import mountainsImage from "../images/background.jpg";
 
 import { Box, GridItem, Heading, Text } from "@chakra-ui/layout";
 
-function Login() {
+function Login(props) {
+    const { onSignInClick } = props;
+
     return (
         <Grid
             background={`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${mountainsImage})`}
@@ -30,7 +32,7 @@ function Login() {
                 </Box>
             </GridItem>
             <GridItem gridColumn="2">
-                <Box h="100%" ml="2rem" maxW="500px" bg="white" px="3.5rem" pt="3.5rem" pb="7rem" borderRadius="0.5rem">
+                <Box h="100%" ml="2rem" maxW="500px" bg="white" px="3.5rem" pt="3.5rem" pb="7rem" borderRadius="0.5rem" boxShadow="lg">
                     <Heading fontSize="1.75rem" fontFamily="Merriweather" fontWeight="700" as="h1" mb="1.5rem">Sign In</Heading>
                     <Stack spacing="1.5rem">
                         <FormControl id="email">
@@ -57,6 +59,7 @@ function Login() {
                         marginTop="2rem"
                         colorScheme="purple"
                         fontWeight="600"
+                        onClick={onSignInClick}
                     >
                         Login now
                     </Button>
