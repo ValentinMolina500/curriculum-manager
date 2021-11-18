@@ -1,10 +1,12 @@
-import { Grid, Box, Flex, Text, Stack, Heading } from "@chakra-ui/layout";
-import { GridItem, Icon, Image, ScaleFade } from "@chakra-ui/react";
+import { Grid, Box, Flex, Text, Stack, Heading, Divider } from "@chakra-ui/layout";
+import { GridItem, Icon, Image, ScaleFade, Button } from "@chakra-ui/react";
+
+
 import HomeIcon from "@material-ui/icons/HomeOutlined";
 import PeopleIcon from "@material-ui/icons/PeopleOutlined";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
 import AnnouncementOutlinedIcon from "@material-ui/icons/AnnouncementOutlined";
-
+import PlusIcon from "@material-ui/icons/Add"
 import ProfileImage from "../images/bob.jpeg";
 const SIDEBAR_ITEMS = [
   {
@@ -13,7 +15,7 @@ const SIDEBAR_ITEMS = [
     selected: true,
   },
   {
-    title: "Class Schedule",
+    title: "Class Schedules",
     icon: DateRangeIcon,
   },
   {
@@ -31,7 +33,7 @@ function Dashboard() {
     return SIDEBAR_ITEMS.map((item) => {
       const Icon = item.icon;
       const selectedStyles = item.selected
-        ? { color: "white", background: "purple.400",  }
+        ? { color: "purple.500", borderLeftColor: "purple.500", borderLeftWidth: "3px" }
         : {};
       return (
         <Flex
@@ -43,8 +45,9 @@ function Dashboard() {
       
           minW="12rem"
           fontSize="1.25rem"
-          borderRadius="0.5rem"
-          _hover={{ background: !item.selected && "gray.100" }}
+          
+          borderRadius={"0 0.5rem 0.5rem 0"}
+          _hover={{ background: "gray.100" }}
           {...selectedStyles}
         >
           <Icon fontSize="inherit" />
@@ -73,6 +76,8 @@ function Dashboard() {
               Curriculum
             </Heading>
             <Stack spacing="0.75rem">{renderSidebarItems()}</Stack>
+            <Divider my="1rem" />
+            <Button colorScheme="purple" w="100%" leftIcon={<PlusIcon />}>Add Schedule</Button>
           </Box>
         </GridItem>
 
@@ -86,15 +91,15 @@ function Dashboard() {
             w="100%"
           >
             <Flex alignItems="center">
-              <Heading
+              {/* <Heading
                 as="h1"
                 fontWeight="700"
                 fontSize="1.75rem"
                 alignSelf="end  "
                 fontFamily="Merriweather"
               >
-                Welcome back Bobl
-              </Heading>
+                Welcome back Bob Lewis!
+              </Heading> */}
 
               {/* User profile items */}
               <Grid
@@ -144,7 +149,12 @@ function Dashboard() {
               gridRow="2"
               bg="white"
               borderRadius="0.5rem"
-            ></GridItem>
+              d="flex"
+              justifyContent="center"
+              alignItems="center"              
+            >
+              <Text>Nothing to see here...</Text>
+            </GridItem>
           </Grid>
         </GridItem>
       </Grid>

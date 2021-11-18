@@ -6,6 +6,7 @@ import "@fontsource/merriweather/700.css"
 
 import { useEffect, useState } from "react";
 import Authentication from "./utils/Authentication";
+import { Routes, Route, Link } from "react-router-dom";
 
 import {
   ChakraProvider,
@@ -17,11 +18,16 @@ import Login from "./views/Login";
 import Dashboard from './views/Dashboard'
 
 function App() {
+  
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
     Authentication.onAuthStateChanged((_isSignedIn) => {
       setIsSignedIn(_isSignedIn);
+
+      if (_isSignedIn) {
+
+      }
     })
   }, []);
   
@@ -40,7 +46,11 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Grid w="100vw" h="100vh"  bg="#f9f9fd">
-        {renderApp()}
+        {/* {renderApp()} */}
+        <Routes>
+          <Route path="/login" element={<Login onSignInClick={onSignInClick} />} />
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
       </Grid>
     </ChakraProvider>
   );
