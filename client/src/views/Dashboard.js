@@ -67,8 +67,8 @@ const SIDEBAR_ITEMS = [
 const DEMO_STATES = {
   INIT: "INIT",
   ADD_SESSION: "ADD_SESSION",
-  ADD_INSTRUCTORS: "ADD_INSTRUCTORS",
   ADD_COURSES: "ADD_COURSES",
+  ADD_INSTRUCTORS: "ADD_INSTRUCTORS"
 };
 
 function Dashboard() {
@@ -165,7 +165,7 @@ function Dashboard() {
         </Grid>
 
         <Button
-          onClick={() => setCurrState(DEMO_STATES.ADD_INSTRUCTORS)}
+          onClick={() => setCurrState(DEMO_STATES.ADD_COURSES)}
           mt="2rem"
           w="100%"
           colorScheme={"purple"}
@@ -176,6 +176,83 @@ function Dashboard() {
       </Box>
     );
   };
+
+  const addCourses = () => {
+    return (
+      <Box h="100%" w="100%" p="4rem 2rem" maxW="40rem">
+        <Heading as="h2" fontSize="2rem" fontFamily="Merriweather">
+          Specify Courses
+        </Heading>
+        <Text color="gray.600">Select a campus & add/remove courses.</Text>
+        <Grid mt="2rem" gridTemplateColumns={"1fr"}>
+          <Text fontWeight={"semibold"} gridColumn={"1/3"}>
+            Campus
+          </Text>
+          <FormControl id="campus">
+            <Select placeholder="Select Campus">
+              <option value="Everett">Everett</option>
+              <option value="Global">Global</option>
+              <option value="Pullman">Pullman</option>
+              <option value="Spokane">Spokane</option>
+              <option value="Tri-Cities">Tri-Cities</option>
+              <option value="Vancouver">Vancouver</option>
+            </Select>
+          </FormControl>
+        </Grid>
+        
+        <Grid mt="2rem" gridTemplateColumns={"1fr 1fr"} columnGap={"1rem"}>
+          <Text fontWeight={"semibold"} gridColumn={"1/3"}>
+            Course
+          </Text>
+
+          <FormControl id="season">
+            <FormLabel color="gray.600" fontSize={"0.825rem"}>
+              Department
+            </FormLabel>
+            <Select placeholder="Select Department">
+              <option value="CPT_S">CPT_S</option>
+            </Select>
+          </FormControl>
+
+          <FormControl id="email">
+            <FormLabel color="gray.600" fontSize={"0.825rem"}>
+              Course #
+            </FormLabel>
+            <Select placeholder="Select Course #">
+              <option value="121">121</option>
+              <option value="223">223</option>
+              <option value="224">224</option>
+              <option value="260">260</option>
+              <option value="302">302</option>
+              <option value="315">315</option>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Button m="2rem 0 1rem 0" leftIcon={<PlusIcon />}>Add Another Course</Button>
+
+        <Flex justifyContent={"space-between"}>
+        <Button
+          mt="2rem"
+          colorScheme={"purple"}
+          leftIcon={<ArrowLeft />}
+          onClick={() => setCurrState(DEMO_STATES.ADD_SESSION)}
+        >
+          Back
+        </Button>
+
+        <Button
+          onClick={() => setCurrState(DEMO_STATES.ADD_INSTRUCTORS)}
+          mt="2rem"
+          colorScheme={"purple"}
+          rightIcon={<ArrowRight />}
+        >
+          Continue
+        </Button>
+        </Flex>
+      </Box>
+    );
+  }
 
   const addInstructors = () => (
     <Box h="100%" w="100%" p="4rem 2rem">
@@ -209,7 +286,7 @@ function Dashboard() {
         mt="2rem"
         colorScheme={"purple"}
         leftIcon={<ArrowLeft />}
-        onClick={() => setCurrState(DEMO_STATES.ADD_SESSION)}
+        onClick={() => setCurrState(DEMO_STATES.ADD_COURSES)}
       >
         Back
       </Button>
@@ -232,6 +309,9 @@ function Dashboard() {
 
       case DEMO_STATES.ADD_SESSION:
         return addSession();
+
+      case DEMO_STATES.ADD_COURSES:
+        return addCourses();
 
       case DEMO_STATES.ADD_INSTRUCTORS:
         return addInstructors();
