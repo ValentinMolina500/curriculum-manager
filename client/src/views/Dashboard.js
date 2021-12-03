@@ -230,7 +230,7 @@ function Dashboard() {
         </Grid>
 
         <Button m="2rem 0 1rem 0" leftIcon={<PlusIcon />}>Add Another Course</Button>
-
+        <Button m="2rem 0 1rem 1rem">Load CSV</Button>
         <Flex justifyContent={"space-between"}>
         <Button
           mt="2rem"
@@ -260,7 +260,14 @@ function Dashboard() {
         Specify Instructors
       </Heading>
       <Text color="gray.600">Add or remove instructors.</Text>
-      <Button m="2rem 0 1rem 0" leftIcon={<PlusIcon />}>Add Instructor</Button>
+      <Button m="2rem 0 1rem 0" onClick={() => setInstructors(prev => prev.concat({  name: "Nathan Tenney",
+      email: "nate.tenney@wsu.edu",
+      isAdjunct: true}))} 
+        leftIcon={<PlusIcon />}
+      >
+        Add Instructor
+      </Button>
+      <Button m="2rem 0 1rem 1rem">Load CSV</Button>
       <Table variant="simple">
         <Thead>
           <Tr>
