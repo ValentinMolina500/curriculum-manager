@@ -389,7 +389,7 @@ function Dashboard() {
                   fontSize="0.875rem"
                   color="gray.500"
                 >
-                  bob.lewis@wsu.edu
+                  bobl@wsu.edu
                 </GridItem>
 
                 {/* */}
