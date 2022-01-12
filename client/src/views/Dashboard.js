@@ -12,94 +12,81 @@ import {
   Icon,
   Image,
   ScaleFade,
-  Button,
-  Input,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Select,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
+  Button
+
 } from "@chakra-ui/react";
 
-import { useState } from "react";
+import { Outlet, NavLink } from "react-router-dom";
 
-import HomeIcon from "@material-ui/icons/HomeOutlined";
-import PeopleIcon from "@material-ui/icons/PeopleOutlined";
-import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
-import ArrowRight from "@material-ui/icons/ArrowForward";
-import ArrowLeft from "@material-ui/icons/ArrowBack"
-import AnnouncementOutlinedIcon from "@material-ui/icons/AnnouncementOutlined";
-import PlusIcon from "@material-ui/icons/Add";
+import {
+  MdHome,
+  MdPeople,
+  MdDateRange,
+  MdBook
+} from "react-icons/md"
 import ProfileImage from "../images/bob.jpeg";
+import Table from "./Table";
+
 const SIDEBAR_ITEMS = [
   {
     title: "Home",
-    icon: HomeIcon,
-    selected: true,
+    icon: MdHome,
+    to: "/"
   },
   {
     title: "Sessions",
-    icon: DateRangeIcon,
+    icon: MdDateRange,
+    to: "sessions"
   },
   {
     title: "Instructors",
-    icon: PeopleIcon,
+    icon: MdPeople,
+    to: "instructors"
   },
   {
-    title: "Notifications",
-    icon: AnnouncementOutlinedIcon,
+    title: "Courses",
+    icon: MdBook,
+    to: "courses"
+
   },
 ];
 
-const DEMO_STATES = {
-  INIT: "INIT",
-  ADD_SESSION: "ADD_SESSION",
-  ADD_COURSES: "ADD_COURSES",
-  ADD_INSTRUCTORS: "ADD_INSTRUCTORS"
-};
-
 function Dashboard() {
+  
   const renderSidebarItems = () => {
     return SIDEBAR_ITEMS.map((item) => {
       const Icon = item.icon;
-      const selectedStyles = item.selected
-        ? {
-            color: "purple.500",
-            borderLeftColor: "purple.500",
-            borderLeftWidth: "3px",
+      const selectedStyles =
+         {
+            background: "#805AD5",
+            color: "white",
+            borderRadius: "0.25rem",
           }
-        : {};
+      const notSelectedStyles = {
+        
+          borderRadius: "0.25rem",
+  
+      }
       return (
         <Flex
+          as={NavLink}
+          to={item.to}
+          style={({isActive}) => isActive ? selectedStyles : notSelectedStyles}
           transition="background ease 250ms"
           cursor="pointer"
           alignItems="center"
           color="#868e96"
-          p="0.5rem 0.75rem"
+          p="0.25rem 0.75rem"
           minW="12rem"
           fontSize="1.25rem"
-          borderRadius={"0 0.5rem 0.5rem 0"}
-          _hover={{ background: "gray.100" }}
-          {...selectedStyles}
+          
+          _hover={{ background: "#efefef" }}
         >
           <Icon fontSize="inherit" />
 
           <Text
             ml="0.5rem"
-            fontWeight={item.selected ? "700" : "600"}
+            fontWeight={item.selected ? "600" : "medium"}
             fontSize="1rem"
           >
             {item.title}
@@ -107,232 +94,17 @@ function Dashboard() {
         </Flex>
       );
     });
-  };
-
-  const [currState, setCurrState] = useState(DEMO_STATES.INIT);
-  const [instructors, setInstructors] = useState([
-    {
-      name: "Luis De La Torre",
-      email: "luis.delatorre@wsu.edu",
-      isAdjunct: false
-    },
-    {
-      name: "John Miller",
-      email: "jmiller16@wsu.edu",
-      isAdjunct: false
-    },
-  ])
-  const addSession = () => {
-    /* Fake form for now but you get the idea sir */
-    return (
-      <Box h="100%" w="100%" p="4rem 2rem" maxW="40rem">
-        <Heading as="h2" fontSize="2rem" fontFamily="Merriweather">
-          Specify Time
-        </Heading>
-        <Text color="gray.600">Use season and year.</Text>
-        <Grid mt="2rem" gridTemplateColumns={"1fr 1fr"} columnGap={"1rem"}>
-          <Text fontWeight={"semibold"} gridColumn={"1/3"}>
-            Semester
-          </Text>
-
-          <FormControl id="season">
-            <FormLabel color="gray.600" fontSize={"0.825rem"}>
-              Season
-            </FormLabel>
-            <Select placeholder="Select option">
-              <option value="option1">Spring</option>
-              <option value="option2">Summer</option>
-              <option value="option3">Fall</option>
-              <option value="winter">Winter</option>
-            </Select>
-          </FormControl>
-
-          <FormControl id="email">
-            <FormLabel color="gray.600" fontSize={"0.825rem"}>
-              Year
-            </FormLabel>
-            <NumberInput
-              defaultValue={parseInt(new Date().getFullYear())}
-              min={parseInt(new Date().getFullYear())}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
-        </Grid>
-
-        <Button
-          onClick={() => setCurrState(DEMO_STATES.ADD_COURSES)}
-          mt="2rem"
-          w="100%"
-          colorScheme={"purple"}
-          rightIcon={<ArrowRight />}
-        >
-          Continue
-        </Button>
-      </Box>
-    );
-  };
-
-  const addCourses = () => {
-    return (
-      <Box h="100%" w="100%" p="4rem 2rem" maxW="40rem">
-        <Heading as="h2" fontSize="2rem" fontFamily="Merriweather">
-          Specify Courses
-        </Heading>
-        <Text color="gray.600">Select a campus & add/remove courses.</Text>
-        <Grid mt="2rem" gridTemplateColumns={"1fr"}>
-          <Text fontWeight={"semibold"} gridColumn={"1/3"}>
-            Campus
-          </Text>
-          <FormControl id="campus">
-            <Select placeholder="Select Campus">
-              <option value="Everett">Everett</option>
-              <option value="Global">Global</option>
-              <option value="Pullman">Pullman</option>
-              <option value="Spokane">Spokane</option>
-              <option value="Tri-Cities">Tri-Cities</option>
-              <option value="Vancouver">Vancouver</option>
-            </Select>
-          </FormControl>
-        </Grid>
-        
-        <Grid mt="2rem" gridTemplateColumns={"1fr 1fr"} columnGap={"1rem"}>
-          <Text fontWeight={"semibold"} gridColumn={"1/3"}>
-            Course
-          </Text>
-
-          <FormControl id="season">
-            <FormLabel color="gray.600" fontSize={"0.825rem"}>
-              Department
-            </FormLabel>
-            <Select placeholder="Select Department">
-              <option value="CPT_S">CPT_S</option>
-            </Select>
-          </FormControl>
-
-          <FormControl id="email">
-            <FormLabel color="gray.600" fontSize={"0.825rem"}>
-              Course #
-            </FormLabel>
-            <Select placeholder="Select Course #">
-              <option value="121">121</option>
-              <option value="223">223</option>
-              <option value="224">224</option>
-              <option value="260">260</option>
-              <option value="302">302</option>
-              <option value="315">315</option>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Button m="2rem 0 1rem 0" leftIcon={<PlusIcon />}>Add Another Course</Button>
-        <Button m="2rem 0 1rem 1rem">Load CSV</Button>
-        <Flex justifyContent={"space-between"}>
-        <Button
-          mt="2rem"
-          colorScheme={"purple"}
-          leftIcon={<ArrowLeft />}
-          onClick={() => setCurrState(DEMO_STATES.ADD_SESSION)}
-        >
-          Back
-        </Button>
-
-        <Button
-          onClick={() => setCurrState(DEMO_STATES.ADD_INSTRUCTORS)}
-          mt="2rem"
-          colorScheme={"purple"}
-          rightIcon={<ArrowRight />}
-        >
-          Continue
-        </Button>
-        </Flex>
-      </Box>
-    );
-  }
-
-  const addInstructors = () => (
-    <Box h="100%" w="100%" p="4rem 2rem">
-      <Heading as="h2" fontSize="2rem" fontFamily="Merriweather">
-        Specify Instructors
-      </Heading>
-      <Text color="gray.600">Add or remove instructors.</Text>
-      <Button m="2rem 0 1rem 0" onClick={() => setInstructors(prev => prev.concat({  name: "Nathan Tenney",
-      email: "nate.tenney@wsu.edu",
-      isAdjunct: true}))} 
-        leftIcon={<PlusIcon />}
-      >
-        Add Instructor
-      </Button>
-      <Button m="2rem 0 1rem 1rem">Load CSV</Button>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Name</Th>
-            <Th>Email</Th>
-            <Th>Is Adjunct?</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {instructors.map((item) => (
-            <Tr>
-              <Td>{item.name}</Td>
-              <Td>{item.email}</Td>
-              <Td>{item.isAdjunct ? "Yes" : "No"}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-        
-      </Table>
-      
-      <Flex justifyContent={"space-between"}>
-      <Button
-        mt="2rem"
-        colorScheme={"purple"}
-        leftIcon={<ArrowLeft />}
-        onClick={() => setCurrState(DEMO_STATES.ADD_COURSES)}
-      >
-        Back
-      </Button>
-      <Button
-        mt="2rem"
-        colorScheme={"purple"}
-        rightIcon={<ArrowRight />}
-      >
-        Continue
-      </Button>
-      </Flex>
-      
-    </Box>
-  );
-
-  const renderContent = () => {
-    switch (currState) {
-      case DEMO_STATES.INIT:
-        return <Text>Nothing to see here...</Text>;
-
-      case DEMO_STATES.ADD_SESSION:
-        return addSession();
-
-      case DEMO_STATES.ADD_COURSES:
-        return addCourses();
-
-      case DEMO_STATES.ADD_INSTRUCTORS:
-        return addInstructors();
-    }
-  };
+  }; 
 
   return (
     <ScaleFade initialScale={0.9} in={true} w="100%" h="100%">
-      <Grid w="100%" h="100%" bg="#f9f9fd" templateColumns="18rem 1fr">
+      <Grid w="100%" h="100%" templateColumns="18rem 1fr" templateRows={"minmax(0, 1fr)"}>
         {/* Sidebar */}
         <GridItem
+          zIndex={50}
           as="aside"
-          bg="white"
-          boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+          bg="#fff"
+          borderRight="1px solid #efefef"
         >
           <Box p="2rem 1.5rem">
             <Heading
@@ -345,34 +117,29 @@ function Dashboard() {
               Curriculum
             </Heading>
             <Stack spacing="0.75rem">{renderSidebarItems()}</Stack>
-            <Divider my="1rem" />
-            <Button
-              onClick={() => setCurrState(DEMO_STATES.ADD_SESSION)}
-              colorScheme="purple"
-              w="100%"
-              leftIcon={<PlusIcon />}
-            >
-              Add Session
-            </Button>
+          
           </Box>
         </GridItem>
 
         {/* Main content */}
-        <GridItem as="main">
+        <GridItem as="main" >
           <Grid
             rowGap="1rem"
-            gridTemplateRows="auto 1fr"
+            gridTemplateRows="auto minmax(0, 1fr)"
             p="2rem"
+            gridRowGap="2rem"
             h="100%"
             w="100%"
           >
-            <Flex alignItems="center">
+            <Flex alignItems="center"  w="100%" justifySelf={"center"}
+              maxW={"990px"}>
               {/* User profile items */}
               <Grid
                 ml="auto"
                 gridTemplateRows="auto auto"
                 columnGap="1rem"
                 bg="white"
+                border="1px solid #efefef"  
                 boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
                 padding="0.5rem 1rem"
                 borderRadius="0.5rem"
@@ -385,6 +152,7 @@ function Dashboard() {
                   justifySelf="right"
                   fontWeight="700"
                   fontSize="0.875rem"
+          
                   fontFamily="Merriweather"
                 >
                   Bob Lewis
@@ -411,16 +179,19 @@ function Dashboard() {
               </Grid>
             </Flex>
             <GridItem
-              boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+              justifySelf={"center"}
               gridRow="2"
               bg="white"
               borderRadius="0.5rem"
               d="flex"
-              justifyContent="center"
-              alignItems="center"
+              w="100%"
+              maxW={"1280px"}
+              
             >
-              {renderContent()}
+              <Outlet />
+
             </GridItem>
+
           </Grid>
         </GridItem>
       </Grid>
