@@ -22,6 +22,8 @@ import Sessions from "./views/Sessions";
 import AddSession from "./views/AddSession";
 
 import Courses from "./views/Courses";
+import AddCourse from "./views/AddCourse";
+
 import Instructors from "./views/Instructors";
 
 function App() {
@@ -58,7 +60,10 @@ function App() {
               <Route index  element={<Sessions />} />
               <Route path="add" element={<AddSession />} />
             </Route>
-            <Route path="courses" element={<Courses />} />
+            <Route path="courses" element={<Outlet/>}>
+              <Route index element={<Courses />} />
+              <Route path="add-course" element={<AddCourse />} />
+            </Route>
             <Route path="instructors" element={<Instructors />} />
           </Route>
         </Routes>

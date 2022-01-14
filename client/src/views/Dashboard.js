@@ -132,7 +132,7 @@ function Dashboard() {
             w="100%"
           >
             <Flex alignItems="center"  w="100%" justifySelf={"center"}
-              maxW={"990px"}>
+              maxW={"1280px"}>
               {/* User profile items */}
               <Grid
                 ml="auto"
