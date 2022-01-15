@@ -28,37 +28,46 @@ function Courses() {
     }
 
     return sections.map((section, index) => {
+      const sectionCount = index + 1;
+      let sectionLabel;
+
+      if (sectionCount > 9) {
+        sectionLabel = `Section ${sectionCount}`
+      } else {
+        sectionLabel = `Section 0${sectionCount}`;
+      }
+
       return (
-        <Grid 
-          gridTemplateColumns={"1fr 1fr 1fr"} 
-          border="1px solid #E2E8F0" 
+        <Grid
+          gridTemplateColumns={"1fr 1fr 1fr"}
+          border="1px solid #E2E8F0"
           columnGap={"1rem"}
           rowGap={"1rem"}
-          gridColumn="1 / 5" 
-          key={section.id} 
-          borderRadius={"md"} 
+          gridColumn="1 / 5"
+          key={section.id}
+          borderRadius={"md"}
           p="1.5rem">
-          <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>Section 0{index + 1}</Heading>
+          <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>{sectionLabel}</Heading>
           <FormControl>
             <FormLabel htmlFor="title" fontSize="0.875rem">Class Number</FormLabel>
-            <Input id="title" size="sm"/>
+            <Input id="title" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="title" fontSize="0.875rem">Credits</FormLabel>
-            <Input id="title" size="sm"/>
+            <Input id="title" size="sm" />
           </FormControl>
-         
+
           <FormControl gridRow="3" gridColumn={"1/3"}>
             <FormLabel htmlFor="title" fontSize="0.875rem">Instructor</FormLabel>
             <Select id="prefix" size="sm">
-            <option>Luis De La Torre</option>
-            <option>Bob Lewis</option>
-          </Select>
+              <option>Luis De La Torre</option>
+              <option>Bob Lewis</option>
+            </Select>
           </FormControl>
 
           <FormControl gridRow="3" gridColumn={"3"}>
             <FormLabel htmlFor="title" fontSize="0.875rem">Building & Room</FormLabel>
-            <Input id="title" size="sm"/>
+            <Input id="title" size="sm" />
           </FormControl>
         </Grid>
       );
@@ -76,19 +85,19 @@ function Courses() {
 
     return labs.map((section, index) => {
       return (
-        <Grid 
-          gridTemplateColumns={"1fr 1fr 1fr"} 
-          border="1px solid #E2E8F0" 
+        <Grid
+          gridTemplateColumns={"1fr 1fr 1fr"}
+          border="1px solid #E2E8F0"
           columnGap={"1rem"}
           rowGap={"1rem"}
-          gridColumn="1 / 5" 
-          key={section.id} 
-          borderRadius={"md"} 
+          gridColumn="1 / 5"
+          key={section.id}
+          borderRadius={"md"}
           p="1.5rem">
           <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>Section 0{index + 1} Lab</Heading>
           <FormControl>
             <FormLabel htmlFor="title" fontSize="0.875rem">Class Number</FormLabel>
-            <Input id="title" size="sm"/>
+            <Input id="title" size="sm" />
           </FormControl>
         </Grid>
       );
@@ -163,15 +172,6 @@ function Courses() {
         </Flex>
 
         {renderLabs()}
-        {/* <FormControl gridRow="2" gridColumn={"2"}>
-          <FormLabel htmlFor="prefix">Class Number</FormLabel>
-          <Input />
-        </FormControl>
-       
-        <FormControl gridRow="2" gridColumn={"3"}>
-          <FormLabel htmlFor="prefix">Credits</FormLabel>
-          <Input />
-        </FormControl> */}
       </Grid>
     </Box>
   );
