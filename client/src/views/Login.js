@@ -13,19 +13,39 @@ import mountainsImage from "../images/background.jpg";
 
 import { Box, GridItem, Heading, Text } from "@chakra-ui/layout";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as types from "../store/actions";
 
 function Login(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, isAutheticated } = useSelector(state => state.auth);
+  
+  const onSignInClick = () => {
+    const credentials = {
+      email,
+      password
+    };
 
-  const { onSignInClick } = props;
-
-  const _onSignInClick = async () => {
-    setIsLoading(true);
-    await onSignInClick();
-    setIsLoading(false);
-    navigate(`/`);
+    dispatch({
+      type: types.LOGIN_REQUEST,
+      payload: {
+        credentials,
+        onLoginSuccess: () => {
+          navigate("/");
+        }
+      }
+    })
   }
+  // const _onSignInClick = async () => {
+  //   setIsLoading(true);
+  //   await onSignInClick();
+  //   setIsLoading(false);
+  //   navigate(`/`);
+  // }
 
   return (
     <Box w="100%"
@@ -53,16 +73,20 @@ function Login(props) {
               <FormControl id="email">
                 <FormLabel>E-Mail address</FormLabel>
                 <Input
+                  disabled={status === "loading"}
                   placeholder="Enter your e-mail address"
                   type="email"
+                  onChange={e => setEmail(e.target.value)}
                 />
               </FormControl>
 
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
                 <Input
+                  disabled={status === "loading"}
                   placeholder="Enter your password"
                   type="password"
+                  onChange={e => setPassword(e.target.value)}
                 />
               </FormControl>
 
@@ -74,9 +98,9 @@ function Login(props) {
               marginTop="2rem"
               colorScheme="purple"
               fontWeight="600"
-              isLoading={isLoading}
+              isLoading={status === "loading"}
               loadingText="Signing in"
-              onClick={_onSignInClick}
+              onClick={onSignInClick}
             >
               Sign in now
             </Button>

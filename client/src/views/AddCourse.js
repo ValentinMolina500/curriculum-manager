@@ -104,6 +104,8 @@ function Courses() {
     });
   }
 
+
+
   const addSection = () => {
     const newSection = {
       id: uuidv4(),
@@ -118,6 +120,36 @@ function Courses() {
     }
 
     setLabs(oldLabs => oldLabs.concat(newLab))
+  }
+
+  const renderPrereqs = () => {
+    if (labs.length === 0) {
+      return (
+        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0">
+          No Prerequisites
+        </Center>
+      )
+    }
+
+    return labs.map((section, index) => {
+      return (
+        <Grid
+          gridTemplateColumns={"1fr 1fr 1fr"}
+          border="1px solid #E2E8F0"
+          columnGap={"1rem"}
+          rowGap={"1rem"}
+          gridColumn="1 / 5"
+          key={section.id}
+          borderRadius={"md"}
+          p="1.5rem">
+          <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>Section 0{index + 1} Lab</Heading>
+          <FormControl>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Class Number</FormLabel>
+            <Input id="title" size="sm" />
+          </FormControl>
+        </Grid>
+      );
+    });
   }
 
   return (
@@ -172,6 +204,21 @@ function Courses() {
         </Flex>
 
         {renderLabs()}
+
+        <Flex
+          mt="1rem"
+          gridColumn={"1 / 5"}
+          justifyContent="space-between"
+        >
+          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"}>
+            Prerequisites
+          </Heading>
+          <Button size="sm" colorScheme="purple" onClick={addLab}>
+            Add Prerequisite
+          </Button>
+        </Flex>
+
+        {renderPrereqs()}
       </Grid>
     </Box>
   );
