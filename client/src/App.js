@@ -25,6 +25,7 @@ import Courses from "./views/Courses";
 import AddCourse from "./views/AddCourse";
 
 import Instructors from "./views/Instructors";
+import AddInstructors from "./views/AddInstructors";
 
 function App() {
   return (
@@ -32,8 +33,8 @@ function App() {
       <Grid w="100vw" h="100vh">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               <RequireAuth>
                 <Dashboard />
@@ -43,14 +44,20 @@ function App() {
             <Route index element={<Home />} />
 
             <Route path="sessions" element={<Outlet />}>
-              <Route index  element={<Sessions />} />
+              <Route index element={<Sessions />} />
               <Route path="add" element={<AddSession />} />
             </Route>
-            <Route path="courses" element={<Outlet/>}>
+
+            <Route path="instructors" element={<Outlet />} >
+              <Route index element={<Instructors />} />
+              <Route path="add-instructors" element={<AddInstructors />} />
+            </Route>
+
+            <Route path="courses" element={<Outlet />}>
               <Route index element={<Courses />} />
               <Route path="add-course" element={<AddCourse />} />
             </Route>
-            <Route path="instructors" element={<Instructors />} />
+
           </Route>
         </Routes>
       </Grid>
