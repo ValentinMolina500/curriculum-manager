@@ -80,3 +80,22 @@ function queryDatabase() {
     connection.execSql(request);
   });
 }
+
+const puppeteer = require('puppeteer');
+
+(async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://catalog.wsu.edu/Tri-Cities/Courses/BySubject/CPT_S');
+    // await page.screenshot({ path: 'WSU_CPTS_Courses.png' });
+
+    const response = await page.evaluate(() => {
+        let getCourseHeaders = document.querySelectorAll(".course_header");
+        const courseHeaderArray = [...getCourseHeaders];
+        return courseHeaderArray.map(ch => ch.innerText);
+    });
+
+    console.log(response)
+
+    await browser.close();
+})();
