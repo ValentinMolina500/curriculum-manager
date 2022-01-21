@@ -9,7 +9,12 @@ import {
   Flex,
   Button,
   Center,
-  Text
+  Text,
+  Checkbox,
+  Stack,
+  CheckboxGroup,
+  FormHelperText,
+  Divider
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -21,7 +26,7 @@ function Courses() {
   const renderSections = () => {
     if (sections.length === 0) {
       return (
-        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0">
+        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0" color="gray.600">
           No Sections
         </Center>
       )
@@ -69,6 +74,30 @@ function Courses() {
             <FormLabel htmlFor="title" fontSize="0.875rem">Building & Room</FormLabel>
             <Input id="title" size="sm" />
           </FormControl>
+          <Divider gridRow={"4"} gridColumn={"1 / 5"} />
+          <FormControl gridRow={"5"} gridColumn={"1 / 5"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Days</FormLabel>
+            <CheckboxGroup colorScheme='purple' defaultValue={['naruto', 'kakashi']}>
+              <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                <Checkbox value='naruto' fontSize={"0.875rem"}>Monday</Checkbox>
+                <Checkbox value='sasuke'  fontSize={"0.875rem"}>Tuesday</Checkbox>
+                <Checkbox value='kakashi'  fontSize={"0.875rem"}>Wednesday</Checkbox>
+                <Checkbox value='th'  fontSize={"0.875rem"}>Thursday</Checkbox>
+                <Checkbox value='fr'  fontSize={"0.875rem"}>Friday</Checkbox>
+              </Stack>
+            </CheckboxGroup>
+            <FormHelperText>(Weekly)</FormHelperText>
+          </FormControl>
+
+          <FormControl gridRow={"6"} gridColumn={"1"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Start Time</FormLabel>
+            <Input size="sm" />
+          </FormControl>
+
+          <FormControl gridRow={"6"} gridColumn={"2"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">End Time</FormLabel>
+            <Input size="sm" />
+          </FormControl>
         </Grid>
       );
     });
@@ -77,7 +106,7 @@ function Courses() {
   const renderLabs = () => {
     if (labs.length === 0) {
       return (
-        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0">
+        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0" color="gray.600">
           No Labs
         </Center>
       )
@@ -98,6 +127,45 @@ function Courses() {
           <FormControl>
             <FormLabel htmlFor="title" fontSize="0.875rem">Class Number</FormLabel>
             <Input id="title" size="sm" />
+          </FormControl>
+   
+
+          <FormControl gridRow="3" gridColumn={"1/3"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Instructor</FormLabel>
+            <Select id="prefix" size="sm">
+              <option>Luis De La Torre</option>
+              <option>Bob Lewis</option>
+            </Select>
+          </FormControl>
+
+          <FormControl gridRow="3" gridColumn={"3"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Building & Room</FormLabel>
+            <Input id="title" size="sm" />
+          </FormControl>
+
+          <Divider gridRow={"4"} gridColumn={"1 / 5"} />
+          <FormControl gridRow={"5"} gridColumn={"1 / 5"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Days</FormLabel>
+            <CheckboxGroup colorScheme='purple' defaultValue={['naruto', 'kakashi']}>
+              <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                <Checkbox value='naruto' fontSize={"0.875rem"}>Monday</Checkbox>
+                <Checkbox value='sasuke'  fontSize={"0.875rem"}>Tuesday</Checkbox>
+                <Checkbox value='kakashi'  fontSize={"0.875rem"}>Wednesday</Checkbox>
+                <Checkbox value='th'  fontSize={"0.875rem"}>Thursday</Checkbox>
+                <Checkbox value='fr'  fontSize={"0.875rem"}>Friday</Checkbox>
+              </Stack>
+            </CheckboxGroup>
+            <FormHelperText>(Weekly)</FormHelperText>
+          </FormControl>
+
+          <FormControl gridRow={"6"} gridColumn={"1"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">Start Time</FormLabel>
+            <Input size="sm" />
+          </FormControl>
+
+          <FormControl gridRow={"6"} gridColumn={"2"}>
+            <FormLabel htmlFor="title" fontSize="0.875rem">End Time</FormLabel>
+            <Input size="sm" />
           </FormControl>
         </Grid>
       );
@@ -125,7 +193,7 @@ function Courses() {
   const renderPrereqs = () => {
     if (labs.length === 0) {
       return (
-        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0">
+        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0" color="gray.600">
           No Prerequisites
         </Center>
       )
@@ -181,7 +249,7 @@ function Courses() {
           gridColumn={"1 / 5"}
           justifyContent="space-between"
         >
-          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"}>
+          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"} color={"gray.800"}>
             Sections
           </Heading>
           <Button size="sm" colorScheme="purple" onClick={addSection}>
@@ -195,7 +263,7 @@ function Courses() {
           gridColumn={"1 / 5"}
           justifyContent="space-between"
         >
-          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"}>
+          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"} color={"gray.800"}>
             Labs
           </Heading>
           <Button size="sm" colorScheme="purple" onClick={addLab}>
@@ -210,7 +278,7 @@ function Courses() {
           gridColumn={"1 / 5"}
           justifyContent="space-between"
         >
-          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"}>
+          <Heading fontSize={"1.25rem"} fontFamily={"Merriweather"} color={"gray.800"}>
             Prerequisites
           </Heading>
           <Button size="sm" colorScheme="purple" onClick={addLab}>
