@@ -32,18 +32,18 @@ app.listen(port, () => {
 
 
 /* Init connection to database */
-const connection = new Connection(databaseConfig);
-connection.on("connect", err => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    // queryDatabase();
-    console.log("connected to database!");
-    serverInit = true;
-  }
-});
+// const connection = new Connection(databaseConfig);
+// connection.on("connect", err => {
+//   if (err) {
+//     console.error(err.message);
+//   } else {
+//     // queryDatabase();
+//     console.log("connected to database!");
+//     serverInit = true;
+//   }
+// });
 
-connection.connect();
+// connection.connect();
 
 
 function queryDatabase() {
