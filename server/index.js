@@ -83,38 +83,24 @@ function queryDatabase() {
 
 const puppeteer = require('puppeteer');
 
+/* TODO (for Dewey): we need to get course titles and descriptions */
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+
+  /* Page we are scraping */
   await page.goto('https://catalog.wsu.edu/Tri-Cities/Courses/BySubject/CPT_S');
-  // await page.screenshot({ path: 'WSU_CPTS_Courses.png' });
-  let courseLookup;
   try {
 
-    /* Get course numbers and course titles */
-    courseLookup = await page.evaluate(() => {
-      const lookup = {};
+    /* Get course numbers and course titles (we need to get descriptions as well) */
+    const result = await page.evaluate(() => {
       let getCourseHeaders = document.querySelectorAll(".course_header");
       const courseHeaderArray = [...getCourseHeaders];
-      console.log("courseHeaderArray", courseHeaderArray);
-
-
-      for (const header of courseHeaderArray) {
-        const hText = header.innerText;
-        const courseNumber = hText.substr(0, hText.indexOf(" "));
-        const courseTitle = hText.substr(hText.indexOf(" ") + 1);
-
-        console.log("header", header);
-
-        lookup[courseNumber] = {
-          courseNumber,
-          courseTitle
-        }
-      }
-
-      return lookup;
+      return courseHeaderArray.map((element) => element.innerText);      
     });
 
+    /* Print result */
+    console.log(result);
   } catch (error) {
     console.error(error);
     process.exit(1);
