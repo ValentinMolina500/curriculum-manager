@@ -102,8 +102,8 @@ const puppeteer = require('puppeteer');
         const courseDescription = courseInfo[1];
         const courseHeaderText = courseHeader.innerText;
 
-        const courseNumber = courseHeaderText.substr(0, courseHeaderText.indexOf(" "));
-        const courseTitle = courseHeaderText.substr(courseHeaderText.indexOf(" ") + 1).trim();
+        const courseNumber = courseHeaderText.substring(0, courseHeaderText.indexOf(" "));
+        const courseTitle = courseHeaderText.substring(courseHeaderText.indexOf(" ") + 1).trim();
 
         coursesArr.push({
           courseNumber: courseNumber,
