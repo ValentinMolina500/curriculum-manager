@@ -83,7 +83,6 @@ function queryDatabase() {
 
 const puppeteer = require('puppeteer');
 
-/* TODO (for Dewey): we need to get course titles and descriptions */
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -94,9 +93,25 @@ const puppeteer = require('puppeteer');
 
     /* Get course numbers and course titles (we need to get descriptions as well) */
     const result = await page.evaluate(() => {
-      let getCourseHeaders = document.querySelectorAll(".course_header");
-      const courseHeaderArray = [...getCourseHeaders];
-      return courseHeaderArray.map((element) => element.innerText);      
+      const courses = document.querySelectorAll(".course");
+      let coursesArr = [];
+
+      courses.forEach((courseTag) => {
+        const courseInfo = courseTag.querySelectorAll("span");
+        const courseHeader = courseInfo[0];
+        const courseDescription = courseInfo[1];
+        const courseHeaderText = courseHeader.innerText;
+
+        const courseNumber = courseHeaderText.substr(0, courseHeaderText.indexOf(" "));
+        const courseTitle = courseHeaderText.substr(courseHeaderText.indexOf(" ") + 1).trim();
+
+        coursesArr.push({
+          courseNumber: courseNumber,
+          courseTitle: courseTitle,
+          courseDescription: courseDescription.innerText
+        });
+      })
+      return coursesArr
     });
 
     /* Print result */
