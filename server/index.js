@@ -105,10 +105,20 @@ const puppeteer = require('puppeteer');
         const courseNumber = courseHeaderText.substring(0, courseHeaderText.indexOf(" "));
         const courseTitle = courseHeaderText.substring(courseHeaderText.indexOf(" ") + 1).trim();
 
+        const prereqRegex = /Course Prerequisite:(.*?)\./g;
+        const result =  prereqRegex.exec(courseDescription.innerText);
+
+        let prereqs;
+        if (result === null) {
+          prereqs = "";
+        } else {
+          prereqs = result[0];
+        }
         coursesArr.push({
           courseNumber: courseNumber,
           courseTitle: courseTitle,
-          courseDescription: courseDescription.innerText
+          courseDescription: courseDescription.innerText,
+          coursePrereqs: prereqs
         });
       })
       return coursesArr
