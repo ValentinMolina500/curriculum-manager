@@ -106,19 +106,31 @@ const puppeteer = require('puppeteer');
         const courseTitle = courseHeaderText.substring(courseHeaderText.indexOf(" ") + 1).trim();
 
         const prereqRegex = /Course Prerequisite:(.*?)\./g;
-        const result =  prereqRegex.exec(courseDescription.innerText);
+        const prereqResult =  prereqRegex.exec(courseDescription.innerText);
 
         let prereqs;
-        if (result === null) {
+        if (prereqResult === null) {
           prereqs = "";
         } else {
-          prereqs = result[0];
+          prereqs = prereqResult[0];
         }
+
+        const creditRegex = /[^C]*/;
+        const creditResult = creditRegex.exec(courseDescription.innerText);
+
+        let credits;
+        if (creditResult === null) {
+          credits = "";
+        } else {
+          credits = creditResult[0].charAt(0);
+        }
+
         coursesArr.push({
           courseNumber: courseNumber,
           courseTitle: courseTitle,
-          courseDescription: courseDescription.innerText,
-          coursePrereqs: prereqs
+          courseCredits: credits,
+          coursePrerequisites: prereqs,
+          courseDescription: courseDescription.innerText
         });
       })
       return coursesArr
