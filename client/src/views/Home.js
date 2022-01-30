@@ -4,7 +4,7 @@ import {
 
 function Home() {
   return (
-    <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>Home</Heading>
+    <Heading id="home-header" fontSize="1.75rem" fontFamily={"Merriweather"}>Home</Heading>
   );
 }
 

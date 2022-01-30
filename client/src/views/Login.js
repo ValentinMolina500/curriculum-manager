@@ -93,6 +93,7 @@ function Login(props) {
             </Stack>
 
             <Button
+              id='sign-in-btn'
               w="100%"
               h="3rem"
               marginTop="2rem"
