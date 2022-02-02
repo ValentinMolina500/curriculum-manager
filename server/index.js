@@ -106,7 +106,7 @@ const puppeteer = require('puppeteer');
         const courseTitle = courseHeaderText.substring(courseHeaderText.indexOf(" ") + 1).trim();
 
         const prereqRegex = /Course Prerequisite:(.*?)\./g;
-        const prereqResult =  prereqRegex.exec(courseDescription.innerText);
+        const prereqResult = prereqRegex.exec(courseDescription.innerText);
 
         let prereqs;
         if (prereqResult === null) {
@@ -136,8 +136,31 @@ const puppeteer = require('puppeteer');
       return coursesArr
     });
 
+    /* Write results to csv file */
+    // const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+    // const csvWriter = createCsvWriter({
+    //   path: 'cpts_courses.csv',
+    //   header: [
+    //     {id: 'courseNumber', title: 'Class #'},
+    //     {id: 'courseTitle', title: 'Title'},
+    //     {id: 'courseCredits', title: 'Credits'},
+    //     {id: 'coursePrerequisites', title: 'prereqs'},
+    //     {id: 'courseDescription', title: 'description'}
+    //   ]
+    // });
+
+    // csvWriter.writeRecords(result).then(() => console.log('Results written successfully!'));
+
+    /* Write results to excel file */
+    const xlsx = require('xlsx');
+    const wb = xlsx.utils.book_new()
+    const ws = xlsx.utils.json_to_sheet(result);
+    xlsx.utils.book_append_sheet(wb,ws, "sheet1");
+
+    xlsx.writeFile(wb, "cpts_courses.xlsx")
+
     /* Print result */
-    console.log(result);
+    // console.log(result);
   } catch (error) {
     console.error(error);
     process.exit(1);
