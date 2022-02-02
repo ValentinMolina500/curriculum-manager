@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{1D851075-E00F-4A32-BFF9-0CC8ADAF2D40}">
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{3D76681C-C3F1-4B10-88A5-966C0E0E9DFD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\zluce\Documents\school_docs\CPTS\cpts421\Student Course Enrollment.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\zluce\Documents\school_docs\CPTS\cpts421\cpts_courses.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -41,7 +41,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADSjPIR7OLE2y4h9pj6l64AAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABx4llZKtiCBIyUaIErVvIPgM+VPv/TaIWLRNAzoypN3QAAAAAOgAAAAAIAACAAAAA/Y8i82/nw/aLEDUUlX2PQIsnlyMNhu/wk9hcSF7+hYCAAAABSNXxA0DfSwUzB65lRqyvwg3tw36pNDmDvHcZJ0gLZFEAAAABd3IYh2NsZhOpKJcnysWLwD/sIOcj1FJAD+6ZXOWNs1qBZRWZStufQ9J2Kr6DutUsen1cPfojhaFZRNeys1WH3</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADSjPIR7OLE2y4h9pj6l64AAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACllZuAjqIOzhj9jqqOiCpm5WFUVfdJria2w1yZOzXjvQAAAAAOgAAAAAIAACAAAAA385Hz+9mla86p1H1THzW/k319FMCJiJIG16slFkkCGyAAAAA/Ea8ICsKRtWJ4cCT0UUvilZvgWBVtes8R7A7THOCWJkAAAAAiqlP2TWq4fMQluY7Kg/KqO1IPyH6NFaiZJ0JHYp29oChgWssOes24g4VhghV4bpjMwnNAPVMd79QtbyV75eAz</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -125,7 +125,7 @@
                     <property
                       dataType="System.String"
                       description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">Sheet1$</property>
+                      name="OpenRowset">sheet1$</property>
                     <property
                       dataType="System.String"
                       description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -163,81 +163,81 @@
                       name="Excel Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Student Number]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Student Number]"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Student Number]"
-                          name="Student Number"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 1]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseNumber]"
                           dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 1]"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseNumber]"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 1]"
-                          name="Course 1"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseNumber]"
+                          name="courseNumber"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 2]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseTitle]"
                           dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 2]"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseTitle]"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 2]"
-                          name="Course 2"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseTitle]"
+                          name="courseTitle"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 3]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseCredits]"
                           dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 3]"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseCredits]"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 3]"
-                          name="Course 3"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseCredits]"
+                          name="courseCredits"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 4]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[coursePrerequisites]"
                           dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 4]"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[coursePrerequisites]"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 4]"
-                          name="Course 4"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[coursePrerequisites]"
+                          name="coursePrerequisites"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseDescription]"
+                          dataType="nText"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseDescription]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseDescription]"
+                          name="courseDescription"
                           truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Student Number]"
-                          dataType="r8"
-                          name="Student Number" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 1]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseNumber]"
                           dataType="wstr"
                           length="255"
-                          name="Course 1" />
+                          name="courseNumber" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 2]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseTitle]"
                           dataType="wstr"
                           length="255"
-                          name="Course 2" />
+                          name="courseTitle" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 3]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseCredits]"
                           dataType="wstr"
                           length="255"
-                          name="Course 3" />
+                          name="courseCredits" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[Course 4]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[coursePrerequisites]"
                           dataType="wstr"
                           length="255"
-                          name="Course 4" />
+                          name="coursePrerequisites" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].ExternalColumns[courseDescription]"
+                          dataType="nText"
+                          name="courseDescription" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -246,34 +246,34 @@
                       name="Excel Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Student Number]"
-                          dataType="r8"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Student Number]"
-                          name="Student Number" />
-                        <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 1]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseNumber]"
                           dataType="wstr"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 1]"
-                          name="Course 1" />
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseNumber]"
+                          name="courseNumber" />
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 2]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseTitle]"
                           dataType="wstr"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 2]"
-                          name="Course 2" />
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseTitle]"
+                          name="courseTitle" />
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 3]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseCredits]"
                           dataType="wstr"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 3]"
-                          name="Course 3" />
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseCredits]"
+                          name="courseCredits" />
                         <outputColumn
-                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 4]"
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[coursePrerequisites]"
                           dataType="wstr"
                           length="255"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[Course 4]"
-                          name="Course 4" />
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[coursePrerequisites]"
+                          name="coursePrerequisites" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseDescription]"
+                          dataType="nText"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[courseDescription]"
+                          name="courseDescription" />
                         <outputColumn
                           refId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
@@ -307,7 +307,7 @@
                     <property
                       dataType="System.String"
                       description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">[dbo].[Student_Course_Enrollment]</property>
+                      name="OpenRowset">[CPT_S].[Computer_Science_tst]</property>
                     <property
                       dataType="System.String"
                       description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -341,7 +341,7 @@
                     <property
                       dataType="System.String"
                       description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                      name="FastLoadOptions">TABLOCK,ROWS_PER_BATCH = 10000</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
@@ -364,70 +364,65 @@
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Student Number]"
-                          cachedDataType="r8"
-                          cachedName="Student Number"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Student Number]"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Student Number]" />
-                        <inputColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Course 1]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[courseNumber]"
                           cachedDataType="wstr"
                           cachedLength="255"
-                          cachedName="Course 1"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 1]"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 1]" />
+                          cachedName="courseNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Class #]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseNumber]" />
                         <inputColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Course 2]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[courseTitle]"
                           cachedDataType="wstr"
                           cachedLength="255"
-                          cachedName="Course 2"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 2]"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 2]" />
+                          cachedName="courseTitle"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseTitle]" />
                         <inputColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Course 3]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[courseCredits]"
                           cachedDataType="wstr"
                           cachedLength="255"
-                          cachedName="Course 3"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 3]"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 3]" />
+                          cachedName="courseCredits"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Credits]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseCredits]" />
                         <inputColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Course 4]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[coursePrerequisites]"
                           cachedDataType="wstr"
                           cachedLength="255"
-                          cachedName="Course 4"
-                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 4]"
-                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[Course 4]" />
+                          cachedName="coursePrerequisites"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[prereqs]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[coursePrerequisites]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[courseDescription]"
+                          cachedDataType="nText"
+                          cachedName="courseDescription"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[description]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Excel Source.Outputs[Excel Source Output].Columns[courseDescription]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Student Number]"
-                          dataType="r8"
-                          name="Student Number" />
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Class #]"
+                          dataType="i4"
+                          name="Class #" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 1]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
                           dataType="wstr"
                           length="255"
-                          name="Course 1" />
+                          name="Title" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 2]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Credits]"
                           dataType="wstr"
                           length="255"
-                          name="Course 2" />
+                          name="Credits" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 3]"
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[prereqs]"
                           dataType="wstr"
                           length="255"
-                          name="Course 3" />
+                          name="prereqs" />
                         <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Course 4]"
-                          dataType="wstr"
-                          length="255"
-                          name="Course 4" />
-                        <externalMetadataColumn
-                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
-                          dataType="i8"
-                          name="ID" />
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[description]"
+                          dataType="nText"
+                          name="description" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -574,27 +569,27 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="150.4,41.6"
+          Size="155,42"
           Id="Package\Sequence Container\Data Flow Task"
-          TopLeft="43.5333234654533,35.7333352067735" />
+          TopLeft="43.2833234157829,34.8666685332192" />
         <NodeLayout
-          Size="164.8,41.6"
+          Size="165,42"
           Id="Package\Sequence Container\Execute SQL Task"
-          TopLeft="31.3666569643555,152.666668801838" />
+          TopLeft="38.2833234157829,152.666668801838" />
         <EdgeLayout
           Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
-          TopLeft="116.249990214904,77.3333352067735">
+          TopLeft="120.783323415783,76.8666685332192">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,75.333333595064"
+              EndConnector="0,75.8000002686188"
               Start="0,0"
-              End="0,67.833333595064">
+              End="0,68.3000002686188">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,67.833333595064" />
+                    End="0,68.3000002686188" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -606,35 +601,35 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="228,250.4"
-          Size="228,293.6"
+          PanelSize="228,251"
+          Size="228,294"
           Id="Package\Sequence Container"
           TopLeft="58.3333310153751,119.600000950496" />
         <NodeLayout
-          Size="164.8,41.6"
+          Size="165,42"
           Id="Package\Sequence Container 1\Execute SQL Task"
           TopLeft="29.6999903639163,24.4000011157995" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="228,137.6"
-          Size="228,180.8"
+          PanelSize="228,138"
+          Size="228,181"
           Id="Package\Sequence Container 1"
-          TopLeft="371.333330021964,170.7333346902" />
+          TopLeft="374.666663222843,170.7333346902" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="286.333331015375,263.766667820348">
+          TopLeft="286.333331015375,263.916667820348">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="84.9999990065894,0"
+              EndConnector="88.3333322074679,0"
               Start="0,0"
-              End="77.4999990065894,0">
+              End="80.8333322074679,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="77.4999990065894,0" />
+                    End="80.8333322074679,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -652,27 +647,27 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="171.2,41.6"
+          Size="171,42"
           Id="Package\Sequence Container\Data Flow Task\OLE DB Destination"
           TopLeft="154.666660739316,199.633334876166" />
         <NodeLayout
-          Size="140,41.6"
+          Size="144,42"
           Id="Package\Sequence Container\Data Flow Task\Excel Source"
           TopLeft="162.49999354283,97.9333341116375" />
         <EdgeLayout
           Id="Package\Sequence Container\Data Flow Task.Paths[Excel Source Output]"
-          TopLeft="236.383327141073,139.533334111638">
+          TopLeft="237.333327141073,139.933334111638">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60.100000764529"
+              EndConnector="0,59.7000007645285"
               Start="0,0"
-              End="0,52.600000764529">
+              End="0,52.2000007645285">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.600000764529" />
+                    End="0,52.2000007645285" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
