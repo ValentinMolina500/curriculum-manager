@@ -20,6 +20,7 @@ import Home from "./views/Home";
 
 import Sessions from "./views/Sessions";
 import AddSession from "./views/AddSession";
+import ViewSession from "./views/ViewSession";
 
 import Courses from "./views/Courses";
 import AddCourse from "./views/AddCourse";
@@ -28,6 +29,8 @@ import Instructors from "./views/Instructors";
 import AddInstructors from "./views/AddInstructors";
 
 function App() {
+  const [selectedSessionId, setSelectedSessionId] = useState(null);
+
   return (
     <ChakraProvider theme={theme}>
       <Grid w="100vw" h="100vh">
@@ -37,15 +40,15 @@ function App() {
             path="/"
             element={
               <RequireAuth>
-                <Dashboard />
+                <Dashboard selectedSessionId={selectedSessionId}  setSelectedSessionId={setSelectedSessionId}/>
               </RequireAuth>
             }
           >
             <Route index element={<Home />} />
 
             <Route path="sessions" element={<Outlet />}>
-              <Route index element={<Sessions />} />
-              <Route path="add" element={<AddSession />} />
+              <Route index element={<Sessions  setSelectedSessionId={setSelectedSessionId} />} />
+              <Route path=":sessionId" element={<ViewSession />} />
             </Route>
 
             <Route path="instructors" element={<Outlet />} >

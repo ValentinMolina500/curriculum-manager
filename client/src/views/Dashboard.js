@@ -5,27 +5,21 @@ import {
   Text,
   Stack,
   Heading,
-  Divider,
 } from "@chakra-ui/layout";
 import {
   GridItem,
-  Icon,
   Image,
   ScaleFade,
-  Button
 
 } from "@chakra-ui/react";
 
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useParams } from "react-router-dom";
 
 import {
   MdHome,
-  MdPeople,
   MdDateRange,
-  MdBook
 } from "react-icons/md"
 import ProfileImage from "../images/bob.jpeg";
-import Table from "./Table";
 
 const SIDEBAR_ITEMS = [
   {
@@ -38,22 +32,30 @@ const SIDEBAR_ITEMS = [
     icon: MdDateRange,
     to: "sessions"
   },
-  {
-    title: "Instructors",
-    icon: MdPeople,
-    to: "instructors"
-  },
-  {
-    title: "Courses",
-    icon: MdBook,
-    to: "courses"
+  // {
+  //   title: "Instructors",
+  //   icon: MdPeople,
+  //   to: "instructors"
+  // },
+  // {
+  //   title: "Courses",
+  //   icon: MdBook,
+  //   to: "courses"
 
-  },
+  // },
 ];
 
-function Dashboard() {
+function Dashboard(props) {
+  const { selectedSessionId } = useParams();
   
+  const renderSessionSideBar = () => {
+
+  }
   const renderSidebarItems = () => {
+    if (selectedSessionId) {
+      return <Text>In Session!</Text>
+    }
+
     return SIDEBAR_ITEMS.map((item) => {
       const Icon = item.icon;
       const selectedStyles =
@@ -189,7 +191,6 @@ function Dashboard() {
               
             >
               <Outlet />
-
             </GridItem>
 
           </Grid>
