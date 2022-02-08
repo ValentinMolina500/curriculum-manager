@@ -27,9 +27,11 @@ import AddCourse from "./views/AddCourse";
 
 import Instructors from "./views/Instructors";
 import AddInstructors from "./views/AddInstructors";
+import ViewInstructor from "./views/ViewInstructor";
 
 function App() {
   const [selectedSessionId, setSelectedSessionId] = useState(null);
+  const [selectedInstructorId, setSelectedInstructorId] = useState(null);
 
   return (
     <ChakraProvider theme={theme}>
@@ -40,19 +42,23 @@ function App() {
             path="/"
             element={
               <RequireAuth>
-                <Dashboard selectedSessionId={selectedSessionId}  setSelectedSessionId={setSelectedSessionId}/>
+                <Dashboard
+                  selectedSessionId={selectedSessionId} setSelectedSessionId={setSelectedSessionId}
+                  selectedInstructorId={selectedInstructorId} setSelectedInstructorId={setSelectedInstructorId}
+                />
               </RequireAuth>
             }
           >
             <Route index element={<Home />} />
 
             <Route path="sessions" element={<Outlet />}>
-              <Route index element={<Sessions  setSelectedSessionId={setSelectedSessionId} />} />
+              <Route index element={<Sessions setSelectedSessionId={setSelectedSessionId} />} />
               <Route path=":sessionId" element={<ViewSession />} />
             </Route>
 
             <Route path="instructors" element={<Outlet />} >
-              <Route index element={<Instructors />} />
+              <Route index element={<Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
+              <Route path=":instructorId" element={<ViewInstructor />} />
               <Route path="add-instructors" element={<AddInstructors />} />
             </Route>
 

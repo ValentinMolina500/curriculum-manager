@@ -18,6 +18,7 @@ import { Outlet, NavLink, useParams } from "react-router-dom";
 import {
   MdHome,
   MdDateRange,
+  MdPeople
 } from "react-icons/md"
 import ProfileImage from "../images/bob.jpeg";
 
@@ -32,11 +33,11 @@ const SIDEBAR_ITEMS = [
     icon: MdDateRange,
     to: "sessions"
   },
-  // {
-  //   title: "Instructors",
-  //   icon: MdPeople,
-  //   to: "instructors"
-  // },
+  {
+    title: "Instructors",
+    icon: MdPeople,
+    to: "instructors"
+  },
   // {
   //   title: "Courses",
   //   icon: MdBook,
@@ -47,6 +48,7 @@ const SIDEBAR_ITEMS = [
 
 function Dashboard(props) {
   const { selectedSessionId } = useParams();
+  const { selectedInstructorId } = useParams();
   
   const renderSessionSideBar = () => {
 
@@ -54,6 +56,10 @@ function Dashboard(props) {
   const renderSidebarItems = () => {
     if (selectedSessionId) {
       return <Text>In Session!</Text>
+    }
+
+    if (selectedInstructorId) {
+      return <Text>In Instructor!</Text>
     }
 
     return SIDEBAR_ITEMS.map((item) => {
