@@ -16,106 +16,118 @@ import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 function Instructors() {
-  const [instructors, setInstructors] = useState([]);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [wsuEmail, setWsuEmail] = useState('');
+  const [isAdjunct, setIsAdjunct] = useState(false);
+  const [hadSafetyOrientation, setHadSafetyOrientation] = useState(false);
 
-  const renderInstructors = () => {
-    if (instructors.length === 0) {
-      return (
-        <Center gridColumn="1 / 5" p="3rem" border="1px dashed #E2E8F0">
-          No Instructors
-        </Center>
-      )
+  const renderAddInstructorForm = () => {
+    const firstNameChangeHandler = (event) => {
+      setFirstName(event.target.value);
     }
 
-    return instructors.map((instructor, index) => {
-      const instructorCount = index + 1;
-      let instructorLabel;
+    const lastNameChangeHandler = (event) => {
+      setLastName(event.target.value);
+    }
 
-      if (instructorCount > 9) {
-        instructorLabel = `Instructor ${instructorCount}`
-      } else {
-        instructorLabel = `Instructor 0${instructorCount}`;
-      }
+    const wsuEmailChangeHandler = (event) => {
+      setWsuEmail(event.target.value);
+    }
 
-      return (
-        <Grid
-          gridTemplateColumns={"1fr 1fr 1fr"}
-          border="1px solid #E2E8F0"
-          columnGap={"1rem"}
-          rowGap={"1rem"}
-          gridColumn="1 / 5"
-          key={instructor.id}
-          borderRadius={"md"}
-          p="1.5rem">
-          <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>{instructorLabel}</Heading>
-          <FormControl isRequired>
-            <FormLabel htmlFor="firstName" fontSize="0.875rem">First Name</FormLabel>
-            <Input id="firstName" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel htmlFor="lastName" fontSize="0.875rem">Last Name</FormLabel>
-            <Input id="lastName" size="sm" />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel htmlFor="wsuEmail" fontSize="0.875rem">WSU Email</FormLabel>
-            <Input id="wsuEmail" size="sm" type='email' />
-          </FormControl>
-          <FormControl gridRow="3" gridColumn={"1/2"}>
-            <Checkbox id="isAdjunct" colorScheme='purple'>Adjunct</Checkbox>
-          </FormControl>
-          <FormControl gridRow="3" gridColumn={"2/2"}>
-            <Checkbox id="hadSafetyOrientation" colorScheme='purple'>Safety Orientation</Checkbox>
-          </FormControl>
-        </Grid>
-      );
-    });
+    const isAdjunctChangeHandler = (event) => {
+      setIsAdjunct(event.target.checked);
+    }
+
+    const hadSafetyOrientationChangeHandler = (event) => {
+      setHadSafetyOrientation(event.target.checked);
+    }
+
+    return (
+      <Grid
+        gridTemplateColumns={"1fr 1fr 1fr"}
+        border="1px solid #E2E8F0"
+        columnGap={"1rem"}
+        rowGap={"1rem"}
+        gridColumn="1 / 5"
+        borderRadius={"md"}
+        p="1.5rem"
+        onSubmit={addInstructor}>
+        <FormControl isRequired>
+          <FormLabel htmlFor="firstName" fontSize="0.875rem">First Name</FormLabel>
+          <Input id="firstName" size="sm" value={firstName} onChange={firstNameChangeHandler} />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel htmlFor="lastName" fontSize="0.875rem">Last Name</FormLabel>
+          <Input id="lastName" size="sm" value={lastName} onChange={lastNameChangeHandler} />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel htmlFor="wsuEmail" fontSize="0.875rem">WSU Email</FormLabel>
+          <Input id="wsuEmail" size="sm" type='email' value={wsuEmail} onChange={wsuEmailChangeHandler} />
+        </FormControl>
+        <FormControl gridRow="3" gridColumn={"1/2"}>
+          <Checkbox id="isAdjunct" colorScheme='purple' isChecked={isAdjunct} onChange={isAdjunctChangeHandler}>Adjunct</Checkbox>
+        </FormControl>
+        <FormControl gridRow="3" gridColumn={"2/2"}>
+          <Checkbox id="hadSafetyOrientation" colorScheme='purple' isChecked={hadSafetyOrientation} onChange={hadSafetyOrientationChangeHandler}>Safety Orientation</Checkbox>
+        </FormControl>
+        <Flex
+          gridRow="3"
+          gridColumn={"3 / 3"}
+          justifyContent="right"
+        >
+          <Button type="submit" size="sm" colorScheme="purple" onClick={addInstructor}>
+            Submit
+          </Button>
+        </Flex>
+      </Grid>
+    );
   }
 
-  const addInstructor = () => {
-    const newInstructor = {
+  const addInstructor = (event) => {
+    event.preventDefault();
+
+    const instructorData = {
       id: uuidv4(),
+      firstName: firstName,
+      lastName: lastName,
+      wsuEmail: wsuEmail,
+      isAdjunct: isAdjunct,
+      hadSafetyOrientation: hadSafetyOrientation
     }
 
-    setInstructors(oldInstructors => oldInstructors.concat(newInstructor));
+    console.log(instructorData);
+
+    setFirstName('');
+    setLastName('');
+    setWsuEmail('');
+    setIsAdjunct(false);
+    setHadSafetyOrientation(false);
   }
 
   return (
     <Box maxW="990px" margin="0 auto" w="100%" as="form">
       <Heading fontSize="1.75rem" mb="1rem" fontFamily={"Merriweather"}>
-        Instructors
+        Add Instructor
       </Heading>
       <Grid
         gridTemplateColumns={"1fr 1fr 1fr 1fr"}
         columnGap={"1rem"}
         rowGap={"1rem"}
       >
-
-        <Flex
-          gridRow="1"
-          mt="1rem"
-          gridColumn={"1 / 5"}
-          justifyContent="right"
-        >
-          <Button size="sm" colorScheme="purple" onClick={addInstructor}>
-            Add Instructor
-          </Button>
-        </Flex>
-        {renderInstructors()}
-
+        {renderAddInstructorForm()}
         <Flex
           mt="1rem"
           gridColumn={"1 / 5"}
           justifyContent="space-between"
         >
         </Flex>
-
         <Flex
           mt="1rem"
           gridColumn={"1 / 5"}
           justifyContent="space-between"
         >
         </Flex>
-
       </Grid>
     </Box>
   );
