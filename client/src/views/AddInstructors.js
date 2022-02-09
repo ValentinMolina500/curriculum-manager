@@ -4,13 +4,11 @@ import {
   Input,
   FormControl,
   FormLabel,
-  Select,
   Grid,
   Flex,
   Button,
-  Center,
-  Text,
-  Checkbox
+  Checkbox,
+  useToast
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -22,6 +20,7 @@ function Instructors() {
   const [isAdjunct, setIsAdjunct] = useState(false);
   const [hadSafetyOrientation, setHadSafetyOrientation] = useState(false);
   const isNoInput = firstName === '' || lastName === '' || wsuEmail === '';
+  const toast = useToast();
 
   const renderAddInstructorForm = () => {
     const firstNameChangeHandler = (event) => {
@@ -98,6 +97,15 @@ function Instructors() {
     }
 
     console.log(instructorData);
+
+    toast({
+      title: 'Success',
+      description: "Instructor has been added!",
+      position: 'top',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
 
     setFirstName('');
     setLastName('');
