@@ -21,6 +21,7 @@ function Instructors() {
   const [wsuEmail, setWsuEmail] = useState('');
   const [isAdjunct, setIsAdjunct] = useState(false);
   const [hadSafetyOrientation, setHadSafetyOrientation] = useState(false);
+  const isNoInput = firstName === '' || lastName === '' || wsuEmail === '';
 
   const renderAddInstructorForm = () => {
     const firstNameChangeHandler = (event) => {
@@ -76,7 +77,7 @@ function Instructors() {
           gridColumn={"3 / 3"}
           justifyContent="right"
         >
-          <Button type="submit" size="sm" colorScheme="purple" onClick={addInstructor}>
+          <Button isDisabled={isNoInput} type="submit" size="sm" colorScheme="purple" onClick={addInstructor}>
             Submit
           </Button>
         </Flex>
