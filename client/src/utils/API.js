@@ -16,7 +16,7 @@ class API {
     })
   } 
 
-  getSessions = () => {
+  getSemesters = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve([
@@ -45,7 +45,7 @@ class API {
             id: "97f3c02b-c52f-4ade-a027-dc240d2026fc"
           }
         ])
-      }, 2500)
+      }, 4200)
     })
   }
 

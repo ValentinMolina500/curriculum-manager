@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import createSagaMiddleware from "redux-saga"
 
 import authReducer from "./authSlice"
-import sessionsReducer from "./sessionsSlice"
+import semestersReducer from "./semestersSlice"
 import instructorsReducer from "./instructorsSlice"
 import rootSaga from "../sagas"
 
@@ -10,7 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    sessions: sessionsReducer, 
+    semesters: semestersReducer, 
     instructors: instructorsReducer
   },
   middleware: [sagaMiddleware],

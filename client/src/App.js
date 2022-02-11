@@ -18,9 +18,9 @@ import Login from "./views/Login";
 import Dashboard from './views/Dashboard'
 import Home from "./views/Home";
 
-import Sessions from "./views/Sessions";
+import Semesters from "./views/Semesters";
 import AddSession from "./views/AddSession";
-import ViewSession from "./views/ViewSession";
+import ViewSemester from "./views/ViewSemester";
 
 import Courses from "./views/Courses";
 import AddCourse from "./views/AddCourse";
@@ -30,7 +30,7 @@ import AddInstructors from "./views/AddInstructors";
 import ViewInstructor from "./views/ViewInstructor";
 
 function App() {
-  const [selectedSessionId, setSelectedSessionId] = useState(null);
+  const [selectedSemesterId, setSelectedSemesterId] = useState(null);
   const [selectedInstructorId, setSelectedInstructorId] = useState(null);
 
   return (
@@ -43,17 +43,21 @@ function App() {
             element={
               <RequireAuth>
                 <Dashboard
-                  selectedSessionId={selectedSessionId} setSelectedSessionId={setSelectedSessionId}
-                  selectedInstructorId={selectedInstructorId} setSelectedInstructorId={setSelectedInstructorId}
+                 {...{
+                   selectedInstructorId,
+                   setSelectedInstructorId,
+                   selectedSemesterId,
+                   setSelectedSemesterId
+                 }}
                 />
               </RequireAuth>
             }
           >
             <Route index element={<Home />} />
 
-            <Route path="sessions" element={<Outlet />}>
-              <Route index element={<Sessions setSelectedSessionId={setSelectedSessionId} />} />
-              <Route path=":sessionId" element={<ViewSession />} />
+            <Route path="semesters" element={<Outlet />}>
+              <Route index element={<Semesters {...{setSelectedSemesterId}}/>} />
+              <Route path=":semesterId" element={<ViewSemester />} />
             </Route>
 
             <Route path="instructors" element={<Outlet />} >

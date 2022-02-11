@@ -2,10 +2,9 @@ import { all, call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 import * as types from "../store/actions"
 import { setAuthStatus, authError, loginSuccess } from "../store/authSlice"
-import { sessionsError, setSessionStatus, sessionsSuccess } from "../store/sessionsSlice"
+import { semestersError, semestersSuccess, setSemesterStatus } from "../store/semestersSlice"
 import { instructorsError, setInstructorStatus, instructorsSuccess } from "../store/instructorsSlice"
 import API from "../utils/API"
-import { type } from "os"
 
 function* login(action) {
   const { email, password } = action.payload.credentials;
@@ -22,7 +21,7 @@ function* login(action) {
 
 
     /* Fetch user sessions */
-    yield put({ type: types.FETCH_SESSIONS });
+    yield put({ type: types.FETCH_SEMESTERS });
     yield put({ type: types.FETCH_INSTRUCTORS });
   } catch (error) {
     yield put(authError(error));
@@ -33,20 +32,20 @@ function* watchLogin() {
   yield takeLatest(types.LOGIN_REQUEST, login)
 }
 
-function* fetchSessions(action) {
-  yield put(setSessionStatus("loading"));
+function* fetchSemesters(action) {
+  yield put(setSemesterStatus("loading"));
 
   try {
-    const result = yield call(API.getSessions);
+    const result = yield call(API.getSemesters);
 
-    yield put(sessionsSuccess(result));
+    yield put(semestersSuccess(result));
   } catch (error) {
-    yield put(sessionsError(error));
+    yield put(semestersError(error));
   }
 }
 
-function* watchFetchSessions() {
-  yield takeLatest(types.FETCH_SESSIONS, fetchSessions);
+function* watchFetchSemesters() {
+  yield takeLatest(types.FETCH_SEMESTERS, fetchSemesters);
 }
 
 function* fetchInstructors(action) {
@@ -68,7 +67,7 @@ function* watchFetchInstructors() {
 export default function* rootSaga() {
   yield all([
     watchLogin(),
-    watchFetchSessions(),
+    watchFetchSemesters(),
     watchFetchInstructors()
   ])
 }

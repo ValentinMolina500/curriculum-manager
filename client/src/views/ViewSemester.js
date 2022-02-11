@@ -1,21 +1,21 @@
 import React from "react";
 import { Stack, Heading, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { selectSessions, selectSessionsById } from "../store/sessionsSlice";
+import { selectSemestersById } from "../store/semestersSlice";
 import { useParams } from "react-router-dom";
 
-function ViewSession(props) {
-  const { sessionId } = useParams();
-  const session = useSelector(state => selectSessionsById(state, sessionId));
+function ViewSemester(props) {
+  const { semesterId } = useParams();
+  const semester = useSelector(state => selectSemestersById(state, semesterId));
   return (
     <Stack bg="white" w="100%">
       <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
-        Sessions
+        Semester
       </Heading>
 
-      <Text>{JSON.stringify(session)}</Text>
+      <Text>{JSON.stringify(semester)}</Text>
     </Stack>
   );
 }
 
-export default ViewSession;
+export default ViewSemester;

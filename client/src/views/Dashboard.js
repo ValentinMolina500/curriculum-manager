@@ -29,9 +29,9 @@ const SIDEBAR_ITEMS = [
     to: "/"
   },
   {
-    title: "Sessions",
+    title: "Semesters",
     icon: MdDateRange,
-    to: "sessions"
+    to: "semesters"
   },
   {
     title: "Instructors",
