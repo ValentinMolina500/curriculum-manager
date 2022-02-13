@@ -38,7 +38,23 @@ function App() {
       <Grid w="100vw" h="100vh">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route
+          <Route 
+            path="/" 
+            element={
+              <RequireAuth>
+                <Semesters />
+              </RequireAuth>
+            }
+          />
+          <Route 
+            path="/:semesterId" 
+            element={
+              <RequireAuth>
+                <ViewSemester />
+              </RequireAuth>
+            }
+          />
+          {/* <Route
             path="/"
             element={
               <RequireAuth>
@@ -55,7 +71,7 @@ function App() {
           >
             <Route index element={<Home />} />
 
-            <Route path="semesters" element={<Outlet />}>
+            <Route index element={<Semesters />}>
               <Route index element={<Semesters {...{setSelectedSemesterId}}/>} />
               <Route path=":semesterId" element={<ViewSemester />} />
             </Route>
@@ -71,7 +87,7 @@ function App() {
               <Route path="add-course" element={<AddCourse />} />
             </Route>
 
-          </Route>
+          </Route> */}
         </Routes>
       </Grid>
     </ChakraProvider>

@@ -10,7 +10,6 @@ import {
   GridItem,
   Image,
   ScaleFade,
-
 } from "@chakra-ui/react";
 
 import { Outlet, NavLink, useParams } from "react-router-dom";
@@ -20,18 +19,21 @@ import {
   MdDateRange,
   MdPeople
 } from "react-icons/md"
+
+import { useEffect, useState } from "react";
 import ProfileImage from "../images/bob.jpeg";
+import { useSelector } from "react-redux";
 
 const SIDEBAR_ITEMS = [
-  {
-    title: "Home",
-    icon: MdHome,
-    to: "/"
-  },
+  // {
+  //   title: "Home",
+  //   icon: MdHome,
+  //   to: "/"
+  // },
   {
     title: "Semesters",
     icon: MdDateRange,
-    to: "semesters"
+    to: "/"
   },
   {
     title: "Instructors",
@@ -47,20 +49,9 @@ const SIDEBAR_ITEMS = [
 ];
 
 function Dashboard(props) {
-  const { selectedSessionId } = useParams();
-  const { selectedInstructorId } = useParams();
-  
-  const renderSessionSideBar = () => {
 
-  }
   const renderSidebarItems = () => {
-    if (selectedSessionId) {
-      return <Text>In Session!</Text>
-    }
-
-    if (selectedInstructorId) {
-      return <Text>In Instructor!</Text>
-    }
+ 
 
     return SIDEBAR_ITEMS.map((item) => {
       const Icon = item.icon;
@@ -105,7 +96,7 @@ function Dashboard(props) {
   }; 
 
   return (
-    <ScaleFade initialScale={0.9} in={true} w="100%" h="100%">
+    <ScaleFade initialScale={1} in={true} w="100%" h="100%">
       <Grid w="100%" h="100%" templateColumns="18rem 1fr" templateRows={"minmax(0, 1fr)"}>
         {/* Sidebar */}
         <GridItem
@@ -125,7 +116,7 @@ function Dashboard(props) {
               Curriculum
             </Heading>
             <Stack spacing="0.75rem">{renderSidebarItems()}</Stack>
-          
+
           </Box>
         </GridItem>
 
@@ -139,7 +130,7 @@ function Dashboard(props) {
             h="100%"
             w="100%"
           >
-            <Flex alignItems="center"  w="100%" justifySelf={"center"}
+            <Flex alignItems="center" w="100%" justifySelf={"center"}
               maxW={"1280px"}>
               {/* User profile items */}
               <Grid
@@ -147,7 +138,7 @@ function Dashboard(props) {
                 gridTemplateRows="auto auto"
                 columnGap="1rem"
                 bg="white"
-                border="1px solid #efefef"  
+                border="1px solid #efefef"
                 boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
                 padding="0.5rem 1rem"
                 borderRadius="0.5rem"
@@ -160,7 +151,7 @@ function Dashboard(props) {
                   justifySelf="right"
                   fontWeight="700"
                   fontSize="0.875rem"
-          
+
                   fontFamily="Merriweather"
                 >
                   Bob Lewis
@@ -194,7 +185,7 @@ function Dashboard(props) {
               d="flex"
               w="100%"
               maxW={"1280px"}
-              
+
             >
               <Outlet />
             </GridItem>

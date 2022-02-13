@@ -19,7 +19,6 @@ import {
 
 import { Link, useNavigate } from "react-router-dom"
 
-import Table from "./Table";
 
 const FAKE_INSTR_COLUMNS = [
   {
@@ -141,7 +140,7 @@ function AddSession() {
             <Text mb="0.5rem" fontSize={"0.875rem"} color="#5e5e5e">Choose which instructors to add to this session.</Text>
 
             <Box maxHeight="500px" overflow={"scroll"}>
-            <Table items={FAKE_INSTR_ITEMS} columns={FAKE_INSTR_COLUMNS} />
+            {/* <Table items={FAKE_INSTR_ITEMS} columns={FAKE_INSTR_COLUMNS} /> */}
 
             </Box>
           </Box>
@@ -151,7 +150,7 @@ function AddSession() {
             <Heading fontFamily={"Merriweather"} fontSize={"1rem"}>Courses</Heading>
             <Text mb="0.5rem" fontSize={"0.875rem"} color="#5e5e5e">Choose which courses to add to this session.</Text>
 
-            <Table items={FAKE_COURSE_ITEMS} columns={FAKE_COURSE_COLUMNS} />
+            {/* <Table items={FAKE_COURSE_ITEMS} columns={FAKE_COURSE_COLUMNS} /> */}
           </Box>
 
           <HStack>
