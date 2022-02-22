@@ -45,7 +45,7 @@ class API {
             id: "97f3c02b-c52f-4ade-a027-dc240d2026fc"
           }
         ])
-      }, 4200)
+      }, 50)
     })
   }
 
@@ -80,6 +80,14 @@ class API {
         ])
       }, 2500)
     })
+  }
+
+  getAllCourses = () => {
+    return fetch("http://localhost:8000/courses")
+      .then(response => response.json())
+      .then(res => {
+        return res;
+      })
   }
 }
 

@@ -191,7 +191,7 @@ function Semesters(props) {
               maxW={"1280px"}
 
             >
-              <Stack bg="white" w="100%">
+              <Stack bg="white" w="100%" mt="2rem">
                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                   <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
                     Semesters

@@ -6,6 +6,7 @@ export const semestersSlice = createSlice({
     semesters: [],
     status: 'idle',
     error: null,
+    selectedSemester: null
   },
   reducers: {
     semestersSuccess: (state, action) => {
@@ -18,11 +19,14 @@ export const semestersSlice = createSlice({
     setSemesterStatus: (state, action) => {
       state.status = action.payload;
     },
+    setSelectedSemester: (state, action) => {
+      state.selectedSemester = action.payload;
+    }
   }
 })
 
-export const { semestersSuccess, semestersError, setSemesterStatus, setSelectedSemester} = semestersSlice.actions;
+export const { semestersSuccess, semestersError, setSemesterStatus, setSelectedSemester } = semestersSlice.actions;
 
-export const selectSemestersById = (state, id) => state.semesters.semesters.find((session) => session.id === id);
+export const selectSemestersById = (state, id) => state.semesters.semesters.find((semester) => semester.id === id);
 
 export default semestersSlice.reducer;

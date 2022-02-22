@@ -17,7 +17,7 @@ import {
   Text,
   Divider
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   GridItem,
   Image,
@@ -34,12 +34,26 @@ import {
   MdArrowBack
 } from "react-icons/md"
 
+import { setSelectedSemester } from "../store/semestersSlice";
+import { Outlet } from "react-router-dom"
 import ProfileImage from "../images/bob.jpeg";
+import Logo from "../images/wsutc-logo.png";
+
 import { selectSemestersById, } from "../store/semestersSlice";
 import { useLocation, useParams, Link, useNavigate, NavLink } from "react-router-dom";
+import * as types from "../store/actions";
 
 function ViewSemester(props) {
   const { semesterId } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: types.SELECT_SEMESTER,
+      payload: semesterId
+    })
+  }, [semesterId]);
+
   const semester = useSelector(state => selectSemestersById(state, semesterId));
 
   const renderSidebarItems = () => {
@@ -97,13 +111,12 @@ function ViewSemester(props) {
             fontSize="1.5rem"
             as="h2"
             fontWeight="700"
-            mb="1rem"
             fontFamily="Merriweather"
           >
             Curriculum
           </Heading>
 
-
+          <Image src={Logo} my="1.5rem" />
 
           <Stack spacing="0.75rem">{renderSidebarItems()}</Stack>
 
@@ -127,16 +140,18 @@ function ViewSemester(props) {
               borderTop="1px solid #efefef"
               borderBottom="1px solid #efefef"
               padding="0.5rem 0rem"
-              borderRadius="0.5rem"
               h="100%">
-              <Flex as={NavLink} fontSize="1.25rem" to="/" alignItems="center" textDecor={"underline"}>
+              <Flex as={NavLink} fontSize="1.25rem" to="/" alignItems="center" _hover={{
+                textDecor: "underline",
+                cursor: "pointer"
+              }}>
                 <MdArrowBack />
                 <Text ml="0.25rem" fontSize={"1rem"}>Go Back</Text>
               </Flex>
               <Divider orientation="vertical" mx="1rem" />
-              <Text color="purple.500" fontFamily={"Merriweather"}>{semester.school}</Text>
+              <Text  fontFamily={"Merriweather"}>{semester.school}</Text>
               <Divider orientation="vertical" mx="1rem" />
-              <Text >
+              <Text>
                 {semester.season}{" "}{semester.year}
               </Text>
             </Flex>
@@ -194,13 +209,7 @@ function ViewSemester(props) {
             maxW={"1280px"}
 
           >
-            <Stack bg="white" w="100%">
-              <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
-                Semester
-              </Heading>
-
-              <Text>{JSON.stringify(semester)}</Text>
-            </Stack>
+            <Outlet />
           </GridItem>
 
         </Grid>
@@ -218,6 +227,11 @@ const SIDEBAR_ITEMS = [
   //   to: "/"
   // },
   {
+    title: "Schedule",
+    icon: MdDateRange,
+    to: "schedule"
+  },
+  {
     title: "Courses",
     icon: MdBook,
     to: "instructors"
@@ -226,11 +240,6 @@ const SIDEBAR_ITEMS = [
     title: "Instructors",
     icon: MdPeople,
     to: "/"
-  },
-  {
-    title: "Schedule",
-    icon: MdDateRange,
-    to: "schedule"
   },
   {
     title: "Requests",

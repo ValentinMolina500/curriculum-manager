@@ -2,8 +2,9 @@ import { all, call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 import * as types from "../store/actions"
 import { setAuthStatus, authError, loginSuccess } from "../store/authSlice"
-import { semestersError, semestersSuccess, setSemesterStatus } from "../store/semestersSlice"
+import { semestersError, semestersSuccess, setSelectedSemester, setSemesterStatus } from "../store/semestersSlice"
 import { instructorsError, setInstructorStatus, instructorsSuccess } from "../store/instructorsSlice"
+import { coursesError, setCoursesStatus, coursesSuccess } from "../store/coursesSlice"
 import API from "../utils/API"
 
 function* login(action) {
@@ -64,10 +65,36 @@ function* watchFetchInstructors() {
   yield takeLatest(types.FETCH_INSTRUCTORS, fetchInstructors);
 }
 
+function* selectSemester(action) {
+  const semesterId = action.payload;
+
+  yield put(setSelectedSemester(semesterId));
+
+  /* Fetch course info */
+  yield put(setCoursesStatus("loading"));
+
+  try {
+    const courses = yield call(API.getAllCourses);
+    console.log("COURSES", courses);
+    yield put(coursesSuccess({
+      semesterId,
+      courses
+    }));
+  } catch (error) {
+    console.error(error);
+    yield put(coursesError(error));
+  }
+}
+
+function* watchSelectSemester() {
+  yield takeLatest(types.SELECT_SEMESTER, selectSemester);
+}
+
 export default function* rootSaga() {
   yield all([
     watchLogin(),
     watchFetchSemesters(),
-    watchFetchInstructors()
+    watchFetchInstructors(),
+    watchSelectSemester()
   ])
 }

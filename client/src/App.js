@@ -20,7 +20,7 @@ import Home from "./views/Home";
 
 import Semesters from "./views/Semesters";
 import AddSession from "./views/AddSession";
-import ViewSemester from "./views/ViewSemester";
+import ViewSemester from "./views/SemesterDashboard";
 
 import Courses from "./views/Courses";
 import AddCourse from "./views/AddCourse";
@@ -53,7 +53,9 @@ function App() {
                 <ViewSemester />
               </RequireAuth>
             }
-          />
+          >
+            <Route index element={<Courses />} />
+          </Route>
           {/* <Route
             path="/"
             element={
