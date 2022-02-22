@@ -44,7 +44,7 @@ function Courses() {
               return column.render(course, column);
             }
 
-            return <Td key={`${course.id}${column.property}`}>{course[column.property]}</Td>
+            return <Td key={`${course.id}${column.property}`} width={column.width}>{course[column.property]}</Td>
           })}
         </Tr>
       );
@@ -88,25 +88,31 @@ function Courses() {
 const COURSES_COLUMNS = [
   {
     property: "Class #",
-    title: "Course Number",
+    title: "Course #",
+    width: "10%"
   },
   {
-    property: "Subject",
-    title: "Subject",
-    render: (course, column) => {
-      return (
-        <Td>
-          <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
-              {course[column.property]}
-          </Tag>
-        </Td>
-      )
-    }
+    property: "Title",
+    title: "Course Title",
+    width: "90%"
   },
-  {
-    property: "Mtg Days", 
-    title: "Meeting Days",
-  },
+  // {
+  //   property: "Subject",
+  //   title: "Subject",
+  //   render: (course, column) => {
+  //     return (
+  //       <Td>
+  //         <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
+  //             {course[column.property]}
+  //         </Tag>
+  //       </Td>
+  //     )
+  //   }
+  // },
+  // {
+  //   property: "Mtg Days", 
+  //   title: "Meeting Days",
+  // },
 
 ];
 

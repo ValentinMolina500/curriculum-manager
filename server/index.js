@@ -38,16 +38,11 @@ function getAllCourses() {
 
     const request = new Request(
       `SELECT TOP (1000) [Class #]
-        ,[Subject]
-        ,[Catalog #]
-        ,[Section]
-        ,[Comp]
-        ,[Credits]
-        ,[Mtg Days]
-        ,[Facility]
-        ,[Primary Instructor]
-        ,[ID]
-      FROM [CPT_S].[Computer_Science]
+      ,[Title]
+      ,[Credits]
+      ,[prereqs]
+      ,[description]
+      FROM [CPT_S].[Computer_Science_tst]
       `,
       (err, rowCount) => {
         if (err) {
