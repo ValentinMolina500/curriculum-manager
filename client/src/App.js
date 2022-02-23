@@ -60,12 +60,12 @@ function App() {
             <Route path="courses" element={<Courses />} />
             <Route path="instructors" element={<Instructors />} />
 
-            {/* <Route index element={<Courses />} />
+            <Route index element={<Courses />} />
             <Route path="instructors" element={<Outlet />} >
               <Route index element={<Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
               <Route path=":instructorId" element={<ViewInstructor />} />
               <Route path="add-instructors" element={<AddInstructors />} />
-            </Route> */}
+            </Route>
           </Route>
           {/* <Route
             path="/"
