@@ -58,9 +58,6 @@ function App() {
           >
             <Route index element={<Schedule /> } />
             <Route path="courses" element={<Courses />} />
-            <Route path="instructors" element={<Instructors />} />
-
-            <Route index element={<Courses />} />
             <Route path="instructors" element={<Outlet />} >
               <Route index element={<Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
               <Route path=":instructorId" element={<ViewInstructor />} />
