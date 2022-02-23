@@ -38,16 +38,16 @@ function App() {
       <Grid w="100vw" h="100vh">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               <RequireAuth>
                 <Semesters />
               </RequireAuth>
             }
           />
-          <Route 
-            path="/:semesterId" 
+          <Route
+            path="/:semesterId"
             element={
               <RequireAuth>
                 <ViewSemester />
@@ -55,7 +55,11 @@ function App() {
             }
           >
             <Route index element={<Courses />} />
-            <Route path="instructors" element={<Instructors />} />
+            <Route path="instructors" element={<Outlet />} >
+              <Route index element={<Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
+              <Route path=":instructorId" element={<ViewInstructor />} />
+              <Route path="add-instructors" element={<AddInstructors />} />
+            </Route>
           </Route>
           {/* <Route
             path="/"

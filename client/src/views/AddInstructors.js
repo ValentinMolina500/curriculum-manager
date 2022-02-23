@@ -66,17 +66,19 @@ function Instructors() {
           <Input id="wsuEmail" size="sm" type='email' value={wsuEmail} onChange={wsuEmailChangeHandler} />
         </FormControl>
         <FormControl gridRow="3" gridColumn={"1/2"}>
-          <Checkbox id="isAdjunct" colorScheme='purple' isChecked={isAdjunct} onChange={isAdjunctChangeHandler}>Adjunct</Checkbox>
+          <Checkbox id="isAdjunct" colorScheme='gray' isChecked={isAdjunct} onChange={isAdjunctChangeHandler}>Adjunct</Checkbox>
         </FormControl>
         <FormControl gridRow="3" gridColumn={"2/2"}>
-          <Checkbox id="hadSafetyOrientation" colorScheme='purple' isChecked={hadSafetyOrientation} onChange={hadSafetyOrientationChangeHandler}>Safety Orientation</Checkbox>
+          <Checkbox id="hadSafetyOrientation" colorScheme='gray' isChecked={hadSafetyOrientation} onChange={hadSafetyOrientationChangeHandler}>Safety Orientation</Checkbox>
         </FormControl>
         <Flex
           gridRow="3"
           gridColumn={"3 / 3"}
           justifyContent="right"
         >
-          <Button isDisabled={isNoInput} type="submit" size="sm" colorScheme="purple" onClick={addInstructor}>
+          <Button isDisabled={isNoInput} type="submit" size="sm" color='white'
+            backgroundColor="#A60F2D"
+            _hover={{ bg: '#4D4D4D' }} onClick={addInstructor}>
             Submit
           </Button>
         </Flex>
