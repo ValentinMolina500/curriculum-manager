@@ -12,7 +12,7 @@ class API {
             email: "bobl@wsu.edu"
           }
         })
-      }, 2500)
+      }, 50)
     })
   } 
 

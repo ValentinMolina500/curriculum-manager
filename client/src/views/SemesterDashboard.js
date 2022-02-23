@@ -233,12 +233,12 @@ const SIDEBAR_ITEMS = [
   {
     title: "Schedule",
     icon: MdDateRange,
-    to: "schedule"
+    to: ""
   },
   {
     title: "Courses",
     icon: MdBook,
-    to: ""
+    to: "courses"
   },
   {
     title: "Instructors",

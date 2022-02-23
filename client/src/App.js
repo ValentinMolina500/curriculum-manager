@@ -29,6 +29,8 @@ import Instructors from "./views/Instructors";
 import AddInstructors from "./views/AddInstructors";
 import ViewInstructor from "./views/ViewInstructor";
 
+import Schedule from "./views/Schedule";
+
 function App() {
   const [selectedSemesterId, setSelectedSemesterId] = useState(null);
   const [selectedInstructorId, setSelectedInstructorId] = useState(null);
@@ -54,12 +56,16 @@ function App() {
               </RequireAuth>
             }
           >
-            <Route index element={<Courses />} />
+            <Route index element={<Schedule /> } />
+            <Route path="courses" element={<Courses />} />
+            <Route path="instructors" element={<Instructors />} />
+
+            {/* <Route index element={<Courses />} />
             <Route path="instructors" element={<Outlet />} >
               <Route index element={<Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
               <Route path=":instructorId" element={<ViewInstructor />} />
               <Route path="add-instructors" element={<AddInstructors />} />
-            </Route>
+            </Route> */}
           </Route>
           {/* <Route
             path="/"
