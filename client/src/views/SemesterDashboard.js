@@ -33,7 +33,6 @@ import {
   MdManageAccounts,
   MdArrowBack
 } from "react-icons/md"
-
 import { setSelectedSemester } from "../store/semestersSlice";
 import { Outlet } from "react-router-dom"
 import ProfileImage from "../images/bob.jpeg";
@@ -107,14 +106,17 @@ function ViewSemester(props) {
         borderRight="1px solid #efefef"
       >
         <Box p="2rem 1.5rem">
-          <Heading
-            fontSize="1.5rem"
-            as="h2"
-            fontWeight="700"
-            fontFamily="Merriweather"
-          >
-            Curriculum
-          </Heading>
+          <Flex>
+            <Heading
+              fontSize="1.5rem"
+              as="h2"
+              fontWeight="700"
+              fontFamily="Merriweather"
+            >
+              Curriculum
+            </Heading>
+
+          </Flex>
 
           <Image src={Logo} my="1.5rem" />
 
@@ -137,9 +139,10 @@ function ViewSemester(props) {
             maxW={"1280px"}>
             {/* User profile items */}
             <Flex bg="white" direction={"row"} align="center"
-              borderTop="1px solid #efefef"
-              borderBottom="1px solid #efefef"
-              padding="0.5rem 0rem"
+              border="1px solid #efefef"
+              boxShadow="rgb(149 157 165 / 8%) 0px 0px 16px"
+              padding="0.5rem 2rem"
+              borderRadius={"1rem"}
               h="100%">
               <Flex as={NavLink} fontSize="1.25rem" to="/" alignItems="center" _hover={{
                 cursor: "pointer"
@@ -149,7 +152,7 @@ function ViewSemester(props) {
                   colorScheme="white" borderColor="black"
                 >Go Back</Button>
               </Flex>
-              <Divider orientation="vertical" mx="1rem" />
+              <Divider orientation="vertical" mx="1rem" color={"#efefef"}/>
               <Text fontFamily={"Merriweather"}>{semester.school}</Text>
               <Divider orientation="vertical" mx="1rem" />
               <Text>

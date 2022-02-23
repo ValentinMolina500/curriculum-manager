@@ -96,6 +96,21 @@ function Courses() {
 }
 
 const COURSES_COLUMNS = [
+   {
+    property: "Subject",
+    title: "Subject",
+    render: (course, column) => {
+      return (
+        <Td>
+          <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
+              {course[column.property]}
+          </Tag>
+        </Td>
+      )
+    },
+    width: "10%"
+  },
+ 
   {
     property: "Class #",
     title: "Course #",
@@ -104,25 +119,11 @@ const COURSES_COLUMNS = [
   {
     property: "Title",
     title: "Course Title",
-    width: "90%"
   },
-  // {
-  //   property: "Subject",
-  //   title: "Subject",
-  //   render: (course, column) => {
-  //     return (
-  //       <Td>
-  //         <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
-  //             {course[column.property]}
-  //         </Tag>
-  //       </Td>
-  //     )
-  //   }
-  // },
-  // {
-  //   property: "Mtg Days", 
-  //   title: "Meeting Days",
-  // },
+  {
+    property: "Mtg Days",
+    title: "Meeting Days"
+  }
 
 ];
 

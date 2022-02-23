@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   queryDatabase().then((rows) => {
     console.log("This is rows", rows);
     res.json(rows);
-  })
+  });
 });
 
 app.listen(port, () => {
@@ -42,7 +42,9 @@ function getAllCourses() {
       ,[Credits]
       ,[prereqs]
       ,[description]
-      FROM CPT_S.Computer_Science
+      ,[Mtg Days]
+      ,[Subject]
+    FROM [CPT_S].[Computer_Science]
       `,
       (err, rowCount) => {
         if (err) {
