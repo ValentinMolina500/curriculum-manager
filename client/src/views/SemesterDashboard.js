@@ -61,7 +61,7 @@ function ViewSemester(props) {
       const Icon = item.icon;
       const selectedStyles =
       {
-        background: "#805AD5",
+        background: "#A60F2D",
         color: "white",
         borderRadius: "0.25rem",
       }
@@ -145,7 +145,7 @@ function ViewSemester(props) {
                 cursor: "pointer"
               }}>
                 <Button
-                  leftIcon={<MdArrowBack />} color='black'
+                  leftIcon={<MdArrowBack />} color='#4D4D4D'
                   colorScheme="white" borderColor="black"
                 >Go Back</Button>
               </Flex>

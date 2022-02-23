@@ -222,7 +222,7 @@ function Courses() {
 
   return (
     <Box maxW="990px" margin="0 auto" w="100%" as="form">
-      <Heading fontSize="1.75rem" mb="1rem" fontFamily={"Merriweather"}>
+      <Heading fontSize="1.75rem" mb="1rem" fontFamily={"Merriweather"} _hover={{ bg: '#4D4D4D' }}>
         Add Course
       </Heading>
       <Grid

@@ -23,7 +23,7 @@ function Login(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { status, isAutheticated } = useSelector(state => state.auth);
-  
+
   const onSignInClick = () => {
     const credentials = {
       email,
@@ -97,7 +97,9 @@ function Login(props) {
               w="100%"
               h="3rem"
               marginTop="2rem"
-              colorScheme="purple"
+              color='white'
+              backgroundColor="#A60F2D"
+              _hover={{ bg: '#4D4D4D' }}
               fontWeight="600"
               isLoading={status === "loading"}
               loadingText="Signing in"

@@ -84,7 +84,7 @@ function Courses() {
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Courses
         </Heading>
-        <Button as={Link} to={"add"} colorScheme={"purple"} size="sm">
+        <Button as={Link} to={"add"} color='white' backgroundColor="#A60F2D" size="sm" _hover={{ bg: '#4D4D4D' }}>
           Add Course
         </Button>
       </Flex>

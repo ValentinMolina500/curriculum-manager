@@ -42,7 +42,7 @@ function Semesters(props) {
       const Icon = item.icon;
       const selectedStyles =
       {
-        background: "#805AD5",
+        background: "#A60F2D",
         color: "white",
         borderRadius: "0.25rem",
       }
@@ -196,7 +196,7 @@ function Semesters(props) {
                   <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
                     Semesters
                   </Heading>
-                  <Button as={Link} to={"add"} colorScheme={"purple"} size="sm">
+                  <Button as={Link} to={"add"} color='white' backgroundColor="#A60F2D" _hover={{ bg: '#4D4D4D' }} size="sm">
                     Add Semester
                   </Button>
                 </Flex>
