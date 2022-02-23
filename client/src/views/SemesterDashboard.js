@@ -142,14 +142,15 @@ function ViewSemester(props) {
               padding="0.5rem 0rem"
               h="100%">
               <Flex as={NavLink} fontSize="1.25rem" to="/" alignItems="center" _hover={{
-                textDecor: "underline",
                 cursor: "pointer"
               }}>
-                <MdArrowBack />
-                <Text ml="0.25rem" fontSize={"1rem"}>Go Back</Text>
+                <Button
+                  leftIcon={<MdArrowBack />} color='black'
+                  colorScheme="white" borderColor="black"
+                >Go Back</Button>
               </Flex>
               <Divider orientation="vertical" mx="1rem" />
-              <Text  fontFamily={"Merriweather"}>{semester.school}</Text>
+              <Text fontFamily={"Merriweather"}>{semester.school}</Text>
               <Divider orientation="vertical" mx="1rem" />
               <Text>
                 {semester.season}{" "}{semester.year}
