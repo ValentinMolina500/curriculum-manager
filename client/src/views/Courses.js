@@ -13,6 +13,7 @@ import {
   Td,
   Th,
   Tag,
+  Text
 } from "@chakra-ui/react";
 
 import { useSelector } from "react-redux";
@@ -23,10 +24,10 @@ import { Link } from "react-router-dom";
 function Courses() {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
 
-  const { courses, status: coursesStatus } = useSelector(state => selectCoursesById(state, semesterId));
+  const { courses, status: coursesStatus, error: courseError } = useSelector(state => selectCoursesById(state, semesterId));
 
   const renderCourses = () => {
-    
+
     return courses.map((course) => {
       return (
         <Tr
@@ -50,38 +51,47 @@ function Courses() {
       );
     });
   }
-  return (
-    <Stack bg="white" w="100%" mt="2rem">
-    <Flex alignItems={"center"} justifyContent={"space-between"}>
-      <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
-        Courses
-      </Heading>
-      <Button as={Link} to={"add"} colorScheme={"purple"} size="sm">
-        Add Course
-      </Button>
-    </Flex>
-    {
-      coursesStatus === 'loading' ? (
+
+  const renderCourseTable = () => {
+    if (coursesStatus === 'loading') {
+      return (
         <Center p="2rem">
           <Spinner color="purple.600" size="xl" emptyColor='gray.200' thickness='3px' />
         </Center>
-      )
-        : (
-          <Table>
-            <Thead>
-              <Tr >
-                {COURSES_COLUMNS.map((column) => (
-                  <Th key={column.property}>{column.title}</Th>
-                ))}
-              </Tr>
-            </Thead>
-            <Tbody>{renderCourses()}</Tbody>
-          </Table>
-        )
+      );
     }
 
-  </Stack>
-    
+    if (coursesStatus === 'error') {
+      return <Text>{courseError}</Text>
+    }
+
+    return (
+      <Table>
+        <Thead>
+          <Tr >
+            {COURSES_COLUMNS.map((column) => (
+              <Th key={column.property}>{column.title}</Th>
+            ))}
+          </Tr>
+        </Thead>
+        <Tbody>{renderCourses()}</Tbody>
+      </Table>
+    )
+  }
+  return (
+    <Stack bg="white" w="100%" mt="2rem">
+      <Flex alignItems={"center"} justifyContent={"space-between"}>
+        <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
+          Courses
+        </Heading>
+        <Button as={Link} to={"add"} colorScheme={"purple"} size="sm">
+          Add Course
+        </Button>
+      </Flex>
+      {renderCourseTable()}
+
+    </Stack>
+
   );
 }
 

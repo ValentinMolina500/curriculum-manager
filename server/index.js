@@ -42,7 +42,7 @@ function getAllCourses() {
       ,[Credits]
       ,[prereqs]
       ,[description]
-      FROM [CPT_S].[Computer_Science_tst]
+      FROM CPT_S.Computer_Science
       `,
       (err, rowCount) => {
         if (err) {

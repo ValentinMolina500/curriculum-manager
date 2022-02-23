@@ -55,6 +55,7 @@ function App() {
             }
           >
             <Route index element={<Courses />} />
+            <Route path="instructors" element={<Instructors />} />
           </Route>
           {/* <Route
             path="/"

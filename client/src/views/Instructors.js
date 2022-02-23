@@ -42,7 +42,7 @@ function Instructors(props) {
     });
   }
   return (
-    <Stack bg="white" w="100%">
+    <Stack bg="white" w="100%" mt="2rem">
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Instructors

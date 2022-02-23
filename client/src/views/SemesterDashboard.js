@@ -234,12 +234,12 @@ const SIDEBAR_ITEMS = [
   {
     title: "Courses",
     icon: MdBook,
-    to: "instructors"
+    to: ""
   },
   {
     title: "Instructors",
     icon: MdPeople,
-    to: "/"
+    to: "instructors"
   },
   {
     title: "Requests",

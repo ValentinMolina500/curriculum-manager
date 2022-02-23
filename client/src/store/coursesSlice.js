@@ -18,6 +18,7 @@ export const coursesSlice = createSlice({
     },
     coursesError: (state, action) => {
       state.status = 'error';
+      state.error = action.payload;
     },
     setCoursesStatus: (state, action) => {
       state.status = action.payload;
