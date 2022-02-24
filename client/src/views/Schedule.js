@@ -10,8 +10,8 @@ export default function Schedule() {
         </Heading>
       </Flex>
 
-      <GridItem h="100%">
-      <ClassScheduler />
+      <GridItem h="100%"  paddingLeft="1rem">
+        <ClassScheduler />
 
       </GridItem>
     </Grid>

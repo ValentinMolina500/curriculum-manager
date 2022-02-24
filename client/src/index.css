@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.react-transform-component {
+  width: unset !important;
+  height: unset !important;
+}
+
+.react-transform-element {
+  width: unset !important;
+  height: unset !important;
+}
+
+img {
+  max-width:  100%;
+  max-height: 100%;
+  display: block;
+}

@@ -31,7 +31,8 @@ import {
   MdPeople,
   MdNotifications,
   MdManageAccounts,
-  MdArrowBack
+  MdArrowBack,
+  MdLocalOffer
 } from "react-icons/md"
 import { setSelectedSemester } from "../store/semestersSlice";
 import { Outlet } from "react-router-dom"
@@ -236,6 +237,11 @@ const SIDEBAR_ITEMS = [
     to: ""
   },
   {
+    title: "Offerings",
+    icon: MdLocalOffer,
+    to: "Offerings"
+  },
+  {
     title: "Courses",
     icon: MdBook,
     to: "courses"
@@ -244,11 +250,6 @@ const SIDEBAR_ITEMS = [
     title: "Instructors",
     icon: MdPeople,
     to: "instructors"
-  },
-  {
-    title: "Requests",
-    icon: MdNotifications,
-    to: "schedule"
   },
   {
     title: "Access",

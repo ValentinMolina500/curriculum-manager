@@ -120,10 +120,6 @@ const COURSES_COLUMNS = [
     property: "Title",
     title: "Course Title",
   },
-  {
-    property: "Mtg Days",
-    title: "Meeting Days"
-  }
 
 ];
 
