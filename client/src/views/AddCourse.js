@@ -14,7 +14,8 @@ import {
   Stack,
   CheckboxGroup,
   FormHelperText,
-  Divider
+  Divider,
+  useToast
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -32,6 +33,9 @@ function Courses() {
   const [courseDays, setCourseDays] = useState([]);
   const [courseStartTime, setCourseStartTime] = useState('');
   const [courseEndTime, setCourseEndTime] = useState('');
+  const isNoInput = coursePrefix === '' || courseTitle === '' || courseNum === '' || courseCredits === ''
+    || courseInstructor === '' || courseLocation === '' || courseStartTime === '' || courseEndTime === '';
+  const toast = useToast();
 
   const renderAddCourseForm = () => {
     // if (sections.length === 0) {
@@ -155,7 +159,7 @@ function Courses() {
 
         <Button gridRow={"6"} type="submit" gridColumn={"3"} marginTop="2em" size="sm"
           color='white' backgroundColor='#A60F2D' _hover={{ bg: '#4D4D4D' }}
-          onClick={addCourse}>
+          isDisabled={isNoInput} onClick={addCourse}>
           Submit
         </Button>
       </Grid>
@@ -180,6 +184,15 @@ function Courses() {
     };
 
     console.log(courseData);
+
+    toast({
+      title: 'Success',
+      description: "Course has been added!",
+      position: 'top',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
 
     setCoursePrefix('CPT_S');
     setCourseTitle('');
