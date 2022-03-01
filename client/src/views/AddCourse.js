@@ -41,7 +41,7 @@ function Courses() {
   const [courseEndTime, setCourseEndTime] = useState('');
   const isNoInput = coursePrefix === '' || courseTitle === '' || courseNum === '' || courseCredits === ''
     || courseInstructor === '' || courseLocation === '' || courseStartTime === '' || courseEndTime === ''
-    || courseDays.onMonday === false && courseDays.onTuesday === false && courseDays.onWednesday === false 
+    || courseDays.onMonday === false && courseDays.onTuesday === false && courseDays.onWednesday === false
     && courseDays.onThursday === false && courseDays.onFriday === false;
   const toast = useToast();
 
@@ -201,7 +201,7 @@ function Courses() {
         </FormControl>
 
         <Button gridRow={"6"} type="submit" gridColumn={"3"} marginTop="2em" size="sm"
-          color='white' backgroundColor='#A60F2D' _hover={{ bg: '#4D4D4D' }}
+          color='white' backgroundColor='#A60F2D' _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}
           isDisabled={isNoInput} onClick={addCourse}>
           Submit
         </Button>

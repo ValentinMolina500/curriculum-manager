@@ -47,7 +47,8 @@ function Instructors(props) {
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Instructors
         </Heading>
-        <Button as={Link} to={"add-instructors"} color='white' backgroundColor='#A60F2D' size="sm" _hover={{ bg: '#4D4D4D' }}>
+        <Button as={Link} to={"add-instructors"} color='white' backgroundColor='#A60F2D' size="sm"
+          _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
           Add Instructor
         </Button>
       </Flex>

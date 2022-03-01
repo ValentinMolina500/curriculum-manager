@@ -78,7 +78,7 @@ function Instructors() {
         >
           <Button isDisabled={isNoInput} type="submit" size="sm" color='white'
             backgroundColor="#A60F2D"
-            _hover={{ bg: '#4D4D4D' }} onClick={addInstructor}>
+            _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }} onClick={addInstructor}>
             Submit
           </Button>
         </Flex>

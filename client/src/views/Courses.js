@@ -84,7 +84,8 @@ function Courses() {
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Courses
         </Heading>
-        <Button as={Link} to={"add-course"} color='white' backgroundColor="#A60F2D" size="sm" _hover={{ bg: '#4D4D4D' }}>
+        <Button as={Link} to={"add-course"} color='white' backgroundColor="#A60F2D" size="sm"
+          _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
           Add Course
         </Button>
       </Flex>
@@ -96,21 +97,21 @@ function Courses() {
 }
 
 const COURSES_COLUMNS = [
-   {
+  {
     property: "Subject",
     title: "Subject",
     render: (course, column) => {
       return (
         <Td>
           <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
-              {course[column.property]}
+            {course[column.property]}
           </Tag>
         </Td>
       )
     },
     width: "10%"
   },
- 
+
   {
     property: "Class #",
     title: "Course #",
