@@ -30,11 +30,19 @@ function Courses() {
   const [courseCredits, setCourseCredits] = useState('');
   const [courseInstructor, setCourseInstructor] = useState('Luis De La Torre');
   const [courseLocation, setCourseLocation] = useState('');
-  const [courseDays, setCourseDays] = useState([]);
+  const [courseDays, setCourseDays] = useState({
+    onMonday: false,
+    onTuesday: false,
+    onWednesday: false,
+    onThursday: false,
+    onFriday: false
+  });
   const [courseStartTime, setCourseStartTime] = useState('');
   const [courseEndTime, setCourseEndTime] = useState('');
   const isNoInput = coursePrefix === '' || courseTitle === '' || courseNum === '' || courseCredits === ''
-    || courseInstructor === '' || courseLocation === '' || courseStartTime === '' || courseEndTime === '';
+    || courseInstructor === '' || courseLocation === '' || courseStartTime === '' || courseEndTime === ''
+    || courseDays.onMonday === false && courseDays.onTuesday === false && courseDays.onWednesday === false 
+    && courseDays.onThursday === false && courseDays.onFriday === false;
   const toast = useToast();
 
   const renderAddCourseForm = () => {
@@ -78,6 +86,41 @@ function Courses() {
 
     const courseLocationChangeHandler = (event) => {
       setCourseLocation(event.target.value);
+    }
+
+    const mondayChangeHandler = () => {
+      setCourseDays(prevState => ({
+        ...courseDays,
+        onMonday: !prevState.onMonday
+      }))
+    }
+
+    const tuesdayChangeHandler = () => {
+      setCourseDays(prevState => ({
+        ...courseDays,
+        onTuesday: !prevState.onTuesday
+      }))
+    }
+
+    const wednesdayChangeHandler = () => {
+      setCourseDays(prevState => ({
+        ...courseDays,
+        onWednesday: !prevState.onWednesday
+      }))
+    }
+
+    const thursdayChangeHandler = () => {
+      setCourseDays(prevState => ({
+        ...courseDays,
+        onThursday: !prevState.onThursday
+      }))
+    }
+
+    const fridayChangeHandler = () => {
+      setCourseDays(prevState => ({
+        ...courseDays,
+        onFriday: !prevState.onFriday
+      }))
     }
 
     const courseStartTimeChangeHandler = (event) => {
@@ -137,11 +180,11 @@ function Courses() {
           <FormLabel htmlFor="title" fontSize="0.875rem">Days</FormLabel>
           <CheckboxGroup colorScheme='gray'>
             <Stack spacing={[1, 5]} direction={['column', 'row']}>
-              <Checkbox value='M' fontSize={"0.875rem"}>Monday</Checkbox>
-              <Checkbox value='TU' fontSize={"0.875rem"}>Tuesday</Checkbox>
-              <Checkbox value='W' fontSize={"0.875rem"}>Wednesday</Checkbox>
-              <Checkbox value='TH' fontSize={"0.875rem"}>Thursday</Checkbox>
-              <Checkbox value='F' fontSize={"0.875rem"}>Friday</Checkbox>
+              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onMonday} onChange={mondayChangeHandler}>Monday</Checkbox>
+              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onTuesday} onChange={tuesdayChangeHandler} >Tuesday</Checkbox>
+              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onWednesday} onChange={wednesdayChangeHandler} >Wednesday</Checkbox>
+              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onThursday} onChange={thursdayChangeHandler} >Thursday</Checkbox>
+              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onFriday} onChange={fridayChangeHandler} >Friday</Checkbox>
             </Stack>
           </CheckboxGroup>
           <FormHelperText>(Weekly)</FormHelperText>
@@ -179,6 +222,7 @@ function Courses() {
       courseCredits: courseCredits,
       courseInstructor: courseInstructor,
       courseLocation: courseLocation,
+      courseDays: courseDays,
       courseStartTime: courseStartTime,
       courseEndTime: courseEndTime
     };
@@ -202,6 +246,13 @@ function Courses() {
     setCourseLocation('');
     setCourseStartTime('');
     setCourseEndTime('');
+    setCourseDays({
+      onMonday: false,
+      onTuesday: false,
+      onWednesday: false,
+      onThursday: false,
+      onFriday: false
+    });
   }
 
   // const renderLabs = () => {
