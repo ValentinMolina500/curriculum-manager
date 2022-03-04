@@ -143,64 +143,64 @@ function Courses() {
         p="1.5rem">
         {/* <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>{sectionLabel}</Heading> */}
         <FormControl gridRow="1" isRequired>
-          <FormLabel htmlFor="prefix" fontSize="0.875rem">Prefix</FormLabel>
-          <Select id="coursePrefix" size="sm" value={coursePrefix} onChange={coursePrefixChangeHandler}>
+          <FormLabel htmlFor="prefix">Prefix</FormLabel>
+          <Select id="coursePrefix" value={coursePrefix} onChange={coursePrefixChangeHandler}>
             <option value="CPT_S">CPT_S</option>
             <option value="EE">EE</option>
           </Select>
         </FormControl>
 
         <FormControl gridColumn={"2 / 5"} isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Title</FormLabel>
-          <Input id="courseTitle" size="sm" value={courseTitle} onChange={courseTitleChangeHandler} />
+          <FormLabel htmlFor="title">Title</FormLabel>
+          <Input id="courseTitle"  value={courseTitle} onChange={courseTitleChangeHandler} />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Course Number</FormLabel>
-          <Input id="courseNum" size="sm" value={courseNum} onChange={courseNumChangeHandler} />
+          <FormLabel htmlFor="title">Course Number</FormLabel>
+          <Input id="courseNum"  value={courseNum} onChange={courseNumChangeHandler} />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Credits</FormLabel>
-          <Input id="title" size="sm" value={courseCredits} onChange={courseCreditsChangeHandler} />
+          <FormLabel htmlFor="title" >Credits</FormLabel>
+          <Input id="title" value={courseCredits} onChange={courseCreditsChangeHandler} />
         </FormControl>
 
         <FormControl gridRow="3" gridColumn={"1/3"} isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Instructor</FormLabel>
-          <Select id="prefix" size="sm" value={courseInstructor} onChange={courseInstructorChangeHandler}>
+          <FormLabel htmlFor="title" >Instructor</FormLabel>
+          <Select id="prefix" value={courseInstructor} onChange={courseInstructorChangeHandler}>
             <option value="Luis De La Torre">Luis De La Torre</option>
             <option value="Bob Lewis">Bob Lewis</option>
           </Select>
         </FormControl>
 
         <FormControl gridRow="3" gridColumn={"3"} isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Building & Room</FormLabel>
-          <Input id="title" size="sm" value={courseLocation} onChange={courseLocationChangeHandler} />
+          <FormLabel htmlFor="title" >Building & Room</FormLabel>
+          <Input id="title"  value={courseLocation} onChange={courseLocationChangeHandler} />
         </FormControl>
         {/* <Divider gridRow={"4"} gridColumn={"1 / 5"} /> */}
         <FormControl gridRow={"5"} gridColumn={"1 / 5"} isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Days</FormLabel>
+          <FormLabel htmlFor="title" fontSize="1rem">Days</FormLabel>
           <CheckboxGroup colorScheme='gray'>
             <Stack spacing={[1, 5]} direction={['column', 'row']}>
-              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onMonday} onChange={mondayChangeHandler}>Monday</Checkbox>
-              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onTuesday} onChange={tuesdayChangeHandler} >Tuesday</Checkbox>
-              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onWednesday} onChange={wednesdayChangeHandler} >Wednesday</Checkbox>
-              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onThursday} onChange={thursdayChangeHandler} >Thursday</Checkbox>
-              <Checkbox fontSize={"0.875rem"} isChecked={courseDays.onFriday} onChange={fridayChangeHandler} >Friday</Checkbox>
+              <Checkbox fontSize={"1rem"} isChecked={courseDays.onMonday} onChange={mondayChangeHandler}>Monday</Checkbox>
+              <Checkbox fontSize={"1rem"} isChecked={courseDays.onTuesday} onChange={tuesdayChangeHandler} >Tuesday</Checkbox>
+              <Checkbox fontSize={"1rem"} isChecked={courseDays.onWednesday} onChange={wednesdayChangeHandler} >Wednesday</Checkbox>
+              <Checkbox fontSize={"1rem"} isChecked={courseDays.onThursday} onChange={thursdayChangeHandler} >Thursday</Checkbox>
+              <Checkbox fontSize={"1rem"} isChecked={courseDays.onFriday} onChange={fridayChangeHandler} >Friday</Checkbox>
             </Stack>
           </CheckboxGroup>
           <FormHelperText>(Weekly)</FormHelperText>
         </FormControl>
 
         <FormControl gridRow={"6"} gridColumn={"1"} isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">Start Time</FormLabel>
-          <Input type='time' size="sm" value={courseStartTime} onChange={courseStartTimeChangeHandler} />
+          <FormLabel htmlFor="title" fontSize="1rem">Start Time</FormLabel>
+          <Input type='time'  value={courseStartTime} onChange={courseStartTimeChangeHandler} />
         </FormControl>
 
         <FormControl gridRow={"6"} gridColumn={"2"} isRequired>
-          <FormLabel htmlFor="title" fontSize="0.875rem">End Time</FormLabel>
-          <Input type='time' size="sm" value={courseEndTime} onChange={courseEndTimeChangeHandler} />
+          <FormLabel htmlFor="title" fontSize="1rem">End Time</FormLabel>
+          <Input type='time' value={courseEndTime} onChange={courseEndTimeChangeHandler} />
         </FormControl>
 
-        <Button gridRow={"6"} type="submit" gridColumn={"3"} marginTop="2em" size="sm"
+        <Button gridRow={"6"} type="submit" gridColumn={"3"} marginTop="2em"
           color='white' backgroundColor='#A60F2D' _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}
           isDisabled={isNoInput} onClick={addCourse}>
           Submit
@@ -277,12 +277,12 @@ function Courses() {
   //         p="1.5rem">
   //         <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>Section 0{index + 1} Lab</Heading>
   //         <FormControl>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">Class Number</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">Class Number</FormLabel>
   //           <Input id="title" size="sm" />
   //         </FormControl>
 
   //         <FormControl gridRow="3" gridColumn={"1/3"}>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">Instructor</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">Instructor</FormLabel>
   //           <Select id="prefix" size="sm">
   //             <option>Luis De La Torre</option>
   //             <option>Bob Lewis</option>
@@ -290,32 +290,32 @@ function Courses() {
   //         </FormControl>
 
   //         <FormControl gridRow="3" gridColumn={"3"}>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">Building & Room</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">Building & Room</FormLabel>
   //           <Input id="title" size="sm" />
   //         </FormControl>
 
   //         <Divider gridRow={"4"} gridColumn={"1 / 5"} />
   //         <FormControl gridRow={"5"} gridColumn={"1 / 5"}>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">Days</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">Days</FormLabel>
   //           <CheckboxGroup colorScheme='purple' defaultValue={['naruto', 'kakashi']}>
   //             <Stack spacing={[1, 5]} direction={['column', 'row']}>
-  //               <Checkbox value='naruto' fontSize={"0.875rem"}>Monday</Checkbox>
-  //               <Checkbox value='sasuke' fontSize={"0.875rem"}>Tuesday</Checkbox>
-  //               <Checkbox value='kakashi' fontSize={"0.875rem"}>Wednesday</Checkbox>
-  //               <Checkbox value='th' fontSize={"0.875rem"}>Thursday</Checkbox>
-  //               <Checkbox value='fr' fontSize={"0.875rem"}>Friday</Checkbox>
+  //               <Checkbox value='naruto' fontSize={"1rem"}>Monday</Checkbox>
+  //               <Checkbox value='sasuke' fontSize={"1rem"}>Tuesday</Checkbox>
+  //               <Checkbox value='kakashi' fontSize={"1rem"}>Wednesday</Checkbox>
+  //               <Checkbox value='th' fontSize={"1rem"}>Thursday</Checkbox>
+  //               <Checkbox value='fr' fontSize={"1rem"}>Friday</Checkbox>
   //             </Stack>
   //           </CheckboxGroup>
   //           <FormHelperText>(Weekly)</FormHelperText>
   //         </FormControl>
 
   //         <FormControl gridRow={"6"} gridColumn={"1"}>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">Start Time</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">Start Time</FormLabel>
   //           <Input size="sm" />
   //         </FormControl>
 
   //         <FormControl gridRow={"6"} gridColumn={"2"}>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">End Time</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">End Time</FormLabel>
   //           <Input size="sm" />
   //         </FormControl>
   //       </Grid>
@@ -361,7 +361,7 @@ function Courses() {
   //         p="1.5rem">
   //         <Heading fontSize={"1rem"} gridColumn="1 / 5" fontFamily={"Merriweather"}>Section 0{index + 1} Lab</Heading>
   //         <FormControl>
-  //           <FormLabel htmlFor="title" fontSize="0.875rem">Class Number</FormLabel>
+  //           <FormLabel htmlFor="title" fontSize="1rem">Class Number</FormLabel>
   //           <Input id="title" size="sm" />
   //         </FormControl>
   //       </Grid>

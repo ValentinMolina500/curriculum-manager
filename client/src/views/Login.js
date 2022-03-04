@@ -107,7 +107,7 @@ function Login(props) {
             >
               Sign in now
             </Button>
-            <Text fontSize="0.875rem" mt="0.5rem">Need an account? <Link color="blue.500">Request an account</Link>
+            <Text fontSize="1rem" mt="0.5rem">Need an account? <Link color="blue.500">Request an account</Link>
             </Text>
           </Box>
 

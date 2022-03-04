@@ -54,16 +54,16 @@ function Instructors() {
         p="1.5rem"
         onSubmit={addInstructor}>
         <FormControl isRequired>
-          <FormLabel htmlFor="firstName" fontSize="0.875rem">First Name</FormLabel>
-          <Input id="firstName" size="sm" value={firstName} onChange={firstNameChangeHandler} />
+          <FormLabel htmlFor="firstName" fontSize="1rem">First Name</FormLabel>
+          <Input id="firstName" value={firstName} onChange={firstNameChangeHandler} />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="lastName" fontSize="0.875rem">Last Name</FormLabel>
-          <Input id="lastName" size="sm" value={lastName} onChange={lastNameChangeHandler} />
+          <FormLabel htmlFor="lastName" fontSize="1rem">Last Name</FormLabel>
+          <Input id="lastName"  value={lastName} onChange={lastNameChangeHandler} />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="wsuEmail" fontSize="0.875rem">WSU Email</FormLabel>
-          <Input id="wsuEmail" size="sm" type='email' value={wsuEmail} onChange={wsuEmailChangeHandler} />
+          <FormLabel htmlFor="wsuEmail" fontSize="1rem">WSU Email</FormLabel>
+          <Input id="wsuEmail" type='email' value={wsuEmail} onChange={wsuEmailChangeHandler} />
         </FormControl>
         <FormControl gridRow="3" gridColumn={"1/2"}>
           <Checkbox id="isAdjunct" colorScheme='gray' isChecked={isAdjunct} onChange={isAdjunctChangeHandler}>Adjunct</Checkbox>
@@ -76,7 +76,7 @@ function Instructors() {
           gridColumn={"3 / 3"}
           justifyContent="right"
         >
-          <Button isDisabled={isNoInput} type="submit" size="sm" color='white'
+          <Button isDisabled={isNoInput} type="submit"  color='white'
             backgroundColor="#A60F2D"
             _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }} onClick={addInstructor}>
             Submit

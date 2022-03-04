@@ -83,7 +83,7 @@ function Semesters(props) {
       return (
         <Tr
           key={semester.id}
-          fontSize="0.875rem"
+          fontSize="1rem"
           transition="ease 250ms"
           _hover={{ bg: "#efefef", cursor: "pointer" }}
           onClick={() => {
@@ -92,7 +92,7 @@ function Semesters(props) {
         >
 
           {SEMESTER_COLUMNS.map(column => {
-            return <Td key={`${semester.id}${column.property}`}>{semester[column.property]}</Td>
+            return <Td py="0.25rem" key={`${semester.id}${column.property}`}>{semester[column.property]}</Td>
           })}
         </Tr>
       );
@@ -154,7 +154,7 @@ function Semesters(props) {
                   gridColumn="1"
                   justifySelf="right"
                   fontWeight="700"
-                  fontSize="0.875rem"
+                  fontSize="1rem"
 
                   fontFamily="Merriweather"
                 >
@@ -164,7 +164,7 @@ function Semesters(props) {
                   alignSelf="start"
                   gridRow="2"
                   gridColumn="1"
-                  fontSize="0.875rem"
+                  fontSize="1rem"
                   color="gray.500"
                 >
                   bobl@wsu.edu
@@ -196,7 +196,7 @@ function Semesters(props) {
                   <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
                     Semesters
                   </Heading>
-                  <Button as={Link} to={"add"} color='white' backgroundColor="#A60F2D" _hover={{ bg: '#4D4D4D' }} size="sm">
+                  <Button as={Link} to={"add"} color='white' backgroundColor="#A60F2D" _hover={{ bg: '#4D4D4D' }}>
                     Add Semester
                   </Button>
                 </Flex>

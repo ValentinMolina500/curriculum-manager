@@ -32,7 +32,7 @@ function Courses() {
       return (
         <Tr
           key={course.id}
-          fontSize="0.875rem"
+          fontSize="1rem"
           transition="ease 250ms"
           _hover={{ bg: "#efefef", cursor: "pointer" }}
           onClick={() => {
@@ -68,7 +68,7 @@ function Courses() {
     return (
       <Table>
         <Thead>
-          <Tr >
+          <Tr>
             {COURSES_COLUMNS.map((column) => (
               <Th key={column.property}>{column.title}</Th>
             ))}
@@ -84,7 +84,7 @@ function Courses() {
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Courses
         </Heading>
-        <Button as={Link} to={"add-course"} color='white' backgroundColor="#A60F2D" size="sm"
+        <Button as={Link} to={"add-course"} color='white' backgroundColor="#A60F2D" 
           _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
           Add Course
         </Button>

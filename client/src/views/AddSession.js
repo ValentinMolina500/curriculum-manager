@@ -33,7 +33,7 @@ const FAKE_INSTR_COLUMNS = [
     title: "Type",
     property: "type",
     render: (value) => {
-      return <Tag size="sm" colorScheme={"purple"}>{value}</Tag>
+      return <Tag colorScheme={"purple"}>{value}</Tag>
     }
   }
 ];
@@ -74,7 +74,7 @@ const FAKE_COURSE_COLUMNS = [
     title: "Subject",
     property: "subject",
     render: (value) => {
-      return <Tag size="sm" colorScheme={"purple"}>{value}</Tag>
+      return <Tag colorScheme={"purple"}>{value}</Tag>
     }
   }
 ];
@@ -118,16 +118,16 @@ function AddSession() {
       <form>
         <Stack spacing={"1.75rem"}>
           <FormControl>
-            <FormLabel fontSize={"0.875rem"} htmlFor="season">Season</FormLabel>
-            <Select id="season" fontSize={"0.875rem"}>
+            <FormLabel fontSize={"1rem"} htmlFor="season">Season</FormLabel>
+            <Select id="season" fontSize={"1rem"}>
               <option value="spring">Spring</option>
             </Select>
           </FormControl>
 
           <FormControl>
-            <FormLabel fontSize={"0.875rem"} htmlFor="year">Year</FormLabel>
+            <FormLabel fontSize={"1rem"} htmlFor="year">Year</FormLabel>
             <NumberInput id="year" step={1} defaultValue={new Date().getFullYear()}  id="year">
-              <NumberInputField fontSize={"0.875rem"}  />
+              <NumberInputField fontSize={"1rem"}  />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
@@ -137,7 +137,7 @@ function AddSession() {
 
           <Box>
             <Heading fontFamily={"Merriweather"} fontSize={"1rem"}>Instructors</Heading>
-            <Text mb="0.5rem" fontSize={"0.875rem"} color="#5e5e5e">Choose which instructors to add to this session.</Text>
+            <Text mb="0.5rem" fontSize={"1rem"} color="#5e5e5e">Choose which instructors to add to this session.</Text>
 
             <Box maxHeight="500px" overflow={"scroll"}>
             {/* <Table items={FAKE_INSTR_ITEMS} columns={FAKE_INSTR_COLUMNS} /> */}
@@ -148,15 +148,15 @@ function AddSession() {
         
           <Box>
             <Heading fontFamily={"Merriweather"} fontSize={"1rem"}>Courses</Heading>
-            <Text mb="0.5rem" fontSize={"0.875rem"} color="#5e5e5e">Choose which courses to add to this session.</Text>
+            <Text mb="0.5rem" fontSize={"1rem"} color="#5e5e5e">Choose which courses to add to this session.</Text>
 
             {/* <Table items={FAKE_COURSE_ITEMS} columns={FAKE_COURSE_COLUMNS} /> */}
           </Box>
 
           <HStack>
-          <Button size="sm" colorScheme={"purple"} width={"max-content"}>Add new session</Button>
+          <Button colorScheme={"purple"} width={"max-content"}>Add new session</Button>
 
-          <Button size="sm" onClick={() => navigate(-1)} width={"max-content"}>Cancel</Button>
+          <Button onClick={() => navigate(-1)} width={"max-content"}>Cancel</Button>
           </HStack>
         </Stack>
       </form>

@@ -150,7 +150,7 @@ function Dashboard(props) {
                   gridColumn="1"
                   justifySelf="right"
                   fontWeight="700"
-                  fontSize="0.875rem"
+                  fontSize="1rem"
 
                   fontFamily="Merriweather"
                 >
@@ -160,7 +160,7 @@ function Dashboard(props) {
                   alignSelf="start"
                   gridRow="2"
                   gridColumn="1"
-                  fontSize="0.875rem"
+                  fontSize="1rem"
                   color="gray.500"
                 >
                   bobl@wsu.edu

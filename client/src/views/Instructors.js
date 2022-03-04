@@ -28,14 +28,15 @@ function Instructors(props) {
       return (
         <Tr
           key={instructor.id}
-          fontSize="0.875rem"
+          fontSize="1rem"
           transition="ease 250ms"
+          
           _hover={{ bg: "#efefef", cursor: "pointer" }}
           onClick={() => { setSelectedInstructorId(instructor.id); navigate(instructor.id) }}
         >
 
           {INSTRUCTOR_COLUMNS.map(column => {
-            return <Td key={`${instructor.id}${column.property}`}>{instructor[column.property]}</Td>
+            return <Td py="0.25rem" key={`${instructor.id}${column.property}`}>{instructor[column.property]}</Td>
           })}
         </Tr>
       );
@@ -47,7 +48,7 @@ function Instructors(props) {
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Instructors
         </Heading>
-        <Button as={Link} to={"add-instructors"} color='white' backgroundColor='#A60F2D' size="sm"
+        <Button as={Link} to={"add-instructors"} color='white' backgroundColor='#A60F2D' 
           _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
           Add Instructor
         </Button>

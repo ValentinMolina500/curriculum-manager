@@ -177,7 +177,7 @@ function ViewSemester(props) {
                 gridColumn="1"
                 justifySelf="right"
                 fontWeight="700"
-                fontSize="0.875rem"
+                fontSize="1rem"
 
                 fontFamily="Merriweather"
               >
@@ -187,7 +187,7 @@ function ViewSemester(props) {
                 alignSelf="start"
                 gridRow="2"
                 gridColumn="1"
-                fontSize="0.875rem"
+                fontSize="1rem"
                 color="gray.500"
               >
                 bobl@wsu.edu
@@ -211,7 +211,6 @@ function ViewSemester(props) {
             borderRadius="0.5rem"
             d="flex"
             w="100%"
-            maxW={"1280px"}
 
           >
             <Outlet />
