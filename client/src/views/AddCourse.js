@@ -29,7 +29,7 @@ function Courses() {
   const [courseNum, setCourseNum] = useState('');
   const [courseCredits, setCourseCredits] = useState('');
   const [courseInstructor, setCourseInstructor] = useState('Luis De La Torre');
-  const [courseLocation, setCourseLocation] = useState('');
+  // const [courseLocation, setCourseLocation] = useState('');
   const [courseDays, setCourseDays] = useState({
     onMonday: false,
     onTuesday: false,
@@ -40,7 +40,7 @@ function Courses() {
   const [courseStartTime, setCourseStartTime] = useState('');
   const [courseEndTime, setCourseEndTime] = useState('');
   const isNoInput = coursePrefix === '' || courseTitle === '' || courseNum === '' || courseCredits === ''
-    || courseInstructor === '' || courseLocation === '' || courseStartTime === '' || courseEndTime === ''
+    || courseInstructor === '' || courseStartTime === '' || courseEndTime === ''
     || courseDays.onMonday === false && courseDays.onTuesday === false && courseDays.onWednesday === false
     && courseDays.onThursday === false && courseDays.onFriday === false;
   const toast = useToast();
@@ -84,9 +84,9 @@ function Courses() {
       setCourseInstructor(event.target.value);
     }
 
-    const courseLocationChangeHandler = (event) => {
-      setCourseLocation(event.target.value);
-    }
+    // const courseLocationChangeHandler = (event) => {
+    //   setCourseLocation(event.target.value);
+    // }
 
     const mondayChangeHandler = () => {
       setCourseDays(prevState => ({
@@ -150,20 +150,20 @@ function Courses() {
           </Select>
         </FormControl>
 
-        <FormControl gridColumn={"2 / 5"} isRequired>
+        <FormControl gridColumn={"2 / 4"} isRequired>
           <FormLabel htmlFor="title">Title</FormLabel>
           <Input id="courseTitle"  value={courseTitle} onChange={courseTitleChangeHandler} />
         </FormControl>
-        <FormControl isRequired>
+        <FormControl gridRow="2" isRequired>
           <FormLabel htmlFor="title">Course Number</FormLabel>
           <Input id="courseNum"  value={courseNum} onChange={courseNumChangeHandler} />
         </FormControl>
-        <FormControl isRequired>
+        <FormControl gridRow="2" gridColumn={"2/3"} isRequired>
           <FormLabel htmlFor="title" >Credits</FormLabel>
           <Input id="title" value={courseCredits} onChange={courseCreditsChangeHandler} />
         </FormControl>
 
-        <FormControl gridRow="3" gridColumn={"1/3"} isRequired>
+        <FormControl gridRow="2" gridColumn={"3/3"} isRequired>
           <FormLabel htmlFor="title" >Instructor</FormLabel>
           <Select id="prefix" value={courseInstructor} onChange={courseInstructorChangeHandler}>
             <option value="Luis De La Torre">Luis De La Torre</option>
@@ -171,12 +171,12 @@ function Courses() {
           </Select>
         </FormControl>
 
-        <FormControl gridRow="3" gridColumn={"3"} isRequired>
+        {/* <FormControl gridRow="3" gridColumn={"3"} isRequired>
           <FormLabel htmlFor="title" >Building & Room</FormLabel>
           <Input id="title"  value={courseLocation} onChange={courseLocationChangeHandler} />
-        </FormControl>
+        </FormControl> */}
         {/* <Divider gridRow={"4"} gridColumn={"1 / 5"} /> */}
-        <FormControl gridRow={"5"} gridColumn={"1 / 5"} isRequired>
+        <FormControl gridRow={"3"} gridColumn={"1 / 5"} isRequired>
           <FormLabel htmlFor="title" fontSize="1rem">Days</FormLabel>
           <CheckboxGroup colorScheme='gray'>
             <Stack spacing={[1, 5]} direction={['column', 'row']}>
@@ -190,17 +190,17 @@ function Courses() {
           <FormHelperText>(Weekly)</FormHelperText>
         </FormControl>
 
-        <FormControl gridRow={"6"} gridColumn={"1"} isRequired>
+        <FormControl gridRow={"4"} gridColumn={"1"} isRequired>
           <FormLabel htmlFor="title" fontSize="1rem">Start Time</FormLabel>
           <Input type='time'  value={courseStartTime} onChange={courseStartTimeChangeHandler} />
         </FormControl>
 
-        <FormControl gridRow={"6"} gridColumn={"2"} isRequired>
+        <FormControl gridRow={"4"} gridColumn={"2"} isRequired>
           <FormLabel htmlFor="title" fontSize="1rem">End Time</FormLabel>
           <Input type='time' value={courseEndTime} onChange={courseEndTimeChangeHandler} />
         </FormControl>
 
-        <Button gridRow={"6"} type="submit" gridColumn={"3"} marginTop="2em"
+        <Button gridRow={"4"} type="submit" gridColumn={"3"} marginTop="2em"
           color='white' backgroundColor='#A60F2D' _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}
           isDisabled={isNoInput} onClick={addCourse}>
           Submit
@@ -221,7 +221,7 @@ function Courses() {
       courseNum: courseNum,
       courseCredits: courseCredits,
       courseInstructor: courseInstructor,
-      courseLocation: courseLocation,
+      // courseLocation: courseLocation,
       courseDays: courseDays,
       courseStartTime: courseStartTime,
       courseEndTime: courseEndTime
@@ -243,7 +243,7 @@ function Courses() {
     setCourseNum('');
     setCourseCredits('');
     setCourseInstructor('Luis De La Torre');
-    setCourseLocation('');
+    // setCourseLocation('');
     setCourseStartTime('');
     setCourseEndTime('');
     setCourseDays({

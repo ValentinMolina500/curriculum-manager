@@ -99,7 +99,7 @@ function Login(props) {
               marginTop="2rem"
               color='white'
               backgroundColor="#A60F2D"
-              _hover={{ bg: '#4D4D4D' }}
+              _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}
               fontWeight="600"
               isLoading={status === "loading"}
               loadingText="Signing in"
