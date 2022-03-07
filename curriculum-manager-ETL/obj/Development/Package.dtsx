@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="25"
-  DTS:VersionGUID="{3D76681C-C3F1-4B10-88A5-966C0E0E9DFD}">
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{48F7A8BA-253F-4B84-968A-C6ED781BB46B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\zluce\Documents\school_docs\CPTS\cpts421\cpts_courses.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\zluce\Documents\school_docs\CPTS\cpts423\dataflow\statistics_courses.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -37,11 +37,11 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=quak3.database.windows.net;User ID=test_user;Initial Catalog=curriculum-manager;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          DTS:ConnectionString="Data Source=quak3.database.windows.net;User ID=zlucero;Initial Catalog=curriculum-manager;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADSjPIR7OLE2y4h9pj6l64AAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAA5ZNh4x32KKE+mxIYrgbWQgtmKfTCS7Od3etjZKcDdkwAAAAAOgAAAAAIAACAAAAC5+m32LHWPcOA+dFXy7+ldz9cLTMcnm50nDuNq8Tiv3iAAAAAHgfz3tgrrUyGpAJpUrhv/m/osAbTsS/G4gjGawo4cTEAAAAAhWuLEBaKCVs5XgtoQsTGHhBTYMwt8Ytm72OoNXeToCBg+m3E7+THSR+eyX8/3EppsBnztR0za7jCFVr/MibbZ</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAO+zZ1pg2lkWcXmU4km8jfwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAClLFXhdoTcIQZjFjfbBg9zBGLCYl1x6OEOoNIzqozfEQAAAAAOgAAAAAIAACAAAADI2GvF96PK7Gbl6PwYOUvZi7T1HINejOecfWKJHpMlWCAAAAAQxKvf0DM4xI/FH3RlI/ojkiNBQDjwf7POK1IclSzHtEAAAAAPD9D+huStfIMR36LcXcmQrjoaVPby9WxLUYW6Bncqk0gJ3npRsfnBV0PuXzwR4lDMwJwu2Pr3WvgaZ75vwTRL</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -307,7 +307,7 @@
                     <property
                       dataType="System.String"
                       description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">[CPT_S].[Computer_Science_tst]</property>
+                      name="OpenRowset">[STAT].[Statistics]</property>
                     <property
                       dataType="System.String"
                       description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -341,7 +341,7 @@
                     <property
                       dataType="System.String"
                       description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                      name="FastLoadOptions">TABLOCK,ROWS_PER_BATCH = 10000</property>
+                      name="FastLoadOptions">ROWS_PER_BATCH = 10000</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
@@ -423,6 +423,14 @@
                           refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[description]"
                           dataType="nText"
                           name="description" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mtg Days]"
+                          dataType="nText"
+                          name="Mtg Days" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Subject]"
+                          dataType="nText"
+                          name="Subject" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -466,6 +474,7 @@
           DTS:refId="Package\Sequence Container\Execute SQL Task"
           DTS:CreationName="Microsoft.ExecuteSQLTask"
           DTS:Description="Execute SQL Task"
+          DTS:Disabled="True"
           DTS:DTSID="{FD7C87EE-56D6-4638-BE4A-21CEA2270336}"
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
@@ -495,6 +504,7 @@
       DTS:refId="Package\Sequence Container 1"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{81dc9d80-1282-4519-a158-221c446abf87}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
