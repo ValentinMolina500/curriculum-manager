@@ -2,72 +2,85 @@ import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { TIME_INDEX_LOOKUP } from "../utils/Time"
 
-const PX_PER_ROW = 80;
-
+const PX_PER_ROW = 70;
+const LEFT_LEGEND_PADX = 54;
+const LEFT_TICK_PADX = 40;
+const GRID_TICK_COLOR = "#d4d4d4";
+const MAX_HEIGHT = PX_PER_ROW  * 24;
+const OFFERINGS = [
+    {
+        id: "123123",
+        startTime: 960,
+        endTime: 1050,
+        className: "CPTS 121"
+    }
+]
 export default function ClassScheduler() {
+    const renderGridLines = () => {
+        const jsx = [];
 
-  const renderTicks = () => {
-    const jsx = [];
+        for (let i = 0; i < 24; i++)
+        {
+            jsx.push(
+                <Box 
+                left={`${LEFT_TICK_PADX}px`}
+                w={`calc(100% - ${LEFT_TICK_PADX}px)`} h="1px" 
+                bg={GRID_TICK_COLOR} 
+                top={`${PX_PER_ROW * i}px`} 
+                pos="absolute" />
+            )
 
-    for (let i = 0; i < 24; i++) {
-      jsx.push(
-      <>
-      <Box h="1px" w="50rem" pos="absolute" left="4rem" bg="#aaa" top={`${PX_PER_ROW * i}px`} my="1rem" />
-      <Text top={`${PX_PER_ROW * i - 12}px`} pos="absolute" left="0rem" my="1rem" zIndex="30">12PM</Text>
-      </>
-      )
+            if (i != 0) {
+                jsx.push(
+                    <Text 
+                        color="#444" 
+                        top={`${PX_PER_ROW * i - 9}px`}  
+                        pos="absolute" 
+                        fontSize={"13px"}
+                    >  
+                        {TIME_INDEX_LOOKUP[i]}
+                    </Text>
+                )
+            }
+        }
+
+        return jsx;
     }
 
-    return jsx;
-  }
+    const renderOfferings = () => {
+        return OFFERINGS.map((off, index) => {
+            const topValue = (off.startTime / (60 * 24)) * MAX_HEIGHT;
+            const height = ((off.endTime - off.startTime) /(60 * 24)) * MAX_HEIGHT;
+            return (
+                <Box 
+                    bg="blue.500" 
+                    color="white" 
+                    w="140px"
+                    top={`${topValue}px`} 
+                    h={`${height}px`} 
+                    borderRadius="md"
+                    left={`${LEFT_LEGEND_PADX}px`}
+                    padding="4px"
+                    fontSize={"13px"}
+                    pos="absolute">
+                    <Text fontWeight={"semibold"} fontSize="13px">{off.className}</Text>
+                    4PM - 5:30PM 
+                </Box>
+            );
+        })
+    }
+    return (
+        //  Main schedule container 
+        <Box height={`${MAX_HEIGHT}px`} w="100%"  pos="relative" >
+            <Box height="100%" pos="absolute" bg={GRID_TICK_COLOR} w="1px" left={`${LEFT_LEGEND_PADX}px`}/>
 
-  return (
+            {/* Grid lines */}
+            {renderGridLines()}
 
-      <TransformWrapper style={{width: "100%", height: "100%"}}>
-        <TransformComponent style={{width: "100%", height: "100%"}}>
-          <Grid w="50rem" gridTemplateRows={`repeat(24, ${PX_PER_ROW}px)`} py="1rem" pos="relative" zIndex="30" paddingLeft="4rem">
-            <GridItem gridRow="5" w="100%" bg="red" />
-            {renderTicks()}
-          </Grid>
-        </TransformComponent>
-      </TransformWrapper>
-
-
-    // <svg ref={svgRef} width="100%" height="100%" style={{ zIndex: 5 }}>
-    //   {/* <defs>
-    //     <pattern
-    //       id="smallGrid"
-    //       width="8"
-    //       height="8"
-    //       patternUnits="userSpaceOnUse"
-    //     >
-    //       <path
-    //         d="M 8 0 L 0 0 0 8"
-    //         fill="none"
-    //         stroke="gray"
-    //         stroke-width="0.5"
-    //       />
-    //     </pattern>
-    //     <pattern
-    //       id="grid"
-    //       width="80"
-    //       height="80"
-    //       patternUnits="userSpaceOnUse"
-    //     >
-    //       <rect width="80" height="80" fill="url(#smallGrid)" />
-    //       <path
-    //         d="M 80 0 L 0 0 0 80"
-    //         fill="none"
-    //         stroke="gray"
-    //         stroke-width="1"
-    //       />
-    //     </pattern>
-    //   </defs>
-
-    //   <rect width="100%" height="100%" fill="url(#grid)" /> */}
-    // </svg>
-
-
-  );
+            {/* Render offerings */}
+            {renderOfferings()}
+        </Box>
+    );
 }

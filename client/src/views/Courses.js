@@ -35,6 +35,8 @@ function Courses() {
           fontSize="1rem"
           transition="ease 250ms"
           _hover={{ bg: "#efefef", cursor: "pointer" }}
+         
+          minHeight={0}
           onClick={() => {
             // navigate(semester.id)
           }}
@@ -45,7 +47,7 @@ function Courses() {
               return column.render(course, column);
             }
 
-            return <Td key={`${course.id}${column.property}`} width={column.width}>{course[column.property]}</Td>
+            return <Td  py="0.25rem"  minHeight={0} key={`${course.id}${column.property}`} width={column.width}>{course[column.property]}</Td>
           })}
         </Tr>
       );
@@ -102,7 +104,7 @@ const COURSES_COLUMNS = [
     title: "Subject",
     render: (course, column) => {
       return (
-        <Td>
+        <Td  py="0.25rem">
           <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
             {course[column.property]}
           </Tag>

@@ -98,7 +98,7 @@ function ViewSemester(props) {
     });
   };
   return (
-    <Grid w="100%" h="100%" templateColumns="18rem 1fr" templateRows={"minmax(0, 1fr)"}>
+    <Grid w="100%" h="100%" templateColumns="18rem 1fr" templateRows={"minmax(0, 1fr)"} minH={0}>
       {/* Sidebar */}
       <GridItem
         zIndex={50}
@@ -135,6 +135,7 @@ function ViewSemester(props) {
           gridRowGap="2rem"
           h="100%"
           w="100%"
+          minH={0}
         >
           <Flex alignItems="center" w="100%" justifySelf={"center"}
             maxW={"1280px"}>
@@ -151,7 +152,7 @@ function ViewSemester(props) {
                 <Button
                   leftIcon={<MdArrowBack />} color='#4D4D4D'
                   colorScheme="white" borderColor="black"
-                >Go Back</Button>
+                >Go Home</Button>
               </Flex>
               <Divider orientation="vertical" mx="1rem" color={"#efefef"}/>
               <Text fontFamily={"Merriweather"}>{semester.school}</Text>
