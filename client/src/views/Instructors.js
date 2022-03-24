@@ -13,6 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import { selectInstructors } from "../store/instructorsSlice";
 import { Link, useNavigate } from "react-router-dom";
+import InstructorsModal from './InstructorsModal';
 
 function Instructors(props) {
   const {
@@ -30,7 +31,7 @@ function Instructors(props) {
           key={instructor.id}
           fontSize="1rem"
           transition="ease 250ms"
-          
+
           _hover={{ bg: "#efefef", cursor: "pointer" }}
           onClick={() => { setSelectedInstructorId(instructor.id); navigate(instructor.id) }}
         >
@@ -42,16 +43,14 @@ function Instructors(props) {
       );
     });
   }
+
   return (
     <Stack bg="white" w="100%" mt="2rem">
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Instructors
         </Heading>
-        <Button as={Link} to={"add-instructors"} color='white' backgroundColor='#A60F2D' 
-          _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
-          Add Instructor
-        </Button>
+        <InstructorsModal />
       </Flex>
       <Table>
         <Thead>

@@ -26,7 +26,6 @@ import Courses from "./views/Courses";
 import AddCourse from "./views/AddCourse";
 
 import Instructors from "./views/Instructors";
-import AddInstructors from "./views/AddInstructors";
 import ViewInstructor from "./views/ViewInstructor";
 
 import Schedule from "./views/Schedule";
@@ -62,9 +61,8 @@ function App() {
               <Route path="add-course" element={<AddCourse />} />
             </Route>
             <Route path="instructors" element={<Outlet />} >
-              <Route index element={<Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
+              <Route index element={ <Instructors setSelectedInstructorId={setSelectedInstructorId} />} />
               <Route path=":instructorId" element={<ViewInstructor />} />
-              <Route path="add-instructors" element={<AddInstructors />} />
             </Route>
           </Route>
           {/* <Route

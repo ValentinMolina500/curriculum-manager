@@ -15,12 +15,21 @@ import {
   CheckboxGroup,
   FormHelperText,
   Divider,
-  useToast
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Lorem
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
-function Courses() {
+function CoursesModal() {
   // const [sections, setSections] = useState([]);
   // const [labs, setLabs] = useState([]);
 
@@ -30,19 +39,17 @@ function Courses() {
   const [courseCredits, setCourseCredits] = useState('');
   const [courseInstructor, setCourseInstructor] = useState('Luis De La Torre');
   // const [courseLocation, setCourseLocation] = useState('');
-  const [courseDays, setCourseDays] = useState({
-    onMonday: false,
-    onTuesday: false,
-    onWednesday: false,
-    onThursday: false,
-    onFriday: false
-  });
-  const [courseStartTime, setCourseStartTime] = useState('');
-  const [courseEndTime, setCourseEndTime] = useState('');
+  // const [courseDays, setCourseDays] = useState({
+  //   onMonday: false,
+  //   onTuesday: false,
+  //   onWednesday: false,
+  //   onThursday: false,
+  //   onFriday: false
+  // });
+  // const [courseStartTime, setCourseStartTime] = useState('');
+  // const [courseEndTime, setCourseEndTime] = useState('');
   const isNoInput = coursePrefix === '' || courseTitle === '' || courseNum === '' || courseCredits === ''
-    || courseInstructor === '' || courseStartTime === '' || courseEndTime === ''
-    || courseDays.onMonday === false && courseDays.onTuesday === false && courseDays.onWednesday === false
-    && courseDays.onThursday === false && courseDays.onFriday === false;
+    || courseInstructor === '';
   const toast = useToast();
 
   const renderAddCourseForm = () => {
@@ -88,48 +95,48 @@ function Courses() {
     //   setCourseLocation(event.target.value);
     // }
 
-    const mondayChangeHandler = () => {
-      setCourseDays(prevState => ({
-        ...courseDays,
-        onMonday: !prevState.onMonday
-      }))
-    }
+    // const mondayChangeHandler = () => {
+    //   setCourseDays(prevState => ({
+    //     ...courseDays,
+    //     onMonday: !prevState.onMonday
+    //   }))
+    // }
 
-    const tuesdayChangeHandler = () => {
-      setCourseDays(prevState => ({
-        ...courseDays,
-        onTuesday: !prevState.onTuesday
-      }))
-    }
+    // const tuesdayChangeHandler = () => {
+    //   setCourseDays(prevState => ({
+    //     ...courseDays,
+    //     onTuesday: !prevState.onTuesday
+    //   }))
+    // }
 
-    const wednesdayChangeHandler = () => {
-      setCourseDays(prevState => ({
-        ...courseDays,
-        onWednesday: !prevState.onWednesday
-      }))
-    }
+    // const wednesdayChangeHandler = () => {
+    //   setCourseDays(prevState => ({
+    //     ...courseDays,
+    //     onWednesday: !prevState.onWednesday
+    //   }))
+    // }
 
-    const thursdayChangeHandler = () => {
-      setCourseDays(prevState => ({
-        ...courseDays,
-        onThursday: !prevState.onThursday
-      }))
-    }
+    // const thursdayChangeHandler = () => {
+    //   setCourseDays(prevState => ({
+    //     ...courseDays,
+    //     onThursday: !prevState.onThursday
+    //   }))
+    // }
 
-    const fridayChangeHandler = () => {
-      setCourseDays(prevState => ({
-        ...courseDays,
-        onFriday: !prevState.onFriday
-      }))
-    }
+    // const fridayChangeHandler = () => {
+    //   setCourseDays(prevState => ({
+    //     ...courseDays,
+    //     onFriday: !prevState.onFriday
+    //   }))
+    // }
 
-    const courseStartTimeChangeHandler = (event) => {
-      setCourseStartTime(event.target.value);
-    }
+    // const courseStartTimeChangeHandler = (event) => {
+    //   setCourseStartTime(event.target.value);
+    // }
 
-    const courseEndTimeChangeHandler = (event) => {
-      setCourseEndTime(event.target.value);
-    }
+    // const courseEndTimeChangeHandler = (event) => {
+    //   setCourseEndTime(event.target.value);
+    // }
 
     return (
       <Grid
@@ -152,11 +159,11 @@ function Courses() {
 
         <FormControl gridColumn={"2 / 4"} isRequired>
           <FormLabel htmlFor="title">Title</FormLabel>
-          <Input id="courseTitle"  value={courseTitle} onChange={courseTitleChangeHandler} />
+          <Input id="courseTitle" value={courseTitle} onChange={courseTitleChangeHandler} />
         </FormControl>
         <FormControl gridRow="2" isRequired>
           <FormLabel htmlFor="title">Course Number</FormLabel>
-          <Input id="courseNum"  value={courseNum} onChange={courseNumChangeHandler} />
+          <Input id="courseNum" value={courseNum} onChange={courseNumChangeHandler} />
         </FormControl>
         <FormControl gridRow="2" gridColumn={"2/3"} isRequired>
           <FormLabel htmlFor="title" >Credits</FormLabel>
@@ -176,7 +183,7 @@ function Courses() {
           <Input id="title"  value={courseLocation} onChange={courseLocationChangeHandler} />
         </FormControl> */}
         {/* <Divider gridRow={"4"} gridColumn={"1 / 5"} /> */}
-        <FormControl gridRow={"3"} gridColumn={"1 / 5"} isRequired>
+        {/* <FormControl gridRow={"3"} gridColumn={"1 / 5"} isRequired>
           <FormLabel htmlFor="title" fontSize="1rem">Days</FormLabel>
           <CheckboxGroup colorScheme='gray'>
             <Stack spacing={[1, 5]} direction={['column', 'row']}>
@@ -188,9 +195,9 @@ function Courses() {
             </Stack>
           </CheckboxGroup>
           <FormHelperText>(Weekly)</FormHelperText>
-        </FormControl>
+        </FormControl> */}
 
-        <FormControl gridRow={"4"} gridColumn={"1"} isRequired>
+        {/* <FormControl gridRow={"4"} gridColumn={"1"} isRequired>
           <FormLabel htmlFor="title" fontSize="1rem">Start Time</FormLabel>
           <Input type='time'  value={courseStartTime} onChange={courseStartTimeChangeHandler} />
         </FormControl>
@@ -198,13 +205,19 @@ function Courses() {
         <FormControl gridRow={"4"} gridColumn={"2"} isRequired>
           <FormLabel htmlFor="title" fontSize="1rem">End Time</FormLabel>
           <Input type='time' value={courseEndTime} onChange={courseEndTimeChangeHandler} />
-        </FormControl>
+        </FormControl> */}
+        <Flex
+          gridRow="3"
+          gridColumn={"3 / 3"}
+          justifyContent="right"
+        >
 
-        <Button gridRow={"4"} type="submit" gridColumn={"3"} marginTop="2em"
-          color='white' backgroundColor='#A60F2D' _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}
-          isDisabled={isNoInput} onClick={addCourse}>
-          Submit
-        </Button>
+          <Button gridRow={"4"} type="submit" gridColumn={"2"} marginTop="2em"
+            color='white' backgroundColor='#A60F2D' _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}
+            isDisabled={isNoInput} onClick={addCourse}>
+            Submit
+          </Button>
+        </Flex>
       </Grid>
     );
     // }
@@ -222,9 +235,9 @@ function Courses() {
       courseCredits: courseCredits,
       courseInstructor: courseInstructor,
       // courseLocation: courseLocation,
-      courseDays: courseDays,
-      courseStartTime: courseStartTime,
-      courseEndTime: courseEndTime
+      // courseDays: courseDays,
+      // courseStartTime: courseStartTime,
+      // courseEndTime: courseEndTime
     };
 
     console.log(courseData);
@@ -244,15 +257,15 @@ function Courses() {
     setCourseCredits('');
     setCourseInstructor('Luis De La Torre');
     // setCourseLocation('');
-    setCourseStartTime('');
-    setCourseEndTime('');
-    setCourseDays({
-      onMonday: false,
-      onTuesday: false,
-      onWednesday: false,
-      onThursday: false,
-      onFriday: false
-    });
+    // setCourseStartTime('');
+    // setCourseEndTime('');
+    // setCourseDays({
+    //   onMonday: false,
+    //   onTuesday: false,
+    //   onWednesday: false,
+    //   onThursday: false,
+    //   onFriday: false
+    // });
   }
 
   // const renderLabs = () => {
@@ -427,4 +440,4 @@ function Courses() {
   );
 }
 
-export default Courses;
+export default CoursesModal;
