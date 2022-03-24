@@ -17,9 +17,9 @@ import {
 } from "@chakra-ui/react";
 
 import { useSelector } from "react-redux";
-
 import { selectCoursesById } from "../store/coursesSlice";
 import { Link } from "react-router-dom";
+import CoursesModal from "./CoursesModal";
 
 function Courses() {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
@@ -35,7 +35,6 @@ function Courses() {
           fontSize="1rem"
           transition="ease 250ms"
           _hover={{ bg: "#efefef", cursor: "pointer" }}
-         
           minHeight={0}
           onClick={() => {
             // navigate(semester.id)
@@ -47,7 +46,7 @@ function Courses() {
               return column.render(course, column);
             }
 
-            return <Td  py="0.25rem"  minHeight={0} key={`${course.id}${column.property}`} width={column.width}>{course[column.property]}</Td>
+            return <Td py="0.25rem" minHeight={0} key={`${course.id}${column.property}`} width={column.width}>{course[column.property]}</Td>
           })}
         </Tr>
       );
@@ -86,10 +85,7 @@ function Courses() {
         <Heading fontSize="1.75rem" fontFamily={"Merriweather"}>
           Courses
         </Heading>
-        <Button as={Link} to={"add-course"} color='white' backgroundColor="#A60F2D" 
-          _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
-          Add Course
-        </Button>
+        <CoursesModal />
       </Flex>
       {renderCourseTable()}
 
@@ -104,7 +100,7 @@ const COURSES_COLUMNS = [
     title: "Subject",
     render: (course, column) => {
       return (
-        <Td  py="0.25rem">
+        <Td py="0.25rem">
           <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
             {course[column.property]}
           </Tag>
