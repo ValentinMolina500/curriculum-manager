@@ -55,7 +55,7 @@ function App() {
               </RequireAuth>
             }
           >
-            <Route index element={<Schedule /> } />
+            <Route path="schedule" element={<Schedule /> } />
             <Route path="courses" element={<Outlet />}>
               <Route index element={<Courses />} />
               <Route path="add-course" element={<AddCourse />} />

@@ -113,7 +113,7 @@ function Dashboard(props) {
               mb="1rem"
               fontFamily="Merriweather"
             >
-              Curriculum
+              Currima
             </Heading>
             <Stack spacing="0.75rem">{renderSidebarItems()}</Stack>
 

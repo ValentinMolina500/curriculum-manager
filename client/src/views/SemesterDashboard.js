@@ -15,7 +15,8 @@ import {
   Grid,
   Box,
   Text,
-  Divider
+  Divider,
+  Icon
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -42,6 +43,7 @@ import Logo from "../images/wsutc-logo.png";
 import { selectSemestersById, } from "../store/semestersSlice";
 import { useLocation, useParams, Link, useNavigate, NavLink } from "react-router-dom";
 import * as types from "../store/actions";
+import { ReactComponent as AppLogo } from "../images/CurrimaLogo.svg";
 
 function ViewSemester(props) {
   const { semesterId } = useParams();
@@ -114,8 +116,9 @@ function ViewSemester(props) {
               fontWeight="700"
               fontFamily="Merriweather"
             >
-              Curriculum
+              Currima
             </Heading>
+           
 
           </Flex>
 
@@ -234,7 +237,7 @@ const SIDEBAR_ITEMS = [
   {
     title: "Schedule",
     icon: MdDateRange,
-    to: ""
+    to: "schedule"
   },
   {
     title: "Offerings",
@@ -254,7 +257,7 @@ const SIDEBAR_ITEMS = [
   {
     title: "Access",
     icon: MdManageAccounts,
-    to: "schedule"
+    to: "access"
   }
 ];
 

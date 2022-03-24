@@ -7,8 +7,22 @@
  * 
  * @param {number} minutes Minutes to convert
  */
-function minutesToTimeString(minutes) {
-  
+export function minutesToTimeString(minutes) {
+  let hour = '';
+  let min = '';
+  let period = "am";
+
+  console.log(minutes % 60);
+  hour = Math.floor(minutes / 60);
+
+  if (hour > 12) {
+    hour -= 12;
+    period = "pm";
+  }
+
+  min = (minutes % 60);
+
+  return `${hour}${min == 0 ? "" : ":"}${min == 0 ? "" : min}${period}`
 }
 
 /**
@@ -45,3 +59,50 @@ export const TIME_INDEX_LOOKUP = {
     22: "10 PM",
     23: "11 PM"
 }
+
+class TimeNode {
+  constructor(startTime, endTime) {
+    this.st = startTime;
+    this.et = endTime;
+    this.offset = 0;
+    this.next = null;
+    this.down = null;
+  }
+}
+
+
+class TimeTree {
+  constructor() {
+    this.root = null;
+  }
+
+  navigateTimeNode = (curNode, newNode) => {
+    if (!curNode) {
+
+    }
+
+    while (curNode.next) {
+      if (curNode.st <= newNode.st && curNode.et >= newNode.et) {
+
+      }
+
+      curNode = curNode.next;
+    }
+
+    if (curNode) {
+      curNode.next = newNode;
+    }
+  }
+  insertTimeNode = (st, et) => {
+    let newNode = new TimeNode(st, et);
+
+    if (!this.root) {
+      newNode.offset = 0;
+    } else {
+      let tempNode = this.root;
+
+      this.navigateTimeNode(tempNode, newNode);
+    }
+  }
+}
+

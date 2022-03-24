@@ -87,7 +87,7 @@ function Semesters(props) {
           transition="ease 250ms"
           _hover={{ bg: "#efefef", cursor: "pointer" }}
           onClick={() => {
-            navigate(semester.id)
+            navigate(`${semester.id}/schedule`)
           }}
         >
 
@@ -117,7 +117,7 @@ function Semesters(props) {
               mb="1rem"
               fontFamily="Merriweather"
             >
-              Curriculum
+              Currima
             </Heading>
             <Stack spacing="0.75rem">{renderSidebarItems()}</Stack>
 

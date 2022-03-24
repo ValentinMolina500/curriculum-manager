@@ -1,23 +1,55 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
-import { TIME_INDEX_LOOKUP } from "../utils/Time"
+import { TIME_INDEX_LOOKUP, minutesToTimeString} from "../utils/Time"
 
 const PX_PER_ROW = 70;
 const LEFT_LEGEND_PADX = 54;
 const LEFT_TICK_PADX = 40;
 const GRID_TICK_COLOR = "#d4d4d4";
 const MAX_HEIGHT = PX_PER_ROW  * 24;
+
+// 1 node [980, 1140], offset = 0
+// ===
+// 1 node [980, 1140], offset  = 0,
+// 2 node [1040, 1140], offset = 1
+//O [402] -> off = 0 O [121], off = 1 -> O [122] off = 2
+// |
+// V
+// O [ENG 402], off = 0
 const OFFERINGS = [
     {
         id: "123123",
-        startTime: 960,
-        endTime: 1050,
-        className: "CPTS 121"
+        startTime: 980,
+        endTime: 1140,
+        className: "CPTS 121",
+    },
+    {
+        id: "123900",
+        startTime: 1040,
+        endTime: 1140,
+        className: "CPTS 122",
+    },
+    {
+        id: "456456",
+        startTime: 480,
+        endTime: 600,
+        className: "ENGLISH 402"
+    },
+    {
+        id: "456555",
+        startTime: 610,
+        endTime: 660,
+        className: "HISTORY 111"
     }
 ]
 export default function ClassScheduler() {
+
+    const [offeringsRender, setOfferingsRender] = useState([]);
+
+
+
     const renderGridLines = () => {
         const jsx = [];
 
@@ -55,6 +87,7 @@ export default function ClassScheduler() {
             const height = ((off.endTime - off.startTime) /(60 * 24)) * MAX_HEIGHT;
             return (
                 <Box 
+                    key={off.id}
                     bg="blue.500" 
                     color="white" 
                     w="140px"
@@ -66,7 +99,7 @@ export default function ClassScheduler() {
                     fontSize={"13px"}
                     pos="absolute">
                     <Text fontWeight={"semibold"} fontSize="13px">{off.className}</Text>
-                    4PM - 5:30PM 
+                    {`${minutesToTimeString(off.startTime)} - ${minutesToTimeString(off.endTime)}`}
                 </Box>
             );
         })

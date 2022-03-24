@@ -4,8 +4,8 @@ const theme = extendTheme({
   initialColorMode: "dark",
   useSystemColorMode: false,
   fonts: {
-    // heading: "Inter",
-    // body: "Inter"
+    heading: "Inter",
+    body: "Inter"
   },
 });
 
