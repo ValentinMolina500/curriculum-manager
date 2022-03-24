@@ -43,7 +43,6 @@ import Logo from "../images/wsutc-logo.png";
 import { selectSemestersById, } from "../store/semestersSlice";
 import { useLocation, useParams, Link, useNavigate, NavLink } from "react-router-dom";
 import * as types from "../store/actions";
-import { ReactComponent as AppLogo } from "../images/CurrimaLogo.svg";
 
 function ViewSemester(props) {
   const { semesterId } = useParams();
