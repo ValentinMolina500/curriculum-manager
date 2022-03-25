@@ -7,6 +7,22 @@ const theme = extendTheme({
     heading: "Inter",
     body: "Inter"
   },
+  components: {
+    Checkbox: {
+      baseStyle: {
+        control: {
+          _checked: {
+            border: "#A60F2D",
+            bg: "#A60F2D",
+            _hover: {
+              border: "#A60F2D",
+              bg: "#A60F2D",
+            }
+          }
+        }
+      }
+    }
+  }
 });
 
 export default theme;

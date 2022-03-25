@@ -75,10 +75,10 @@ const InstructorsModal = props => {
                     <Input id="wsuEmail" type='email' value={wsuEmail} onChange={wsuEmailChangeHandler} />
                 </FormControl>
                 <FormControl gridRow="3" gridColumn={"1/2"}>
-                    <Checkbox id="isAdjunct" colorScheme='gray' isChecked={isAdjunct} onChange={isAdjunctChangeHandler}>Adjunct</Checkbox>
+                    <Checkbox id="isAdjunct" isChecked={isAdjunct} onChange={isAdjunctChangeHandler}>Adjunct</Checkbox>
                 </FormControl>
                 <FormControl gridRow="3" gridColumn={"2/2"}>
-                    <Checkbox id="hadSafetyOrientation" colorScheme='gray' isChecked={hadSafetyOrientation} onChange={hadSafetyOrientationChangeHandler}>Safety Orientation</Checkbox>
+                    <Checkbox id="hadSafetyOrientation" isChecked={hadSafetyOrientation} onChange={hadSafetyOrientationChangeHandler}>Safety Orientation</Checkbox>
                 </FormControl>
             </Grid>
         );
