@@ -26,7 +26,8 @@ import {
 import {
   MdHome,
   MdDateRange,
-  MdPeople
+  MdPeople,
+  MdSchool
 } from "react-icons/md"
 
 import ProfileImage from "../images/bob.jpeg";
@@ -256,7 +257,7 @@ const SIDEBAR_ITEMS = [
   // },
   {
     title: "Semesters",
-    icon: MdDateRange,
+    icon: MdSchool,
     to: "/"
   },
   // {
