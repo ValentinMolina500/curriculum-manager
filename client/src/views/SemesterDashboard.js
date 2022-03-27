@@ -99,7 +99,7 @@ function ViewSemester(props) {
     });
   };
   return (
-    <Grid w="100%" h="100%" templateColumns="18rem 1fr" templateRows={"minmax(0, 1fr)"} minH={0}>
+    <Grid w="100%" h="100%" templateColumns="16rem 1fr" templateRows={"minmax(0, 1fr)"} minH={0}>
       {/* Sidebar */}
       <GridItem
         zIndex={50}
