@@ -27,11 +27,15 @@ import Courses from "./views/Courses";
 import Instructors from "./views/Instructors";
 import ViewInstructor from "./views/ViewInstructor";
 
+import Offerings from "./views/Offerings";
+import ViewOffering from "./views/ViewOffering";
+
 import Schedule from "./views/Schedule";
 
 function App() {
   const [selectedSemesterId, setSelectedSemesterId] = useState(null);
   const [selectedInstructorId, setSelectedInstructorId] = useState(null);
+  const [selectedOfferingId, setSelectedOfferingId] = useState(null);
 
   return (
     <ChakraProvider theme={theme}>
@@ -55,6 +59,10 @@ function App() {
             }
           >
             <Route path="schedule" element={<Schedule /> } />
+            <Route path="offerings" element={<Outlet />} >
+              <Route index element={ <Offerings setSelectedOfferingId={setSelectedOfferingId} />} />
+              <Route path=":offeringId" element={<ViewOffering />} />
+            </Route>
             <Route path="courses" element={<Outlet />}>
               <Route index element={<Courses />} />
             </Route>

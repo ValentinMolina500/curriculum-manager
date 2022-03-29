@@ -5,6 +5,7 @@ import { setAuthStatus, authError, loginSuccess } from "../store/authSlice"
 import { semestersError, semestersSuccess, setSelectedSemester, setSemesterStatus } from "../store/semestersSlice"
 import { instructorsError, setInstructorStatus, instructorsSuccess } from "../store/instructorsSlice"
 import { coursesError, setCoursesStatus, coursesSuccess } from "../store/coursesSlice"
+import { offeringsError, setOfferingStatus, offeringsSuccess } from "../store/offeringsSlice"
 import API from "../utils/API"
 
 function* login(action) {
@@ -24,6 +25,7 @@ function* login(action) {
     /* Fetch user sessions */
     yield put({ type: types.FETCH_SEMESTERS });
     yield put({ type: types.FETCH_INSTRUCTORS });
+    yield put({ type: types.FETCH_OFFERINGS });
   } catch (error) {
     yield put(authError(error));
   }
@@ -65,6 +67,22 @@ function* watchFetchInstructors() {
   yield takeLatest(types.FETCH_INSTRUCTORS, fetchInstructors);
 }
 
+function* fetchOfferings(action) {
+  yield put(setOfferingStatus("loading"));
+
+  try {
+    const result = yield call(API.getOfferings);
+
+    yield put(offeringsSuccess(result));
+  } catch (error) {
+    yield put(offeringsError(error));
+  }
+}
+
+function* watchFetchOfferings() {
+  yield takeLatest(types.FETCH_OFFERINGS, fetchOfferings);
+}
+
 function* selectSemester(action) {
   const semesterId = action.payload;
 
@@ -95,6 +113,7 @@ export default function* rootSaga() {
     watchLogin(),
     watchFetchSemesters(),
     watchFetchInstructors(),
+    watchFetchOfferings(),
     watchSelectSemester()
   ])
 }
