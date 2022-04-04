@@ -4,44 +4,31 @@ import {
   Flex,
   Stack,
   Button,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Spinner,
-  Center,
   Grid,
   Box,
   Text,
   Divider,
-  Icon
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GridItem,
   Image,
-  ScaleFade,
 } from "@chakra-ui/react";
 
 import {
-  MdHome,
   MdDateRange,
   MdBook,
   MdPeople,
-  MdNotifications,
   MdManageAccounts,
   MdArrowBack,
   MdLocalOffer
 } from "react-icons/md"
-import { setSelectedSemester } from "../store/semestersSlice";
 import { Outlet } from "react-router-dom"
 import ProfileImage from "../images/bob.jpeg";
 import Logo from "../images/wsutc-logo.png";
 
 import { selectSemestersById, } from "../store/semestersSlice";
-import { useLocation, useParams, Link, useNavigate, NavLink } from "react-router-dom";
+import {  useParams, NavLink } from "react-router-dom";
 import * as types from "../store/actions";
 
 function ViewSemester(props) {

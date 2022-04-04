@@ -1,6 +1,3 @@
-import { throws } from "assert";
-
-
 
 /**
  * Minutes is number 0 <= m <= 1440 (minutes in a day). Return
@@ -25,15 +22,7 @@ export function minutesToTimeString(minutes) {
 
     min = (minutes % 60);
 
-    return `${hour}${min == 0 ? "" : ":"}${min == 0 ? "" : min}${period}`
-}
-
-/**
- * Opposite of other functipon.
- * @param {string} timeString String to convert
- */
-function timeStringToMinutes(timeString) {
-
+    return `${hour}${min === 0 ? "" : ":"}${min === 0 ? "" : min}${period}`
 }
 
 export const TIME_INDEX_LOOKUP = {
@@ -124,7 +113,7 @@ export class TimeTree {
                 /* The new node  overlap the existing node entirely*/
                 else if (this._fullOverlap(newNode, tempNode)) {
                     console.log("B CASE!");
-                    const isRoot = tempNode == this.root;
+                    const isRoot = tempNode === this.root;
 
                     if (tempNode.up) {
                         tempNode.up.down = newNode;

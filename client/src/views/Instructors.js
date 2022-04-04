@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { selectInstructors } from "../store/instructorsSlice";
 import { Link, useNavigate } from "react-router-dom";
 import InstructorsModal from './InstructorsModal';
+import FilterableTable from "./FilterableTable";
 
 function Instructors(props) {
   const {
@@ -24,26 +25,6 @@ function Instructors(props) {
   const instructors = useSelector(selectInstructors);
   const navigate = useNavigate();
 
-  const renderInstructors = () => {
-    return instructors.map((instructor) => {
-      return (
-        <Tr
-          key={instructor.id}
-          fontSize="1rem"
-          transition="ease 250ms"
-
-          _hover={{ bg: "#efefef", cursor: "pointer" }}
-          onClick={() => { setSelectedInstructorId(instructor.id); navigate(instructor.id) }}
-        >
-
-          {INSTRUCTOR_COLUMNS.map(column => {
-            return <Td py="0.25rem" key={`${instructor.id}${column.property}`}>{instructor[column.property]}</Td>
-          })}
-        </Tr>
-      );
-    });
-  }
-
   return (
     <Stack bg="white" w="100%" mt="2rem">
       <Flex alignItems={"center"} justifyContent={"space-between"}>
@@ -52,16 +33,7 @@ function Instructors(props) {
         </Heading>
         <InstructorsModal />
       </Flex>
-      <Table>
-        <Thead>
-          <Tr >
-            {INSTRUCTOR_COLUMNS.map((column) => (
-              <Th key={column.property}>{column.title}</Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>{renderInstructors()}</Tbody>
-      </Table>
+      <FilterableTable tableItems={instructors} tableColumns={INSTRUCTOR_COLUMNS} />
     </Stack>
   );
 }
@@ -70,10 +42,12 @@ const INSTRUCTOR_COLUMNS = [
   {
     property: "firstName",
     title: "First Name",
+    width: "20%"
   },
   {
     property: "lastName",
     title: "Last Name",
+    width: "20%"
   },
   {
     property: "wsuEmail",
