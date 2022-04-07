@@ -91,6 +91,9 @@ function* selectSemester(action) {
   /* Fetch course info */
   yield put(setCoursesStatus("loading"));
 
+  /* Fetch instructor info */
+  yield put(setInstructorStatus("loading"));
+
   try {
     const courses = yield call(API.getAllCourses);
     console.log("COURSES", courses);
@@ -98,9 +101,18 @@ function* selectSemester(action) {
       semesterId,
       courses
     }));
+
+    const instructors = yield call(API.getAllInstructors);
+    console.log("INSTRUCTORS", instructors);
+    yield put(instructorsSuccess({
+      semesterId,
+      instructors
+    }));
+
   } catch (error) {
     console.error(error);
     yield put(coursesError(error));
+    yield put(instructorsError(error));
   }
 }
 

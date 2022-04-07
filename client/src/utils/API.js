@@ -102,41 +102,16 @@ class API {
     })
   }
 
-  getInstructors = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([
-          {
-            firstName: "Luis",
-            lastName: "De La Torre",
-            wsuEmail: "luis.delatorre@wsu.edu",
-            id: "8aa25ed4-5e8f-41d9-a70a-b1b0f68dad2e"
-          },
-          {
-            firstName: "Bob",
-            lastName: "Lewis",
-            wsuEmail: "bobl@wsu.edu",
-            id: "33bea38c-05d9-4b0e-8336-2b640dc30372"
-          },
-          {
-            firstName: "John",
-            lastName: "Miller",
-            wsuEmail: "jmiller16@wsu.edu",
-            id: "18943c00-613b-4127-aaef-97b38d5f42fb"
-          },
-          {
-            firstName: "Russell",
-            lastName: "Swannack",
-            wsuEmail: "russell_swannack@wsu.edu",
-            id: "97f3c02b-c52f-4ade-a027-dc240d2026fc"
-          },
-        ])
-      }, 2500)
-    })
-  }
-
   getAllCourses = () => {
     return fetch("http://localhost:8000/courses")
+      .then(response => response.json())
+      .then(res => {
+        return res;
+      })
+  }
+
+  getAllInstructors = () => {
+    return fetch("http://localhost:8000/instructors")
       .then(response => response.json())
       .then(res => {
         return res;

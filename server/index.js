@@ -80,6 +80,55 @@ app.get("/courses", (req, res) => {
   })
 });
 
+function getAllInstructors() {
+  return new Promise((resolve, reject) => {
+    const allRows = [];
+
+    const request = new Request(
+      `SELECT TOP (1000) [InsID]
+      ,[InsWSUID]
+      ,[InsFirstName]
+      ,[InsMiddleName]
+      ,[InsLastName]
+      ,[InsEmail]
+      ,[InsStatus]
+      ,[InsSafetyOrientation]
+      FROM [CMP].[Instructor]
+      `,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      }
+    );
+
+    request.on("row", columns => {
+      const row = {};
+
+      columns.forEach((column) => {
+        row[column.metadata.colName] = column.value;
+      })
+
+      allRows.push(row);
+    })
+
+    request.on("doneInProc", (rowCount, more, rows) => {
+      resolve(allRows);
+    });
+
+    connection.execSql(request);
+  });
+}
+
+app.get("/instructors", (req, res) => {
+  getAllInstructors().then((rows) => {
+    res.json(rows);
+  })
+});
+
 /* Init connection to database */
 const connection = new Connection(databaseConfig);
 connection.on("connect", err => {
