@@ -14,7 +14,7 @@ class API {
         })
       }, 50)
     })
-  } 
+  }
 
   getSemesters = () => {
     return new Promise((resolve, reject) => {
@@ -49,59 +49,6 @@ class API {
     })
   }
 
-  getOfferings = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([
-          {
-            subject: "CPT_S",
-            courseNum: "121",
-            courseTitle: "Program Design and Development C/C++",
-            courseInstructor: "Luis De La Torre",
-            courseDays: "M, W",
-            startTime: "4:15PM",
-            endTime: "5:30PM",
-            room: "Floyd 131",
-            id: "8924"
-          },
-          {
-            subject: "CPT_S",
-            courseNum: "122",
-            courseTitle: "Data Structures C/C++",
-            courseInstructor: "Nathan Tenney",
-            courseDays: "TU, TH",
-            startTime: "4:20PM",
-            endTime: "5:35PM",
-            room: "Floyd 133",
-            id: "15740"
-          },
-          {
-            subject: "CPT_S",
-            courseNum: "360",
-            courseTitle: "Systems Programming C/C++",
-            courseInstructor: "Bob Lewis",
-            courseDays: "TU, TH",
-            startTime: "2:55PM",
-            endTime: "4:10PM",
-            room: "Floyd 133",
-            id: "15745"
-          },
-          {
-            subject: "CPT_S",
-            courseNum: "451",
-            courseTitle: "Introduction to Database Systems",
-            courseInstructor: "Russell Swannack",
-            courseDays: "TU, TH",
-            startTime: "4:20PM",
-            endTime: "5:35PM",
-            room: "BSEL 103",
-            id: "15922"
-          },
-        ])
-      }, 2500)
-    })
-  }
-
   getAllCourses = () => {
     return fetch("http://localhost:8000/courses")
       .then(response => response.json())
@@ -112,6 +59,14 @@ class API {
 
   getAllInstructors = () => {
     return fetch("http://localhost:8000/instructors")
+      .then(response => response.json())
+      .then(res => {
+        return res;
+      })
+  }
+
+  getAllOfferings = () => {
+    return fetch("http://localhost:8000/offerings")
       .then(response => response.json())
       .then(res => {
         return res;

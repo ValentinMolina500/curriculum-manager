@@ -3,17 +3,21 @@ import { createSlice } from "@reduxjs/toolkit"
 export const offeringsSlice = createSlice({
   name: "offering",
   initialState: {
-    offerings: [],
+    offerings: {
+      "8aa25ed4-5e8f-41d9-a70a-b1b0f68dad2e": []
+    },
     status: 'idle',
     error: null,
   },
   reducers: {
     offeringsSuccess: (state, action) => {
-      state.offerings = action.payload;
-      state.status =  'success';
+      const { semesterId, offerings } = action.payload;
+      state.offerings[semesterId] = offerings;
+      state.status = 'success';
     },
     offeringsError: (state, action) => {
       state.status = 'error';
+      state.error = action.payload;
     },
     setOfferingStatus: (state, action) => {
       state.status = action.payload;
@@ -23,7 +27,12 @@ export const offeringsSlice = createSlice({
 
 export const { offeringsSuccess, offeringsError, setOfferingStatus } = offeringsSlice.actions;
 
-export const selectOfferings = (state) => state.offerings.offerings;
-export const selectOfferingsById = (state, id) => state.offerings.offerings.find((offering) => offering.id === id);
+export const selectOfferingsById = (state, semesterId) => {
+  console.log(state[semesterId]);
+  return {
+    state: state.offerings.status,
+    offerings: state.offerings.offerings[semesterId] ?? []
+  }
+}
 
 export default offeringsSlice.reducer;
