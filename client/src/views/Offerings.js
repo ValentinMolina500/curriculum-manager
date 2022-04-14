@@ -117,6 +117,11 @@ const OFFERING_COLUMNS = [
     width: "10%"
   },
   {
+    property: "OffSection",
+    title: "Section #",
+    width: "10%"
+  },
+  {
     property: "CrsName",
     title: "Course Title",
     width: "10%"
@@ -149,7 +154,7 @@ const OFFERING_COLUMNS = [
     width: "10%"
   },
   {
-    property: "room",
+    property: "Room",
     title: "Room",
     width: "10%"
   },

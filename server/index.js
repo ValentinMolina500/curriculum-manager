@@ -137,11 +137,13 @@ function getAllOfferings() {
       `SELECT TOP (1000) [CrsSubject]
       ,[CrsNumber]
       ,[OffSection]
+      ,[OffSection]
       ,[CrsName]
       ,[Instructor]
       ,[OffDay]
       ,[OffStartTime]
       ,[OffEndTime]
+      ,[Room]
       FROM [CMP].[Offering_vw]
       `,
       (err, rowCount) => {
