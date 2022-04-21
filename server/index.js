@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const { Connection, Request } = require("tedious");
 const express = require("express");
+const bodyParser = require('body-parser');
 
 const databaseConfig = require("./dbconfig");
 // const { queryDatabase } = require("./dboperations");
@@ -13,6 +14,8 @@ let serverInit = false;
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 8000;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(cors());
 app.get("/", (req, res) => {
 
@@ -79,6 +82,40 @@ app.get("/courses", (req, res) => {
     res.json(rows);
   })
 });
+
+app.post("/courses", (req, res) => {
+  addCourse(req.body).then(() => {
+    res.sendStatus(200);
+  });
+});
+
+function addCourse(payload) {
+  return new Promise((resolve, reject) => {
+
+    const request = new Request(
+      `INSERT INTO [CPT_S].[Computer_Science]
+      ([Subject]
+        ,[Class #]
+        ,[Title]
+        ,[Credits])
+      VALUES
+      ('${payload.coursePrefix}'
+      ,'${payload.courseNum}'
+      ,'${payload.courseTitle}'
+      ,'${payload.courseCredits}')`,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      }
+    );
+
+    connection.execSql(request);
+  });
+}
 
 function getAllInstructors() {
   return new Promise((resolve, reject) => {

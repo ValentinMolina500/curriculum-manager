@@ -57,6 +57,20 @@ class API {
       })
   }
 
+  addNewCourse = (payload) => {
+    return fetch("http://localhost:8000/courses", {
+      method: "POST", body: JSON.stringify(payload), headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        return res;
+      })
+      .then(res => {
+        return res
+      })
+  }
+
   getAllInstructors = () => {
     return fetch("http://localhost:8000/instructors")
       .then(response => response.json())
