@@ -3,9 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 export const instructorsSlice = createSlice({
   name: "instructor",
   initialState: {
-    instructors: {
-      "8aa25ed4-5e8f-41d9-a70a-b1b0f68dad2e": []
-    },
+    instructors: [],
     status: 'idle',
     error: null,
   },
@@ -13,7 +11,7 @@ export const instructorsSlice = createSlice({
     instructorsSuccess: (state, action) => {
       const { semesterId, instructors } = action.payload;
       
-      state.instructors[semesterId] = instructors;
+      state.instructors  = instructors;
       state.status =  'success';
     },
     instructorsError: (state, action) => {
@@ -22,17 +20,20 @@ export const instructorsSlice = createSlice({
     },
     setInstructorStatus: (state, action) => {
       state.status = action.payload;
+    },
+    addInstructor: (state, action) => {
+      state.instructors.push(action.payload);
+      state.status =  'success';
     }
   }
 })
 
-export const { instructorsSuccess, instructorsError, setInstructorStatus } = instructorsSlice.actions;
+export const { instructorsSuccess, instructorsError, setInstructorStatus, addInstructor } = instructorsSlice.actions;
 
 export const selectInstructorsById = (state, semesterId) => {
-  console.log(state[semesterId])
   return {
     status: state.instructors.status,
-    instructors: state.instructors.instructors[semesterId] ?? []
+    instructors: state.instructors.instructors
   }
 }
 export default instructorsSlice.reducer;

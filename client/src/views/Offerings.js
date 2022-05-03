@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { selectOfferingsById } from "../store/offeringsSlice";
 import { Link, useNavigate } from "react-router-dom";
 import OfferingsModal from "./OfferingsModal";
+import { renderTime } from "../utils/Time";
 
 function Offerings(props) {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
@@ -31,7 +32,9 @@ function Offerings(props) {
   // const navigate = useNavigate();
 
   const renderOfferings = () => {
+    console.log("This is offerings: ", offerings);
     return offerings.map((offering) => {
+
       return (
         <Tr
           key={offering.id}
@@ -139,19 +142,26 @@ const OFFERING_COLUMNS = [
   {
     property: "OffStartTime",
     title: "Start Time",
-    // render: (time, column) => {
-    //   return (
-    //     <Td py="0.25rem">
-    //       {time[column.property].toISOString()}
-    //     </Td>
-    //   )
-    // },
+    render: (time, column) => {
+      return (
+        <Td py="0.25rem">
+          {renderTime(new Date(time[column.property]))}
+        </Td>
+      )
+    },
     width: "10%"
   },
   {
     property: "OffEndTime",
     title: "End Time",
-    width: "10%"
+    width: "10%",
+    render: (time, column) => {
+      return (
+        <Td py="0.25rem">
+          {renderTime(new Date(time[column.property]))}
+        </Td>
+      )
+    },
   },
   {
     property: "Room",

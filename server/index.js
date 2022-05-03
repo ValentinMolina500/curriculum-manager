@@ -117,6 +117,47 @@ function addCourse(payload) {
   });
 }
 
+function addInstructor(payload) {
+  return new Promise((resolve, reject) => {
+
+    const request = new Request(
+      `INSERT INTO [CMP].[Instructor]
+      ([InsFirstName]
+        ,[InsLastName]
+        ,[InsEmail]
+        ,[InsStatus]
+        ,[InsSafetyOrientation])
+      VALUES
+      ('${payload.firstName}'
+      ,'${payload.lastName}'
+      ,'${payload.wsuEmail}'
+      ,'${payload.isAdjunct}'
+      ,'${payload.hadSafetyOrientation}')`,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      }
+    );
+
+    request.on("doneInProc",(rowCount, more, rows) => {
+      resolve(rows);
+    })
+
+    connection.execSql(request);
+  });
+}
+
+app.post("/instructors", (req, res) => {
+  addInstructor(req.body).then((row) => {
+    console.log("THIS IS RETURNED ROW: ", row);
+    res.json(row);
+  })
+})
+
 function getAllInstructors() {
   return new Promise((resolve, reject) => {
     const allRows = [];
@@ -146,6 +187,7 @@ function getAllInstructors() {
       const row = {};
 
       columns.forEach((column) => {
+   
         row[column.metadata.colName] = column.value;
       })
 
@@ -197,7 +239,15 @@ function getAllOfferings() {
       const row = {};
 
       columns.forEach((column) => {
-        row[column.metadata.colName] = column.value;
+        const colName = column.metadata.colName;
+
+        if (colName === "OffStartTime" || colName === "OffEndTime")
+        {
+          row[colName] = column.value.getTime();
+        } else {
+          row[colName] = column.value;
+
+        }
       })
 
       allRows.push(row);

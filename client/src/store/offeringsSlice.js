@@ -28,7 +28,6 @@ export const offeringsSlice = createSlice({
 export const { offeringsSuccess, offeringsError, setOfferingStatus } = offeringsSlice.actions;
 
 export const selectOfferingsById = (state, semesterId) => {
-  console.log(state[semesterId]);
   return {
     state: state.offerings.status,
     offerings: state.offerings.offerings[semesterId] ?? []

@@ -86,6 +86,20 @@ class API {
         return res;
       })
   }
+
+  addNewInstructor = (payload) => {
+      return fetch("http://localhost:8000/instructors", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(res => res);
+  }
 }
 
 const instance = new API();

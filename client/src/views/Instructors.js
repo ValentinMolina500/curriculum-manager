@@ -21,14 +21,8 @@ import InstructorsModal from './InstructorsModal';
 
 function Instructors(props) {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
-  const { instructors, status: instructorsStatus, error: instructorError } = useSelector(state => selectInstructorsById(state, semesterId));
-  // const {
-  //   selectedInstructorId,
-  //   setSelectedInstructorId
-  // } = props;
+  const { instructors, status: instructorsStatus, error: instructorError } = useSelector(state => state.instructors);
 
-  // const instructors = useSelector(selectInstructors);
-  // const navigate = useNavigate();
 
   const renderInstructors = () => {
     return instructors.map((instructor) => {

@@ -140,7 +140,7 @@ function ViewSemester(props) {
           minH={0}
         >
           <Flex alignItems="center" w="100%" justifySelf={"center"}
-            maxW={"1280px"}>
+            maxW={"1920px"}>
             {/* User profile items */}
             <Flex bg="white" direction={"row"} align="center"
               border="1px solid #efefef"
