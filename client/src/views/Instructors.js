@@ -23,8 +23,9 @@ function Instructors(props) {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
   const { instructors, status: instructorsStatus, error: instructorError } = useSelector(state => state.instructors);
 
-
+  const navigate = useNavigate();
   const renderInstructors = () => {
+
     return instructors.map((instructor) => {
       return (
         <Tr
@@ -42,7 +43,15 @@ function Instructors(props) {
               return column.render(instructor, column);
             }
 
-            return <Td py="0.25rem" minHeight={0} key={`${instructor.id}${column.property}`} width={column.width}>{instructor[column.property]}</Td>
+            return <Td 
+              py="0.25rem" 
+              minHeight={0} 
+              key={`${instructor.id}${column.property}`} 
+              width={column.width}
+              onClick={() => navigate(`${instructor.InsID}`)}
+              >
+                {instructor[column.property]}
+              </Td>
           })}
         </Tr>
       );
@@ -84,7 +93,7 @@ function Instructors(props) {
         </Heading>
         <InstructorsModal />
       </Flex>
-      {renderInstructorTable()}
+      {renderInstructorTable()} 
     </Stack>
   );
 }

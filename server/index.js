@@ -267,6 +267,26 @@ app.get("/offerings", (req, res) => {
   })
 });
 
+function deleteInstructor(instructorId) {
+  return new Promise((resolve, reject) => {
+    const request = new Request(
+      `
+      
+      `
+    );
+
+    request.on("doneInProc", (rowCount, more, rows) => {
+      resolve(allRows);
+    });
+
+    connection.execSql(request);
+  });
+}
+
+app.delete("/instructors", (req, res) => {
+
+})
+
 /* Init connection to database */
 const connection = new Connection(databaseConfig);
 connection.on("connect", err => {

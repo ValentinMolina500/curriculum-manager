@@ -52,13 +52,22 @@ function* watchFetchSemesters() {
 }
 
 function* fetchInstructors(action) {
+  let onSuccess;
+  if (action.payload) {
+    onSuccess = action.payload.onSuccess;
+  }
+
   yield put(setInstructorStatus("loading"));
 
   try {
-    const result = yield call(API.getInstructors);
+    const result = yield call(API.getAllInstructors);
 
-    yield put(instructorsSuccess(result));
+    if (onSuccess) {
+      onSuccess();
+    }
+    yield put(instructorsSuccess({ instructors: result }));
   } catch (error) {
+    console.error("THIS IS ERROR IN FETCH ISNTRU: ", error);
     yield put(instructorsError(error));
   }
 }
@@ -123,14 +132,12 @@ function* selectSemester(action) {
 
   try {
     const courses = yield call(API.getAllCourses);
-    console.log("COURSES", courses);
     yield put(coursesSuccess({
       semesterId,
       courses
     }));
 
     const instructors = yield call(API.getAllInstructors);
-    console.log("INSTRUCTORS", instructors);
     yield put(instructorsSuccess({
       semesterId,
       instructors
@@ -166,14 +173,15 @@ function* addNewInstructor(action) {
   yield put(setInstructorStatus('loading'));
 
   try {
-    const result = yield call(API.addNewInstructor, newInstructor);
-    // yield put(addInstructor(result));
-    yield put({ type: types.FETCH_INSTRUCTORS });
+    yield call(API.addNewInstructor, newInstructor);
+    yield put({ 
+      type: types.FETCH_INSTRUCTORS, 
+      payload: {
+        onSuccess
+      } 
+    });
 
-    if (onSuccess) {
-      onSuccess();
-    }
-
+ 
   } catch (error) {
     console.error("ERROR in addnewInstructor: ", error);
     yield put(instructorsError(error));
@@ -182,6 +190,18 @@ function* addNewInstructor(action) {
 
 function* watchAddNewInstructor() {
   yield takeLatest(types.ADD_INSTRUCTOR, addNewInstructor);
+}
+
+function* deleteInstructor(action) {
+  const { instructorId, onSuccess } = action.payload;
+  yield put(setInstructorStatus('loading'));
+
+  try {
+    // Call endpoint to delete instructor : )
+  } catch (error) {
+    console.error("ERROR in deleteInstructor: ", error);
+    yield put(instructorsError(error));
+  }
 }
 
 

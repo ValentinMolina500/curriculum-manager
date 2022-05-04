@@ -36,4 +36,8 @@ export const selectInstructorsById = (state, semesterId) => {
     instructors: state.instructors.instructors
   }
 }
+
+export const selectSingleInstructorById = (state, instructorId) => {
+  return state.instructors.instructors.find((instr) => instr.InsID == instructorId)
+}
 export default instructorsSlice.reducer;
