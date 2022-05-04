@@ -276,7 +276,7 @@ function deleteInstructor(instructorId) {
     );
 
     request.on("doneInProc", (rowCount, more, rows) => {
-      resolve(allRows);
+      resolve();
     });
 
     connection.execSql(request);
