@@ -1,0 +1,421 @@
+USE [curriculum-manager];
+GO
+
+
+CREATE PROCEDURE [CMP].[DeleteInstructor]
+	@insID int
+AS
+BEGIN
+	DELETE FROM CMP.OfferingInstructor WHERE InsID = @insID;
+	DELETE FROM CMP.InstructorAuthorization WHERE InsID = @insID;
+	DELETE FROM CMP.Instructor WHERE InsID = @insID;
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[DeleteOffering]
+	@offID int
+AS
+BEGIN
+	DELETE FROM CMP.OfferingInstructor WHERE OffID = @offID;
+	DELETE FROM CMP.Offering WHERE OffID = @offID;
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[InsertCourse]
+	@crsNumber int,
+	@crsName nvarchar(255),
+	@crsDesc nvarchar(max),
+	@crsSubject nvarchar(6)
+AS
+BEGIN
+	INSERT INTO CMP.Course
+	(
+		CrsNumber,
+		CrsName,
+		CrsDescription,
+		CrsSubject
+	)
+	VALUES
+	(
+		@crsNumber,
+		@crsName,
+		@crsDesc,
+		@crsSubject
+	);
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[InsertInstructor]
+	@insFirstName nvarchar(60),
+	@insMiddleName nvarchar(60),
+	@insLastName nvarchar(60),
+	@insEmail nvarchar(60),
+	@insStatus int,
+	@insSafetyOrientation int
+AS
+BEGIN
+	INSERT INTO CMP.Instructor
+	(
+		InsFirstName,
+		InsMiddleName,
+		InsLastName,
+		InsEmail,
+		InsStatus,
+		InsSafetyOrientation
+	)
+	VALUES
+	(
+		@insFirstName,
+		@insMiddleName,
+		@insLastName,
+		@insEmail,
+		@insStatus,
+		@insSafetyOrientation
+	);
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[InsertOffering]
+	@crsID int,
+	@offDay nvarchar(13),
+	@offStart nvarchar(5),
+	@offEnd nvarchar(5),
+	@offNumber int,
+	@offSection nvarchar(3),
+	@offBuilding nvarchar(4),
+	@offRoom nvarchar(4),
+	@offLimit int,
+	@offEnrolled int,
+	@offCredits varchar(1),
+	@offSeason varchar(6),
+	@offYear int,
+	@insID int
+AS
+BEGIN
+	INSERT INTO [CMP].Offering
+	(
+		CrsID,
+		OffDay,
+		OffStartTime,
+		OffEndTime,
+		OffNumber,
+		OffSection,
+		OffBuilding,
+		OffRoom,
+		OffLimit,
+		OffEnrolled,
+		OffCredits,
+		OffSeason,
+		OffYear
+	)
+	VALUES
+	(
+		@crsID,
+		@offDay,
+		@offStart,
+		@offEnd,
+		@offNumber,
+		@offSection,
+		@offBuilding,
+		@offRoom,
+		@offLimit,
+		@offEnrolled,
+		@offCredits,
+		@offSeason,
+		@offYear
+	);
+
+	DECLARE @offID int;
+	SET @offID = (SELECT SCOPE_IDENTITY());
+	
+	INSERT INTO [CMP].OfferingInstructor
+	(
+		OffID,
+		InsID
+	)
+	VALUES
+	(
+		@offID,
+		@insID
+	);
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[UpdateCourse]
+	@crsID int,
+	@crsNumber int,
+	@crsName nvarchar(255),
+	@crsDesc nvarchar(max),
+	@crsSubject nvarchar(6)
+AS
+BEGIN
+	UPDATE CMP.Course SET
+		CrsNumber = @crsNumber,
+		CrsName = @crsName,
+		CrsDescription = @crsDesc,
+		CrsSubject = @crsSubject
+	WHERE CrsID = @crsID;
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[UpdateInstructor]
+	@insID int,
+	@insFirstName nvarchar(60),
+	@insMiddleName nvarchar(60),
+	@insLastName nvarchar(60),
+	@insEmail nvarchar(60),
+	@insStatus int,
+	@insSafetyOrientation int
+AS
+BEGIN
+	UPDATE CMP.Instructor SET
+		InsFirstName = @insFirstName,
+		InsMiddleName = @insMiddleName,
+		InsLastName = @insLastName,
+		InsEmail = @insEmail,
+		InsStatus = @insStatus,
+		InsSafetyOrientation = @insSafetyOrientation
+	WHERE InsID = @insID;
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[UpdateOffering]
+	@offID int,
+	@crsID int,
+	@offDay nvarchar(13),
+	@offStart nvarchar(5),
+	@offEnd nvarchar(5),
+	@offNumber int,
+	@offSection nvarchar(3),
+	@offBuilding nvarchar(4),
+	@offRoom nvarchar(4),
+	@offLimit int,
+	@offEnrolled int,
+	@offCredits varchar(1),
+	@offSeason varchar(6),
+	@offYear int,
+	@insID int
+AS
+BEGIN
+	UPDATE [CMP].Offering SET
+		CrsID = @crsID,
+		OffDay = @offDay,
+		OffStartTime = @offStart,
+		OffEndTime = @offEnd,
+		OffNumber = @offNumber,
+		OffSection = @offSection,
+		OffBuilding = @offBuilding,
+		OffRoom = @offRoom,
+		OffLimit = @offLimit,
+		OffEnrolled = @offEnrolled,
+		OffCredits = @offCredits,
+		OffSeason = @offSeason,
+		OffYear = @offYear
+	WHERE OffID = @offID;
+	
+	UPDATE CMP.OfferingInstructor SET
+		InsID = @insID
+	WHERE OffID = @offID;
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[UpdateOfferingTime]
+	@offID int,
+	@offDay nvarchar(13),
+	@offStart nvarchar(5),
+	@offEnd nvarchar(5)
+AS
+BEGIN
+	UPDATE [CMP].Offering SET
+		OffDay = @offDay,
+		OffStartTime = @offStart,
+		OffEndTime = @offEnd
+	WHERE OffID = @offID;
+	
+END
+GO
+
+
+CREATE PROCEDURE [CMP].[GetLargestSection]
+	@crsID int,
+	@section varchar(3) OUTPUT
+AS
+	SELECT @section = OffSection FROM Offering
+	WHERE CrsID = @crsID
+	ORDER BY OffSection DESC;
+
+	RETURN
+GO
+
+
+CREATE proc [dbo].[dup_check] 
+		@schema varchar(128),
+		@table_name varchar(128)
+		
+as
+BEGIN
+
+declare @sql_cmd nvarchar(max);
+
+set @sql_cmd = 
+	'WITH CTE ([Class]
+      ,[Sec]
+      ,[Cls_Nbr]
+      ,[Cr]
+      ,[Days & Times]
+      ,[Bldg & Room]
+      ,[Dates]
+      ,[Instructor]
+	  , DuplicateCount)
+AS (SELECT [Class],
+      [Sec],
+      [Cls_Nbr],
+      [Cr],
+      [Days & Times],
+      [Bldg & Room],
+      [Dates],
+      [Instructor],
+	   ROW_NUMBER() OVER(PARTITION BY [Class],
+									  [Sec],
+									  [Cls_Nbr],
+									  [Cr],
+									  [Days & Times],
+									  [Bldg & Room],
+									  [Dates],
+									  [Instructor]
+           ORDER BY Sec) AS DuplicateCount
+    FROM'+'['+@schema+']'+'.'+'['+@table_name+'])'+'
+DELETE FROM CTE
+WHERE DuplicateCount > 1'
+
+exec sp_executesql @sql_cmd; 
+END
+GO
+
+
+CREATE proc [dbo].[Conflict_check]
+@course_subject nvarchar(10),
+@course_name nvarchar(max)
+
+as
+BEGIN
+	
+	--sudo cursor table
+	IF OBJECT_ID('tempdb..#output') IS NOT NULL DROP TABLE #parameter_join
+		
+		create table #parameter_join (  [CrsID] [int] NULL,
+										[CrsSubject] [nvarchar](10) NULL,
+										[CrsNumber] [int] NULL,
+										[OffSection] [nvarchar](10) NULL,
+										[CrsName] [nvarchar](max) NULL,
+										[Instructor] [nvarchar](max) NULL,
+										[OffDay] [nvarchar] (max) NULL,
+										[OffStartTime] [time](7) NULL,
+										[OffEndTime] [time](7) NULL,
+										[Room] [nvarchar](20) NULL,
+							  )
+		; 
+		
+		insert into #parameter_join  
+		select * from CMP.TAOD_vw
+		where CrsSubject = @course_subject and CrsName = @course_name
+
+		--select * from #parameter_join
+
+	--drop table #output
+	IF OBJECT_ID('tempdb..#output') IS NOT NULL DROP TABLE #list_1
+
+		create table #list_1 ([CrsID] [int] NULL,
+							  [CrsSubject] [nvarchar](10) NULL,
+							  [CrsNumber] [int] NULL,
+							  [OffSection] [nvarchar](10) NULL,
+							  [CrsName] [nvarchar](max) NULL,
+							  [Instructor] [nvarchar](max) NULL,
+							  [OffDay] [nvarchar] (max) NULL,
+							  [OffStartTime] [time](7) NULL,
+							  [OffEndTime] [time](7) NULL,
+							  [Room] [nvarchar](20) NULL,
+							  )
+		; 
+		
+		insert into #list_1
+		select top 50 percent * from CMP.TAOD_vw
+		where CrsName != @course_name
+		order by CrsNumber ASC
+		
+		select * from #list_1
+;
+	--drop table #output
+	IF OBJECT_ID('tempdb..#output') IS NOT NULL DROP TABLE #list_2
+
+		create table #list_2 ([CrsID] [int] NULL, 
+							  [CrsSubject] [nvarchar](10) NULL,
+							  [CrsNumber] [int] NULL,
+							  [OffSection] [nvarchar](10) NULL,
+							  [CrsName] [nvarchar](max) NULL,
+							  [Instructor] [nvarchar](max) NULL,
+							  [OffDay] [nvarchar] (max) NULL,
+							  [OffStartTime] [time](7) NULL,
+							  [OffEndTime] [time](7) NULL,
+							  [Room] [nvarchar](20) NULL,
+							  )
+		; 
+
+		insert into #list_2
+		select top 50 percent * from CMP.TAOD_vw
+		where CrsName != @course_name
+		order by CrsNumber DESC
+		
+		select * from #list_2
+;
+			select * from #list_1 l1
+			inner join #list_2 l2
+			on
+			l1.OffStartTime < l2.OffEndTime and l1.OffEndTime > l2.OffStartTime
+			and l1.Room = l2.Room
+			inner join #parameter_join pr
+			on
+			(pr.OffStartTime < l2.OffEndTime and pr.OffEndTime > l2.OffStartTime)
+			and l2.Room = pr.Room
+			where 
+			(pr.OffDay = l2.OffDay)
+			and 
+			(l2.OffDay = l1.OffDay)
+
+	
+		select ct.[CrsID], ct.[CrsSubject], ct.[CrsNumber], ct.[OffSection], ct.[CrsName], ct.[Instructor], ct.[OffDay], ct.[OffStartTime], ct.[OffEndTime], ct.[Room] from CMP.TAOD_vw as ct
+		inner join #parameter_join pj
+		on
+		ct.OffStartTime < pj.OffEndTime and ct.OffEndTime > pj.OffStartTime
+		and ct.Room = pj.Room
+		where
+		(pj.CrsID != ct.CrsID and pj.CrsName = ct.CrsName)
+		order by ct.CrsNumber;
+
+		print 'crosslisted';
+
+	with ctetable
+	as
+	(
+		select ct.[CrsID], ct.[CrsSubject], ct.[CrsNumber], ct.[OffSection], ct.[CrsName], ct.[Instructor], ct.[OffDay], ct.[OffStartTime], ct.[OffEndTime], ct.[Room] 
+		from CMP.TAOD_vw as ct
+		where ct.[CrsName] = 'Software Design'
+		
+	)
+	select cte.[CrsID], cte.[CrsSubject], cte.[CrsNumber], cte.[OffSection], cte.[CrsName], cte.[Instructor], cte.[OffDay], cte.[OffStartTime], cte.[OffEndTime], cte.[Room] from ctetable as cte
+		union(
+				select ct.[CrsID], ct.[CrsSubject], ct.[CrsNumber], ct.[OffSection], ct.[CrsName], ct.[Instructor], ct.[OffDay], ct.[OffStartTime], ct.[OffEndTime], ct.[Room] 
+				from CMP.TAOD_vw as ct
+				where ct.[CrsName] = '[M] Software Engineering Principles I'
+			)
+	print 'concurrent enrollment';
+END	
+GO

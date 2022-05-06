@@ -1,0 +1,110 @@
+CREATE DATABASE [curriculum-manager];
+GO
+
+USE [curriculum-manager];
+GO
+
+CREATE TABLE [CMP].[Course]
+(
+	[CrsID] [int] NOT NULL IDENTITY(1,1),
+	[CrsNumber] [int] NULL,
+	[CrsName] [nvarchar](255) NULL,
+	[CrsDescription] [nvarchar](max) NULL,
+	[CrsSubject] [nvarchar](6) NULL,
+CONSTRAINT Course_PK PRIMARY KEY (CrsID)
+);
+
+CREATE TABLE [CMP].[Offering]
+(
+	[OffID] [int] NOT NULL IDENTITY(1,1),
+	[CrsID] [int] NOT NULL,
+	[OffDay] [int] NULL,
+	[OffStartTime] [time] NULL,
+	[OffEndTime] [time] NULL,
+	[OffNumber] [int] NULL,
+	[OffSection] [nvarchar](3) NULL,
+	[OffBuilding] [nvarchar](4) NULL,
+	[OffRoom] [int] NULL,
+	[OffLimit] [int] NULL,
+	[OffEnrolled] [int] NULL,
+	[OffCredits] [int] NULL,
+	[OffSemester] [int] NULL,
+    [OffStartDate] [date] NULL,
+    [OffEndDate] [date] NULL,
+CONSTRAINT Offering_PK PRIMARY KEY (OffID)
+);
+
+CREATE TABLE [CMP].[Instructor]
+(
+	[InsID] [int] NOT NULL IDENTITY(1,1),
+	[InsWSUID] [int] NULL,
+	[InsFirstName] [nvarchar](60) NULL,
+	[InsMiddleName] [nvarchar](60) NULL,
+	[InsLastName] [nvarchar](60) NULL,
+	[InsEmail] [nvarchar](60) NULL,
+	[InsStatus] [int] NULL,
+	[InsSafetyOrientation] [int] NULL,
+CONSTRAINT Instructor_PK PRIMARY KEY (InsID) 
+);
+
+CREATE TABLE [CMP].[OfferingInstructor]
+(
+	[OffID] [int] NOT NULL,
+	[InsID] [int] NOT NULL,
+CONSTRAINT OffIns_PK PRIMARY KEY (OffID, InsID)
+);
+
+CREATE TABLE [CMP].[CourseRequirements]
+(
+	[CrsID] [int] NOT NULL,
+	[CrsIDReq] [int] NOT NULL,
+	[Concurrent] [int] NULL,
+CONSTRAINT CrsReq_PK PRIMARY KEY (CrsID, CrsIDReq)
+);
+
+CREATE TABLE [CMP].[InstructorAuthorization]
+(
+	[InsID] [int] NOT NULL,
+	[CrsID] [int] NOT NULL,
+CONSTRAINT InsAuth_PK PRIMARY KEY (InsID, CrsID)
+);
+
+/*===================================================*/
+/* RELATIONSHIP creation (Foreign Keys)              */
+/*===================================================*/
+
+ALTER TABLE [CMP].[Offering]
+    ADD CONSTRAINT OfferingCrsID_FK FOREIGN KEY (CrsID)
+        REFERENCES [CMP].[Course](CrsID);
+        
+ALTER TABLE [CMP].[OfferingInstructor]
+    ADD CONSTRAINT OIOffID_FK FOREIGN KEY (OffID)
+        REFERENCES [CMP].[Offering](OffID)
+            ON DELETE CASCADE;
+
+ALTER TABLE [CMP].[OfferingInstructor]
+    ADD CONSTRAINT OIInsID_FK FOREIGN KEY (InsID)
+        REFERENCES [CMP].[Instructor](InsID)
+            ON DELETE CASCADE;
+            
+ALTER TABLE [CMP].[CourseRequirements]
+    ADD CONSTRAINT CrsReqCrsID_FK FOREIGN KEY (CrsID)
+        REFERENCES [CMP].[Course](CrsID)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION;
+
+ALTER TABLE [CMP].[CourseRequirements]
+    ADD CONSTRAINT CrsReqCrsIDReq_FK FOREIGN KEY (CrsID)
+        REFERENCES [CMP].[Course](CrsID)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
+            
+ALTER TABLE [CMP].[InstructorAuthorization]
+    ADD CONSTRAINT InsAuthInsID_FK FOREIGN KEY (InsID)
+        REFERENCES [CMP].[Instructor](InsID)
+            ON DELETE CASCADE;
+
+ALTER TABLE [CMP].[InstructorAuthorization]
+    ADD CONSTRAINT InsAuthCrsID_FK FOREIGN KEY (CrsID)
+        REFERENCES [CMP].[Course](CrsID)
+            ON DELETE CASCADE;

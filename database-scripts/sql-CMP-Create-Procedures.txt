@@ -1,0 +1,46 @@
+USE [curriculum-manager]
+GO
+
+CREATE view [CMP].[Offering_vw]
+as
+select o.OffID, c.CrsID, i.InsID, c.CrsSubject, c.CrsNumber, o.OffSection, c.CrsName, concat(i.InsFirstName,' ',i.InsLastName) as Instructor, o.OffDay, o.OffStartTime , o.OffEndTime, concat(o.OffBuilding,' ',o.OffRoom) as Room from CMP.Offering as o
+join CMP.OfferingInstructor as oi on o.OffID = oi.OffID
+join CMP.Course as c on c.CrsID = o.CrsID
+join CMP.Instructor as i on i.InsID = oi.InsID
+;
+GO
+
+CREATE VIEW [CMP].[OfferingsIns_vw] AS
+SELECT
+	Offering.OffID,
+	Offering.CrsID,
+	Instructor.InsID,
+	Course.CrsSubject,
+	Course.CrsNumber,
+	Offering.OffDay,
+	Offering.OffStartTime,
+	Offering.OffEndTime,
+	Offering.OffSection,
+	Offering.OffSeason,
+	Offering.OffYear,
+	Instructor.InsFirstName,
+	Instructor.InsLastName
+FROM
+	(CMP.Offering
+	JOIN (
+		CMP.OfferingInstructor
+		JOIN
+		CMP.Instructor ON OfferingInstructor.InsID = Instructor.InsID
+	) ON Offering.OffID = OfferingInstructor.OffID)
+	JOIN
+	CMP.Course ON Offering.CrsID = Course.CrsID;
+GO
+
+CREATE view [CMP].[TAOD_vw]
+as
+select o.CrsID, c.CrsSubject, c.CrsNumber, o.OffSection, c.CrsName, concat(i.InsFirstName,' ',i.InsLastName) as Instructor, o.OffDay, o.OffStartTime , o.OffEndTime, concat(o.OffBuilding,' ',o.OffRoom) as Room from CMP.Offering as o
+join CMP.OfferingInstructor as oi on o.OffID = oi.OffID
+join CMP.Course as c on c.CrsID = o.CrsID
+join CMP.Instructor as i on i.InsID = oi.InsID
+;
+GO
