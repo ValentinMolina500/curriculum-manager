@@ -40,14 +40,12 @@ function getAllCourses() {
     const allRows = [];
 
     const request = new Request(
-      `SELECT TOP (1000) [Class #]
-      ,[Title]
-      ,[Credits]
-      ,[prereqs]
-      ,[description]
-      ,[Mtg Days]
-      ,[Subject]
-    FROM [CPT_S].[Computer_Science]
+      `SELECT TOP (1000) [CrsID]
+      ,[CrsNumber]
+      ,[CrsName]
+      ,[CrsDescription]
+      ,[CrsSubject]
+    FROM [CMP].[Course]
       `,
       (err, rowCount) => {
         if (err) {

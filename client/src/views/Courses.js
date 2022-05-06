@@ -96,7 +96,7 @@ function Courses() {
 
 const COURSES_COLUMNS = [
   {
-    property: "Subject",
+    property: "CrsSubject",
     title: "Subject",
     render: (course, column) => {
       return (
@@ -111,12 +111,12 @@ const COURSES_COLUMNS = [
   },
 
   {
-    property: "Class #",
+    property: "CrsNumber",
     title: "Course #",
     width: "10%"
   },
   {
-    property: "Title",
+    property: "CrsName",
     title: "Course Title",
   },
 

@@ -32,7 +32,7 @@ export default function FilterableTable(props) {
       itemsToRender = tableItems.filter((item) => 
         tableColumns.some(
           ({ property }) => 
-          item[property].includes(searchFilter)
+          item[property].toLowerCase().includes(searchFilter.toLowerCase().trim())
         ))
     }
 
