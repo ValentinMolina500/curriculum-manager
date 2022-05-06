@@ -135,10 +135,10 @@ import {
   
     return (
       <>
-        <Button onClick={onOpen} color='white' backgroundColor='#A60F2D'
+        {/* <Button onClick={onOpen} color='white' backgroundColor='#A60F2D'
           _hover={{ bg: '#A60F2D', filter: 'brightness(125%)' }}>
           Add Course
-        </Button>
+        </Button> */}
         <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} >
           <ModalOverlay />
           <ModalContent maxW="600px" >
