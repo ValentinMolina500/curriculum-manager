@@ -49,6 +49,9 @@ const OfferingsModal = (props) => {
   const [courseEndTime, setCourseEndTime] = useState("");
   const [building, setBuilding] = useState("TCIC");
   const [roomNum, setRoomNum] = useState("");
+  const [credits, setCredits] = useState("");
+  const [sectionNum, setSectionNum] = useState("");
+
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -176,6 +179,16 @@ const OfferingsModal = (props) => {
             {getMeetingTimeOptions()}
           </Select>
         </FormControl>
+
+        <FormControl gridRow="6" gridColumn={"1"} isRequired>
+          <FormLabel fontSize="1rem">Credits</FormLabel>
+          <Input onChange={e => setCredits(e.target.value)} value={credits} />
+        </FormControl>
+
+        <FormControl gridRow="6" gridColumn={"2"} isRequired>
+          <FormLabel fontSize="1rem">Section Num</FormLabel>
+          <Input onChange={e => setSectionNum(e.target.value)} value={sectionNum} />
+        </FormControl>
       </Grid>
     );
   };
@@ -188,10 +201,11 @@ const OfferingsModal = (props) => {
       instructorID: courseInstructor,
       building: building,
       roomNum: roomNum,
-      credits: 4,
       meetingDays: DAY_TEMP_LOOKUP[selectedCourseGrid],
       courseStartTime: meetingTime.startTime,
       courseEndTime: meetingTime.endTime,
+      credits,
+      sectionNum
     };
     console.log(offeringData);
 

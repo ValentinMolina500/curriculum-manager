@@ -315,7 +315,7 @@ function addOffering(payload) {
       @offStart = '${payload.courseStartTime}',
       @offEnd = '${payload.courseEndTime}',
       @offNumber = NULL,
-      @offSection = '01',
+      @offSection = '${payload.sectionNum}',
       @offBuilding = '${payload.building}',
       @offRoom = '${payload.roomNum}',
       @offLimit = NULL,

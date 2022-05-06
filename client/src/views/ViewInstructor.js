@@ -48,7 +48,7 @@ function ViewInstructor(props) {
 
   const instructor = useSelector((state) =>
     selectSingleInstructorById(state, instructorId)
-  );
+  ) ?? {};
 
   const semesterId = useSelector((state) => state.semesters.selectedSemester);
 
@@ -121,7 +121,30 @@ function ViewInstructor(props) {
           tableColumns={OFFERING_COLUMNS}
           allowSearching={false}
         />
+
+        <Button mt="2rem" colorScheme={"red"} onClick={onOpen}>Delete Instructor</Button>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent maxW="410px">
+          <ModalHeader>Confirm Delete</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            Are you sure you want to delete this instructor?
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose} mr={3}>
+              Cancel
+            </Button>
+            <Button colorScheme='red' onClick={handleDelete}>
+              Delete
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       </GridItem>
+
+      
     </Grid>
   );
 }

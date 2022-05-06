@@ -24,6 +24,7 @@ import {
     NumberInputField,
     NumberInputStepper,
     NumberIncrementStepper,
+    Textarea,
     NumberDecrementStepper,
   } from "@chakra-ui/react";
   import { useState } from "react";
@@ -85,15 +86,10 @@ import {
             <Input id="courseTitle" value={courseTitle} onChange={courseTitleChangeHandler} />
           </FormControl>
   
-          <FormControl gridRow="3" gridColumn={"1 / 2"} isRequired>
-            <FormLabel htmlFor="title" >Credits</FormLabel>
-            <NumberInput min={1} max={18} value={courseCredits} onChange={courseCreditsChangeHandler}>
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
+          <FormControl gridRow="3" gridColumn={"1 / 3"} isRequired>
+            <FormLabel htmlFor="title">Description</FormLabel>
+            <Textarea>
+            </Textarea>
   
           </FormControl>
 
