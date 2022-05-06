@@ -4,8 +4,8 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/merriweather/700.css"
 
-import { useEffect, useState } from "react";
-import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import {  useState } from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 import {
   ChakraProvider,
@@ -15,11 +15,8 @@ import theme from "./theme";
 import RequireAuth from "./views/RequireAuth";
 
 import Login from "./views/Login";
-import Dashboard from './views/Dashboard'
-import Home from "./views/Home";
 
 import Semesters from "./views/Semesters";
-import AddSession from "./views/AddSession";
 import ViewSemester from "./views/SemesterDashboard";
 
 import Courses from "./views/Courses";
@@ -33,7 +30,6 @@ import ViewOffering from "./views/ViewOffering";
 import Schedule from "./views/Schedule";
 
 function App() {
-  const [selectedSemesterId, setSelectedSemesterId] = useState(null);
   const [selectedInstructorId, setSelectedInstructorId] = useState(null);
   const [selectedOfferingId, setSelectedOfferingId] = useState(null);
 

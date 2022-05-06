@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { selectInstructorsById } from "../store/instructorsSlice";
 import { Link, useNavigate } from "react-router-dom";
 import InstructorsModal from './InstructorsModal';
+import FilterableTable from "./FilterableTable";
 
 function Instructors(props) {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
@@ -93,7 +94,7 @@ function Instructors(props) {
         </Heading>
         <InstructorsModal />
       </Flex>
-      {renderInstructorTable()} 
+      <FilterableTable tableItems={instructors} tableColumns={INSTRUCTOR_COLUMNS} />
     </Stack>
   );
 }

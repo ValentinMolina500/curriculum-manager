@@ -1,4 +1,3 @@
-import { throws } from "assert";
 /**
  * Minutes is number 0 <= m <= 1440 (minutes in a day). Return
  * string representation of that:
