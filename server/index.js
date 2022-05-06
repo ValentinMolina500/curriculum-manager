@@ -143,7 +143,7 @@ function addInstructor(payload) {
       }
     );
 
-    request.on("doneInProc",(rowCount, more, rows) => {
+    request.on("doneInProc", (rowCount, more, rows) => {
       resolve(rows);
     })
 
@@ -187,7 +187,7 @@ function getAllInstructors() {
       const row = {};
 
       columns.forEach((column) => {
-   
+
         row[column.metadata.colName] = column.value;
       })
 
@@ -241,8 +241,7 @@ function getAllOfferings() {
       columns.forEach((column) => {
         const colName = column.metadata.colName;
 
-        if (colName === "OffStartTime" || colName === "OffEndTime")
-        {
+        if (colName === "OffStartTime" || colName === "OffEndTime") {
           row[colName] = column.value.getTime();
         } else {
           row[colName] = column.value;
@@ -267,13 +266,22 @@ app.get("/offerings", (req, res) => {
   })
 });
 
-function deleteInstructor(instructorId) {
+function deleteInstructor(payload) {
+  const { instructorId } = payload;
+
   return new Promise((resolve, reject) => {
     const request = new Request(
-      `
-      
-      `
-    );
+      `DELETE FROM [CMP].[Instructor] WHERE [InsID]=${instructorId}`,
+      (err, rowCount, rows) => {
+
+        console.log("THIS IS ROWS: ", rows);
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      });
 
     request.on("doneInProc", (rowCount, more, rows) => {
       resolve();
@@ -284,7 +292,9 @@ function deleteInstructor(instructorId) {
 }
 
 app.delete("/instructors", (req, res) => {
-
+  deleteInstructor(req.body).then((row) => {
+    res.sendStatus(200); // Sal Good
+  })
 })
 
 /* Init connection to database */

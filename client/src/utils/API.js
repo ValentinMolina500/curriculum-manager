@@ -88,17 +88,30 @@ class API {
   }
 
   addNewInstructor = (payload) => {
-      return fetch("http://localhost:8000/instructors", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+    return fetch("http://localhost:8000/instructors", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => {
         return response.json();
       })
       .then(res => res);
+  }
+
+  deleteInstructor = (instructorId) => {
+    return fetch("http://localhost:8000/instructors", {
+      method: "DELETE",
+      body: JSON.stringify({ instructorId }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        return response.ok;
+      })
   }
 }
 

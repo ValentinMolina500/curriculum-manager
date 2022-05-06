@@ -32,7 +32,6 @@ function Offerings(props) {
   // const navigate = useNavigate();
 
   const renderOfferings = () => {
-    console.log("This is offerings: ", offerings);
     return offerings.map((offering) => {
 
       return (

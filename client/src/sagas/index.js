@@ -100,9 +100,6 @@ function* fetchOfferings(action) {
       }
     });
 
-    console.log("THIS IS FORMATTED RESULTS: ", formattedResult);
-
-
     yield put(offeringsSuccess({
       semesterId,
       offerings: formattedResult
@@ -142,8 +139,8 @@ function* selectSemester(action) {
       semesterId,
       instructors
     }));
-    
-    yield put({ 
+
+    yield put({
       type: types.FETCH_OFFERINGS,
       payload: {
         semesterId
@@ -174,14 +171,14 @@ function* addNewInstructor(action) {
 
   try {
     yield call(API.addNewInstructor, newInstructor);
-    yield put({ 
-      type: types.FETCH_INSTRUCTORS, 
+    yield put({
+      type: types.FETCH_INSTRUCTORS,
       payload: {
         onSuccess
-      } 
+      }
     });
 
- 
+
   } catch (error) {
     console.error("ERROR in addnewInstructor: ", error);
     yield put(instructorsError(error));
@@ -198,10 +195,21 @@ function* deleteInstructor(action) {
 
   try {
     // Call endpoint to delete instructor : )
+    yield call(API.deleteInstructor, instructorId);
+    yield put({
+      type: types.FETCH_INSTRUCTORS,
+      payload: {
+        onSuccess
+      }
+    });
   } catch (error) {
     console.error("ERROR in deleteInstructor: ", error);
     yield put(instructorsError(error));
   }
+}
+
+function* watchDeleteInstructor() {
+  yield takeLatest(types.DELETE_INSTRUCTOR, deleteInstructor);
 }
 
 
@@ -212,6 +220,7 @@ export default function* rootSaga() {
     watchFetchInstructors(),
     watchFetchOfferings(),
     watchSelectSemester(),
-    watchAddNewInstructor()
+    watchAddNewInstructor(),
+    watchDeleteInstructor()
   ])
 }

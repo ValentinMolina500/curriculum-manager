@@ -1,7 +1,4 @@
 import { throws } from "assert";
-
-
-
 /**
  * Minutes is number 0 <= m <= 1440 (minutes in a day). Return
  * string representation of that:
@@ -125,7 +122,6 @@ export class TimeTree {
     insertTimeNode = (node) => {
         let newNode = { ...node, offset: 0, next: null, down: null, up: null, prev: null };
 
-        console.log("NEW NODE: ", newNode);
         // this.items.push(newNode);
         if (!this.root) {
             newNode.offset = 0;
