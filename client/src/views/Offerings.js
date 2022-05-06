@@ -12,53 +12,44 @@ import {
   Center,
   Spinner,
   Text,
-  Tag
+  Tag,
+  Grid,
+  FormControl,
+  FormLabel,
+  Select,
+  Input,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Lorem,
+  useDisclosure,
+  useToast
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectOfferingsById } from "../store/offeringsSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { selectCoursesById } from "../store/coursesSlice";
+import ReactSelect from "react-select";
+import { DAY_TIME_GRID_MAP, DAY_TEMP_LOOKUP } from "../utils/constants";
 import OfferingsModal from "./OfferingsModal";
 import { renderTime } from "../utils/Time";
+import FilterableTable from "./FilterableTable";
+import { useEffect, useMemo, useState } from 'react';
+import * as types from '../store/actions';
 
 function Offerings(props) {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { offerings, status: offeringsStatus, error: offeringError } = useSelector(state => selectOfferingsById(state, semesterId));
-  // const {
-  //   selectedOfferingId,
-  //   setSelectedOfferingId
-  // } = props;
+  const [selectedOffering, setSelectedOffering] = useState(null);
+  const dispatch = useDispatch();
+  const toast = useToast();
 
-  // const offerings = useSelector(selectOfferings);
-  // const navigate = useNavigate();
-
-  const renderOfferings = () => {
-    return offerings.map((offering) => {
-
-      return (
-        <Tr
-          key={offering.id}
-          fontSize="1rem"
-          transition="ease 250ms"
-
-          _hover={{ bg: "#efefef", cursor: "pointer" }}
-          onClick={() => {
-            // setSelectedOfferingId(offering.id); navigate(offering.id) 
-          }}
-        >
-
-          {OFFERING_COLUMNS.map(column => {
-            if (column.render) {
-              return column.render(offering, column);
-            }
-
-            return <Td py="0.25rem" key={`${offering.id}${column.property}`}>{offering[column.property]}</Td>
-          })}
-        </Tr>
-      );
-    });
-  }
-
-  const renderOfferingTable = () => {
+  const renderOfferingTable = useMemo(() => {
     if (offeringsStatus === 'loading') {
       return (
         <Center p="2rem">
@@ -71,18 +62,190 @@ function Offerings(props) {
       return <Text>{offeringError}</Text>
     }
 
+    return <FilterableTable 
+      tableItems={offerings} 
+      tableColumns={OFFERING_COLUMNS} 
+      showFilters={true} 
+      onRowClick={(item) => { setSelectedOffering(item); onOpen(); }}
+    />
+  }, [offerings])
+
+  const onOfferingDelete = () => {
+    dispatch({
+      type: types.DELETE_OFFERING,
+      payload: {
+        offeringId: selectedOffering.OffID,
+        onSuccess: () => {
+          toast({
+            title: "Offering has been deleted!",
+            position: "top",
+            status: "success",
+            duration: 2500,
+            isClosable: true,
+          });
+          onClose();
+        }
+      }
+    })
+  }
+
+
+  const { courses } = useSelector((state) =>
+    selectCoursesById(state, semesterId)
+  );
+  const { instructors } = useSelector((state) => state.instructors);
+  const [courseInstructor, setCourseInstructor] = useState();
+  const [courseDays, setCourseDays] = useState({
+    onMonday: false,
+    onTuesday: false,
+    onWednesday: false,
+    onThursday: false,
+    onFriday: false,
+  });
+  const [courseStartTime, setCourseStartTime] = useState("");
+  const [courseEndTime, setCourseEndTime] = useState("");
+  const [building, setBuilding] = useState("TCIC");
+  const [roomNum, setRoomNum] = useState("");
+
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourseGrid, setSelectedCourseGrid] = useState("M_W_F");
+  const [meetingTime, setMeetingTime] = useState({
+    startTime: "08:10",
+    endTime: "09:00",
+  });
+
+  useEffect(() => {
+    if (!selectedOffering) {
+      console.log("NO SEELLWE");
+      return;
+    }
+    console.log("THIS IS SELECTED OFFERING: ", selectedOffering);
+
+    setCourseInstructor(selectedOffering.InsID);
+    setSelectedCourse(selectedOffering.CrsID);
+    setRoomNum(selectedOffering.Room);
+  }, [selectedOffering])
+
+
+
+  const renderEditOfferingForm = () => {
+    const buildingChangeHandler = (event) => {
+      setBuilding(event.target.value);
+    };
+
+    const roomNumChangeHandler = (event) => {
+      setRoomNum(event.target.value);
+    };
+
+    const getCourseSelectOptions = () => {
+      return courses.map((course) => ({
+        label: `${course.CrsSubject} ${course.CrsNumber} ${course.CrsName}`,
+        value: course.CrsID,
+      }));
+    };
+
+    const getInstructorSelectOptions = () => {
+      return instructors.map((instr) => ({
+        label: `${instr.InsFirstName} ${instr.InsMiddleName ?? ""} ${
+          instr.InsLastName
+        }`,
+        value: instr.InsID,
+      }));
+    };
+
+    const getMeetingTimeOptions = () => {
+      const meetingTimes = DAY_TIME_GRID_MAP[selectedCourseGrid];
+      if (!meetingTimes) {
+        return [];
+      }
+
+      return meetingTimes.map((times) => (
+        <option value={JSON.stringify(times.value)}>{times.label}</option>
+      ));
+    };
+
+    const updateOffering = () => {
+
+    }
     return (
-      <Table>
-        <Thead>
-          <Tr>
-            {OFFERING_COLUMNS.map((column) => (
-              <Th key={column.property}>{column.title}</Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>{renderOfferings()}</Tbody>
-      </Table>
-    )
+      <Grid
+        gridTemplateColumns={"1fr 1fr"}
+        columnGap={"1rem"}
+        rowGap={"1rem"}
+        gridColumn="1 / 5"
+        borderRadius={"md"}
+        p="1.5rem"
+        onSubmit={updateOffering}
+      >
+        <FormControl gridRow="1" gridColumn={"1/3"} isRequired>
+          <FormLabel htmlFor="courseSelect" fontSize={"1rem"}>
+            Courses
+          </FormLabel>
+          <ReactSelect
+            value={selectedCourse}
+            id="courseSelect"
+            onChange={(opt) => setSelectedCourse(opt.value)}
+            options={getCourseSelectOptions()}
+          />
+        </FormControl>
+
+        <FormControl gridRow="2" gridColumn={"1/3"} isRequired>
+          <FormLabel htmlFor="courseInstructor" fontSize="1rem">
+            Instructor
+          </FormLabel>
+
+          <ReactSelect
+            id="courseInstructor"
+            options={getInstructorSelectOptions()}
+            onChange={(opt) => setCourseInstructor(opt.value)}
+          />
+        </FormControl>
+
+        <FormControl gridRow="3" gridColumn={"1"} isRequired>
+          <FormLabel htmlFor="building" fontSize="1rem">
+            Building
+          </FormLabel>
+          <Select
+            id="building"
+            value={building}
+            onChange={buildingChangeHandler}
+          >
+            <option value="TCIC">CIC</option>
+            <option value="EAST">East</option>
+            <option value="TFLO">Floyd</option>
+            <option value="TCOL">TCOL</option>
+            <option value="TBSL">BSEL</option>
+          </Select>
+        </FormControl>
+
+        <FormControl gridRow="3" gridColumn={"2"} isRequired>
+          <FormLabel htmlFor="roomNum" fontSize="1rem">
+            Room Number
+          </FormLabel>
+          <Input
+            id="roomNum"
+            type="number"
+            value={roomNum}
+            onChange={roomNumChangeHandler}
+          />
+        </FormControl>
+
+        <FormControl gridRow="4" gridColumn={"1/3"} isRequired>
+          <FormLabel fontSize={"1rem"}>Meeting Days</FormLabel>
+          <Select onChange={(e) => setSelectedCourseGrid(e.target.value)}>
+            <option value="M_W_F">Monday, Wednesday & Friday</option>
+            <option value="T_TH">Tuesday & Thursday</option>
+            <option value="OTH">Monday & Wednesday</option>
+          </Select>
+        </FormControl>
+        <FormControl gridRow={"5"} gridColumn={"1/3"} isRequired>
+          <FormLabel fontSize={"1rem"}>Meeting Time</FormLabel>
+          <Select onChange={(e) => setMeetingTime(JSON.parse(e.target.value))}>
+            {getMeetingTimeOptions()}
+          </Select>
+        </FormControl>
+      </Grid>
+    );
   }
 
   return (
@@ -93,7 +256,27 @@ function Offerings(props) {
         </Heading>
         <OfferingsModal />
       </Flex>
-      {renderOfferingTable()};
+
+      
+      {renderOfferingTable}
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent     maxW="660px">
+          <ModalHeader>Edit Offering</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {renderEditOfferingForm()}
+          </ModalBody>
+
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button onClick={onOfferingDelete} colorScheme={"red"}>Delete</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Stack>
   );
 }
@@ -105,38 +288,32 @@ const OFFERING_COLUMNS = [
     render: (course, column) => {
       return (
         <Td py="0.25rem">
-          <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
+          <Tag key={`${course.id}${column.property}`}>
             {course[column.property]}
           </Tag>
         </Td>
       )
     },
-    width: "10%"
   },
   {
     property: "CrsNumber",
     title: "Course #",
-    width: "10%"
   },
   {
     property: "OffSection",
     title: "Section #",
-    width: "10%"
   },
   {
     property: "CrsName",
     title: "Course Title",
-    width: "10%"
   },
   {
     property: "Instructor",
     title: "Instructor",
-    width: "10%"
   },
   {
     property: "OffDay",
     title: "Days",
-    width: "10%"
   },
   {
     property: "OffStartTime",
@@ -153,7 +330,6 @@ const OFFERING_COLUMNS = [
   {
     property: "OffEndTime",
     title: "End Time",
-    width: "10%",
     render: (time, column) => {
       return (
         <Td py="0.25rem">
@@ -165,7 +341,6 @@ const OFFERING_COLUMNS = [
   {
     property: "Room",
     title: "Room",
-    width: "10%"
   },
 
 ];

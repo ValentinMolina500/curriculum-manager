@@ -19,7 +19,9 @@ export default function ClassScheduler(props) {
     selectedOffering, 
     setSelectedOffering, 
     offerings, 
-    currentDay 
+    currentDay,
+    subjectFilters,
+    tempOffering
   } = props;
 
   const [itemsToRender, setItemsToRender] = useState([]);
@@ -27,7 +29,14 @@ export default function ClassScheduler(props) {
   useEffect(() => {
     if (!offerings.length) return;
 
-    const filteredResults = offerings.filter((off) => {
+    let baseList;
+
+    if (tempOffering) {
+      baseList = offerings.concat(tempOffering);
+    } else {
+      baseList = offerings;
+    }
+    const filteredByDay = baseList.filter((off) => {
       if (!off.OffDay) {
         return false;
       }
@@ -35,13 +44,24 @@ export default function ClassScheduler(props) {
       return off.OffDay.includes(currentDay);
     });
 
+    let filteredResults;
+
+    if (subjectFilters.length > 0) {
+      filteredResults = filteredByDay.filter((off) => {
+        return subjectFilters.some(subject => off.CrsSubject.trim() == subject);
+      });
+    } else {
+      filteredResults = filteredByDay;
+    }
+
+    
     const tree = new TimeTree();
     for (const offer of filteredResults) {
       tree.insertTimeNode(offer);
     }
 
     setItemsToRender(tree.getItems());
-  }, [offerings, currentDay]);
+  }, [offerings, currentDay, subjectFilters, tempOffering]);
 
   const renderGridLines = () => {
     const jsx = [];
@@ -77,28 +97,32 @@ export default function ClassScheduler(props) {
 
   const renderOfferings = () => {
     return itemsToRender.map((off, index) => {
-      const isLab = off.OffSection.includes("L");
+      const isTemp = off.isSpecial;
+      const isLab = off.OffSection?.includes("L");
       const topValue = (off.startTime / (60 * 24)) * MAX_HEIGHT;
       const height = ((off.endTime - off.startTime) / (60 * 24)) * MAX_HEIGHT;
+      const currentOff =  selectedOffering?.OffID == off.OffID
       return (
+        <>
         <Box
           key={off.id}
-          bg={isLab ? "purple.500" : "blue.500"}
+          bg={isTemp ? "gray.500" : "blue.500"}
           color="white"
           w="120px"
           top={`${topValue}px`}
           h={`${height}px`}
-          // outline={
-          //   selectedOffering?.id === off.id ? "2px dashed black" : null}
+          outline={
+            currentOff ? "2px dashed black" : null}
           onClick={() => setSelectedOffering(off)}
           borderRadius="md"
           boxShadow={"md"}
-          _hover={{ cursor: "pointer", background: isLab ? "purple.600" : "blue.600" }}
+          _hover={{ cursor: "pointer", background: isTemp ? "gray.600" : "blue.600"}}
           left={`${LEFT_LEGEND_PADX + 128 * off.offset}px`}
           padding="4px"
           fontSize={"11px"}
           transition="background 200ms ease"
           pos="absolute"
+          zIndex={currentOff ? 999 : undefined}
         >
           <Flex flexDir={"column"}>
             <Text fontWeight={"semibold"} fontSize="12px">
@@ -111,6 +135,12 @@ export default function ClassScheduler(props) {
             off.endTime
           )}`}
         </Box>
+
+        {currentOff&& 
+          <Box left={`${LEFT_LEGEND_PADX}px`} zIndex="1" top={`${topValue}px`} pos="absolute"
+          h={`${height}px`} w="100%" background={isTemp ? "gray.700" : "blue"} opacity={"0.25"} pointerEvents="none">
+          </Box>}
+        </>
       );
     });
   };
@@ -136,6 +166,7 @@ export default function ClassScheduler(props) {
 
       {/* Render offerings */}
       {renderOfferings()}
+      
     </Box>
   );
 }

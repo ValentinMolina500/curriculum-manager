@@ -240,11 +240,11 @@ const SIDEBAR_ITEMS = [
     icon: MdPeople,
     to: "instructors"
   },
-  {
-    title: "Access",
-    icon: MdManageAccounts,
-    to: "access"
-  }
+  // {
+  //   title: "Access",
+  //   icon: MdManageAccounts,
+  //   to: "access"
+  // }
 ];
 
 export default ViewSemester;

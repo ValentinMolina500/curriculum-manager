@@ -59,32 +59,11 @@ function Instructors(props) {
     });
   }
 
-  const renderInstructorTable = () => {
-    if (instructorsStatus === 'loading') {
-      return (
-        <Center p="2rem">
-          <Spinner color="purple.600" size="xl" emptyColor='gray.200' thickness='3px' />
-        </Center>
-      );
-    }
-
-    if (instructorsStatus === 'error') {
-      return <Text>{instructorError}</Text>
-    }
-
-    return (
-      <Table>
-        <Thead>
-          <Tr>
-            {INSTRUCTOR_COLUMNS.map((column) => (
-              <Th key={column.property}>{column.title}</Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>{renderInstructors()}</Tbody>
-      </Table>
-    )
+  const onRowClick = (instructor) => {
+    navigate(`${instructor.InsID}`)
   }
+
+
 
   return (
     <Stack bg="white" w="100%" mt="2rem">
@@ -94,7 +73,11 @@ function Instructors(props) {
         </Heading>
         <InstructorsModal />
       </Flex>
-      <FilterableTable tableItems={instructors} tableColumns={INSTRUCTOR_COLUMNS} />
+      <FilterableTable 
+        onRowClick={onRowClick}
+        tableItems={instructors} 
+        tableColumns={INSTRUCTOR_COLUMNS} 
+      />
     </Stack>
   );
 }

@@ -12,12 +12,32 @@ import {
   Icon,
   Box,
   Text,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItemOption,
+  MenuOptionGroup,
+  Divider,
+  Input,
+  FormControl,
+  FormLabel,
+  Select,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  HStack,
 } from "@chakra-ui/react";
 import ClassScheduler from "./ClassScheduler";
 import { MdOutlineFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { selectOfferingsById } from "../store/offeringsSlice";
-import { MdPerson,MdBook } from "react-icons/md";
+import { MdPerson, MdBook } from "react-icons/md";
+import { SUBJECTS } from "../utils/constants";
+import API from "../utils/API";
+
+import ScheduleSidebar from "./ScheduleSidebar";
+
 const MAXIMIZE_STYLES = {
   zIndex: 50,
   position: "absolute",
@@ -39,6 +59,8 @@ export default function Schedule() {
   const [currentDay, setCurrentDay] = useState("M");
   const [isMaximized, setIsMaximized] = useState(false);
   const [selectedOffering, setSelectedOffering] = useState(undefined);
+  const [subjectFilters, setSubjectFilters] = useState([]);
+  const [tempOffering, setTempOffering] = useState(null);
 
   const semesterId = useSelector((state) => state.semesters.selectedSemester);
   const {
@@ -46,6 +68,123 @@ export default function Schedule() {
     status: offeringsStatus,
     error: offeringError,
   } = useSelector((state) => selectOfferingsById(state, semesterId));
+
+  const renderMenuItemOptions = (subject) => {
+    return <MenuItemOption value={subject}>{subject}</MenuItemOption>;
+  };
+
+  const renderConflictStats = () => {
+    const offeringsConflictsSelected = offerings.filter((offering) => {
+      if (offering.OffID == selectedOffering.OffID) {
+        return false;
+      }
+
+      if (!selectedOffering.OffDay || !offering.OffDay) {
+        return false;
+      }
+
+      const selDays = selectedOffering.OffDay.split(",");
+      const offDays = offering.OffDay.split(",");
+
+      if (!offDays.some((day) => selDays.some((day2) => day2 == day))) {
+        return false;
+      }
+
+      if (
+        offering.startTime <= selectedOffering.startTime &&
+        offering.endTime >= selectedOffering.endTime
+      ) {
+        return true;
+      }
+
+      if (
+        offering.startTime > selectedOffering.startTime &&
+        selectedOffering.endTime < offering.startTime
+      ) {
+        return false;
+      }
+
+      if (
+        offering.endTime < selectedOffering.endTime &&
+        selectedOffering.startTime < offering.startTime
+      ) {
+        return true;
+      }
+
+      return false;
+    });
+
+    const offeringsConflictsTemp = offerings.filter((offering) => {
+      if (offering.OffID == selectedOffering.OffID) {
+        return false;
+      }
+
+      if (!offering.OffDay || !tempOffering.OffDay) {
+        return false;
+      }
+
+      const selDays = tempOffering.OffDay.split(",");
+      const offDays = offering.OffDay.split(",");
+
+      if (!offDays.some((day) => selDays.some((day2) => day2 == day))) {
+        return false;
+      }
+
+      if (
+        offering.startTime <= tempOffering.startTime &&
+        offering.endTime >= tempOffering.endTime
+      ) {
+        return true;
+      }
+
+      if (
+        offering.startTime > tempOffering.startTime &&
+        tempOffering.endTime < offering.startTime
+      ) {
+        return false;
+      }
+
+      if (
+        offering.endTime < tempOffering.endTime &&
+        tempOffering.startTime < offering.startTime
+      ) {
+        return true;
+      }
+
+      return false;
+    });
+
+    console.log("this is: ", offeringsConflictsSelected);
+
+    return (
+      <GridItem
+        gridRow={"2"}
+        gridColumn={"2"}
+        bg="white"
+        border="1px solid #efefef"
+        boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+        padding="0.5rem 1rem"
+        borderRadius="0.5rem"
+      >
+        <Heading fontSize="1rem" mb="1rem" fontFamily={"Merriweather"}>
+          Stats for Previewed Offering
+        </Heading>
+
+        <Flex>
+          <Stat>
+            <StatLabel>Current Conflicts</StatLabel>
+            <StatNumber>{offeringsConflictsSelected.length}</StatNumber>
+            <StatHelpText>offerings</StatHelpText>
+          </Stat>
+          <Stat>
+            <StatLabel>Preview Conflicts</StatLabel>
+            <StatNumber>{offeringsConflictsTemp.length}</StatNumber>
+            <StatHelpText>offerings</StatHelpText>
+          </Stat>
+        </Flex>
+      </GridItem>
+    );
+  };
 
   return (
     <Grid
@@ -75,6 +214,19 @@ export default function Schedule() {
               <Radio value="F">Friday</Radio>
             </Stack>
           </RadioGroup>
+          <Menu closeOnSelect={false}>
+            <MenuButton as={Button} colorScheme="blue" ml="2rem">
+              Subject Filter
+            </MenuButton>
+            <MenuList minWidth="240px">
+              <MenuOptionGroup
+                type="checkbox"
+                onChange={(filters) => setSubjectFilters(filters)}
+              >
+                {SUBJECTS.map(renderMenuItemOptions)}
+              </MenuOptionGroup>
+            </MenuList>
+          </Menu>
           <IconButton
             onClick={() => setIsMaximized(!isMaximized)}
             marginLeft="auto"
@@ -92,6 +244,7 @@ export default function Schedule() {
         paddingLeft="1rem"
         minH={0}
         w="100%"
+        gridRowGap={"2rem"}
         d="grid"
         gridTemplateColumns="auto minmax(0, 1fr) auto"
         gridTemplateRows={"minmax(0, 1fr) auto"}
@@ -105,66 +258,25 @@ export default function Schedule() {
           h="100%"
         >
           <ClassScheduler
+            subjectFilters={subjectFilters}
             offerings={offerings}
             currentDay={currentDay}
             selectedOffering={selectedOffering}
             setSelectedOffering={setSelectedOffering}
+            tempOffering={tempOffering}
           />
         </GridItem>
 
-        {/* Left panel */}
-        {/* <GridItem
-          minH={"0"}
-          overflowY="auto"
-          gridColumn={1}
-          gridRow={1}
-          border="1px solid #dfdfdf"
-          zIndex="100"
-          borderRadius={"md"}
-        >
-          <Box as="aside" w="300px" h="100%">
-            <Heading p="0.5rem" fontSize={"1rem"} fontFamily="Merriweather">
-              Offerings
-            </Heading>
-          </Box>
-        </GridItem> */}
-
         {/* Right panel */}
         {selectedOffering && (
-          <GridItem
-            minH={"0"}
-            overflowY="auto"
-            gridColumn={3}
-            gridRow={1}
-            border="1px solid #dfdfdf"
-            zIndex="100"
-            borderRadius={"md"}
-          >
-            <Box as="aside" w="350px" h="100%">
-              <Heading p="0.5rem" fontSize={"1rem"} fontFamily="Merriweather">
-                Edit Offering
-              </Heading>
-
-              <Text px="0.5rem" fontSize="1rem">
-                {selectedOffering.className}
-              </Text>
-
-              <Flex flexDir={"row"} alignItems="center" px="0.5rem">
-                <MdBook />
-              <Text px="0.5rem" fontSize="1rem">
-                {selectedOffering.CrsName}
-              </Text>
-              </Flex>
-
-              <Flex flexDir={"row"} alignItems="center" px="0.5rem">
-                <MdPerson />
-                <Text ml="0.5rem" fontSize="1rem">
-                  {selectedOffering.Instructor}
-                </Text>
-              </Flex>
-            </Box>
-          </GridItem>
+          <ScheduleSidebar
+            selectedOffering={selectedOffering}
+            setTempOffering={setTempOffering}
+            tempOffering={tempOffering}
+          />
         )}
+
+        {tempOffering && renderConflictStats()}
       </GridItem>
     </Grid>
   );

@@ -10,35 +10,55 @@ import {
   InputLeftElement,
   Input,
   Flex,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Button
 } from "@chakra-ui/react";
 
 import { MdSearch } from "react-icons/md";
-
+import { SUBJECTS } from "../utils/constants";
 import { useState } from "react";
 
 // A table with searching and filters
 export default function FilterableTable(props) {
-  const { tableItems, tableColumns } = props;
+  const { tableItems, tableColumns, onRowClick = () => 32, showFilters = false, allowSearching = true } = props;
 
   const [searchFilter, setSearchFilter] = useState("");
-  
+  const [subjectFilters, setSubjectFilters] = useState([]);
   const renderTableItems = () => {
 
-    let itemsToRender;
+    let itemsToRender  = tableItems;
 
-    if (!searchFilter) {
-      itemsToRender = tableItems;
-    } else {
+    if (searchFilter) {
       itemsToRender = tableItems.filter((item) => 
         tableColumns.some(
-          ({ property }) => 
-          item[property].toLowerCase().includes(searchFilter.toLowerCase().trim())
+          ({ property }) => {
+            const value = item[property].toString();
+
+            
+            return value.toLowerCase().includes(searchFilter.toLowerCase().trim());
+          }
         ))
+
     }
+
+    if (showFilters && subjectFilters.length) {
+      itemsToRender = itemsToRender.filter((item) => {
+        return subjectFilters.some(subject => subject == item.CrsSubject.trim());
+      })
+    }
+  
 
     return itemsToRender.map((item) => {
       return (
         <Tr
+          onClick={() => onRowClick(item)}
           key={item.id}
           fontSize="1rem"
           transition="ease 250ms"
@@ -66,19 +86,45 @@ export default function FilterableTable(props) {
     });
   };
 
+  const renderMenuItemOptions = (subject) => {
+    return <MenuItemOption value={subject}>{subject}</MenuItemOption>
+  }
+
   return (
     <Box>
-      <Flex>
-        <InputGroup mb="1rem" maxW="500px" w="100%">
-          <InputLeftElement
-            color="gray.400"
-            fontSize={"1.5rem"}
-            pointerEvents={"none"}
-            children={<MdSearch fontSize={"inherit"} />}
-          />
-          <Input value={searchFilter} onChange={e => setSearchFilter(e.target.value)} />
-        </InputGroup>
-      </Flex>
+      {
+        allowSearching &&
+        (
+          <Flex>
+          <InputGroup mb="1rem" maxW="500px" w="100%">
+            <InputLeftElement
+              color="gray.400"
+              fontSize={"1.5rem"}
+              pointerEvents={"none"}
+              children={<MdSearch fontSize={"inherit"} />}
+            />
+            <Input value={searchFilter} onChange={e => setSearchFilter(e.target.value)} />
+          </InputGroup>
+          {
+            showFilters && (
+              <Menu closeOnSelect={false} >
+              <MenuButton as={Button} colorScheme='blue' ml=".75rem">
+                Subject Filter
+              </MenuButton>
+              <MenuList minWidth='240px'>
+                <MenuOptionGroup type='checkbox' onChange={(value) => setSubjectFilters(value)}>
+                  {SUBJECTS.map(renderMenuItemOptions)}
+                </MenuOptionGroup>
+              </MenuList>
+            </Menu>
+            )
+          }
+          </Flex>
+        )
+      
+      
+      }
+    
 
       <Table>
         <Thead>

@@ -13,47 +13,23 @@ import {
   Td,
   Th,
   Tag,
-  Text
+  Text,
+
 } from "@chakra-ui/react";
 
 import { useSelector } from "react-redux";
 import { selectCoursesById } from "../store/coursesSlice";
 import { Link } from "react-router-dom";
+import FilterableTable from "./FilterableTable";
 import CoursesModal from "./CoursesModal";
+import { useMemo } from 'react';
 
 function Courses() {
   const semesterId = useSelector(state => state.semesters.selectedSemester);
 
   const { courses, status: coursesStatus, error: courseError } = useSelector(state => selectCoursesById(state, semesterId));
 
-  const renderCourses = () => {
-
-    return courses.map((course) => {
-      return (
-        <Tr
-          key={course.id}
-          fontSize="1rem"
-          transition="ease 250ms"
-          _hover={{ bg: "#efefef", cursor: "pointer" }}
-          minHeight={0}
-          onClick={() => {
-            // navigate(semester.id)
-          }}
-        >
-
-          {COURSES_COLUMNS.map(column => {
-            if (column.render) {
-              return column.render(course, column);
-            }
-
-            return <Td py="0.25rem" minHeight={0} key={`${course.id}${column.property}`} width={column.width}>{course[column.property]}</Td>
-          })}
-        </Tr>
-      );
-    });
-  }
-
-  const renderCourseTable = () => {
+  const renderCourseTable = useMemo(() => {
     if (coursesStatus === 'loading') {
       return (
         <Center p="2rem">
@@ -67,18 +43,9 @@ function Courses() {
     }
 
     return (
-      <Table>
-        <Thead>
-          <Tr>
-            {COURSES_COLUMNS.map((column) => (
-              <Th key={column.property}>{column.title}</Th>
-            ))}
-          </Tr>
-        </Thead>
-        <Tbody>{renderCourses()}</Tbody>
-      </Table>
+      <FilterableTable tableColumns={COURSES_COLUMNS} tableItems={courses} showFilters={true} />
     )
-  }
+  }, [courses, coursesStatus])
   return (
     <Stack bg="white" w="100%" mt="2rem">
       <Flex alignItems={"center"} justifyContent={"space-between"}>
@@ -86,8 +53,9 @@ function Courses() {
           Courses
         </Heading>
         <CoursesModal />
+        
       </Flex>
-      {renderCourseTable()}
+      {renderCourseTable}
 
     </Stack>
 
@@ -101,7 +69,7 @@ const COURSES_COLUMNS = [
     render: (course, column) => {
       return (
         <Td py="0.25rem">
-          <Tag key={`${course.id}${column.property}`} colorScheme={"purple"}>
+          <Tag key={`${course.id}${column.property}`}>
             {course[column.property]}
           </Tag>
         </Td>

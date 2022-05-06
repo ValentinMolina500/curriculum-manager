@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from "redux-saga/effects"
+import { all, call, put, takeLatest, select } from "redux-saga/effects"
 
 import * as types from "../store/actions"
 import { setAuthStatus, authError, loginSuccess } from "../store/authSlice"
@@ -77,7 +77,7 @@ function* watchFetchInstructors() {
 }
 
 function* fetchOfferings(action) {
-  const { semesterId } = action.payload
+  const { semesterId, onSuccess } = action.payload
   yield put(setOfferingStatus("loading"));
   try {
     const result = yield call(API.getAllOfferings);
@@ -104,6 +104,10 @@ function* fetchOfferings(action) {
       semesterId,
       offerings: formattedResult
     }));
+
+    if (onSuccess) {
+      onSuccess();
+    }
   } catch (error) {
     yield put(offeringsError(error));
   }
@@ -194,7 +198,6 @@ function* deleteInstructor(action) {
   yield put(setInstructorStatus('loading'));
 
   try {
-    // Call endpoint to delete instructor : )
     yield call(API.deleteInstructor, instructorId);
     yield put({
       type: types.FETCH_INSTRUCTORS,
@@ -212,6 +215,54 @@ function* watchDeleteInstructor() {
   yield takeLatest(types.DELETE_INSTRUCTOR, deleteInstructor);
 }
 
+function* addOffering(action) {
+  const { offering, onSuccess } = action.payload;
+
+  yield put(setOfferingStatus('loading'));
+  const { selectedSemester } = yield select(state => state.semesters);
+  try {
+    yield call(API.addNewOffering, offering);
+    yield put({
+      type: types.FETCH_OFFERINGS,
+      payload: {
+        onSuccess,
+        semesterId: selectedSemester
+      }
+    })
+  } catch (error) {
+    console.error("ERROR in addOffering: ", error);
+    yield put(offeringsError(error));
+  }
+
+}
+
+function* watchAddOffering() {
+  yield takeLatest(types.ADD_OFFERING, addOffering)
+}
+
+function* deleteOffering(action) {
+  const { offeringId, onSuccess } = action.payload;
+
+  yield put(setOfferingStatus('loading'));
+  const { selectedSemester } = yield select(state => state.semesters);
+  try {
+    yield call(API.deleteOffering, { offeringId });
+    yield put({
+      type: types.FETCH_OFFERINGS,
+      payload: {
+        onSuccess,
+        semesterId: selectedSemester
+      }
+    })
+  } catch (error) {
+    console.error("ERROR in deleteOffering: ", error);
+    yield put(offeringsError(error));
+  }
+}
+
+function* watchDeleteOffering() {
+  yield takeLatest(types.DELETE_OFFERING, deleteOffering)
+}
 
 export default function* rootSaga() {
   yield all([
@@ -221,6 +272,8 @@ export default function* rootSaga() {
     watchFetchOfferings(),
     watchSelectSemester(),
     watchAddNewInstructor(),
-    watchDeleteInstructor()
+    watchDeleteInstructor(),
+    watchAddOffering(),
+    watchDeleteOffering()
   ])
 }

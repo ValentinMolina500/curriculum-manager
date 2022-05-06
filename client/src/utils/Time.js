@@ -71,18 +71,29 @@ export const TIME_INDEX_LOOKUP = {
  * Render the time in 24 time
  * @param {Date} date Date obj
  */
+// 13:21
 export function renderTime(date)
 {
   let pad = '';
-  let min = date.getUTCMinutes();
-  let hours = date.getUTCHours();
+  let min = date.getUTCMinutes();  // 21 int 
+  let hours = date.getUTCHours(); // 13 int 
+  let period = "AM";
 
   if (min < 10)
   {
     pad += '0';
   }
+
+  if(hours > 12) {
+      hours = hours - 12;
+      period = "PM";
+  }
+
+  if(hours == 12) {
+      period = "PM";
+  }
   
-  return `${date.getUTCHours()}:${date.getUTCMinutes()}${pad}`
+  return `${hours}:${min}${pad} ${period}`
 }
 
 export class TimeTree {
@@ -106,8 +117,9 @@ export class TimeTree {
 
     getItems = () => {
         const items = [];
-
-        this.bfs(this.root, 0, items);
+        if (this.root) {
+          this.bfs(this.root, 0, items);
+        }
 
         return items;
     }

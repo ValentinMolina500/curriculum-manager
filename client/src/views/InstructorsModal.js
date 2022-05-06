@@ -140,7 +140,7 @@ const InstructorsModal = (props) => {
             description: "Instructor has been added!",
             position: "top",
             status: "success",
-            duration: 5000,
+            duration: 2500,
             isClosable: true,
           });
 

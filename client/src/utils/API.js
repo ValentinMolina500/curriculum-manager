@@ -113,6 +113,44 @@ class API {
         return response.ok;
       })
   }
+
+  addNewOffering = (payload) => {
+    return fetch("http://localhost:8000/offerings", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        return response.ok
+      })
+  }
+
+  deleteOffering = (payload) => {
+    return fetch("http://localhost:8000/offerings", {
+      method: "DELETE",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        return response.ok
+      })
+  }
+
+  getConflictsForOffering = (payload) => {
+    return fetch("http://localhost:8000/conflicts", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => json);
+  }
 }
 
 const instance = new API();
