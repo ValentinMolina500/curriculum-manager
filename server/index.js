@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const { Connection, Request } = require("tedious");
 const express = require("express");
+const bodyParser = require('body-parser');
 
 const databaseConfig = require("./dbconfig");
 // const { queryDatabase } = require("./dboperations");
@@ -13,6 +14,8 @@ let serverInit = false;
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 8000;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(cors());
 app.get("/", (req, res) => {
 
@@ -80,6 +83,81 @@ app.get("/courses", (req, res) => {
   })
 });
 
+app.post("/courses", (req, res) => {
+  addCourse(req.body).then(() => {
+    res.sendStatus(200);
+  });
+});
+
+function addCourse(payload) {
+  return new Promise((resolve, reject) => {
+
+    const request = new Request(
+      `INSERT INTO [CPT_S].[Computer_Science]
+      ([Subject]
+        ,[Class #]
+        ,[Title]
+        ,[Credits])
+      VALUES
+      ('${payload.coursePrefix}'
+      ,'${payload.courseNum}'
+      ,'${payload.courseTitle}'
+      ,'${payload.courseCredits}')`,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      }
+    );
+
+    connection.execSql(request);
+  });
+}
+
+function addInstructor(payload) {
+  return new Promise((resolve, reject) => {
+
+    const request = new Request(
+      `INSERT INTO [CMP].[Instructor]
+      ([InsFirstName]
+        ,[InsLastName]
+        ,[InsEmail]
+        ,[InsStatus]
+        ,[InsSafetyOrientation])
+      VALUES
+      ('${payload.firstName}'
+      ,'${payload.lastName}'
+      ,'${payload.wsuEmail}'
+      ,'${payload.isAdjunct}'
+      ,'${payload.hadSafetyOrientation}')`,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      }
+    );
+
+    request.on("doneInProc", (rowCount, more, rows) => {
+      resolve(rows);
+    })
+
+    connection.execSql(request);
+  });
+}
+
+app.post("/instructors", (req, res) => {
+  addInstructor(req.body).then((row) => {
+    console.log("THIS IS RETURNED ROW: ", row);
+    res.json(row);
+  })
+})
+
 function getAllInstructors() {
   return new Promise((resolve, reject) => {
     const allRows = [];
@@ -109,6 +187,7 @@ function getAllInstructors() {
       const row = {};
 
       columns.forEach((column) => {
+
         row[column.metadata.colName] = column.value;
       })
 
@@ -160,7 +239,14 @@ function getAllOfferings() {
       const row = {};
 
       columns.forEach((column) => {
-        row[column.metadata.colName] = column.value;
+        const colName = column.metadata.colName;
+
+        if (colName === "OffStartTime" || colName === "OffEndTime") {
+          row[colName] = column.value.getTime();
+        } else {
+          row[colName] = column.value;
+
+        }
       })
 
       allRows.push(row);
@@ -179,6 +265,37 @@ app.get("/offerings", (req, res) => {
     res.json(rows);
   })
 });
+
+function deleteInstructor(payload) {
+  const { instructorId } = payload;
+
+  return new Promise((resolve, reject) => {
+    const request = new Request(
+      `DELETE FROM [CMP].[Instructor] WHERE [InsID]=${instructorId}`,
+      (err, rowCount, rows) => {
+
+        console.log("THIS IS ROWS: ", rows);
+        if (err) {
+          console.error(err.message);
+          reject(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      });
+
+    request.on("doneInProc", (rowCount, more, rows) => {
+      resolve();
+    });
+
+    connection.execSql(request);
+  });
+}
+
+app.delete("/instructors", (req, res) => {
+  deleteInstructor(req.body).then((row) => {
+    res.sendStatus(200); // Sal Good
+  })
+})
 
 /* Init connection to database */
 const connection = new Connection(databaseConfig);

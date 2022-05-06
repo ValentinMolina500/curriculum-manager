@@ -1,7 +1,4 @@
 import { throws } from "assert";
-
-
-
 /**
  * Minutes is number 0 <= m <= 1440 (minutes in a day). Return
  * string representation of that:
@@ -18,14 +15,22 @@ export function minutesToTimeString(minutes) {
 
     hour = Math.floor(minutes / 60);
 
+    if (hour >= 12)
+    {
+      period = "pm"
+    }
     if (hour > 12) {
         hour -= 12;
-        period = "pm";
+      
     }
+    let pad = '';
 
     min = (minutes % 60);
-
-    return `${hour}${min == 0 ? "" : ":"}${min == 0 ? "" : min}${period}`
+    if (min < 10 && min != 0)
+    {
+      pad += '0';
+    }
+    return `${hour}${min == 0 ? "" : ":"}${pad}${min == 0 ? "" : min}${period}`
 }
 
 /**
@@ -63,6 +68,24 @@ export const TIME_INDEX_LOOKUP = {
     23: "11 PM"
 }
 
+/**
+ * Render the time in 24 time
+ * @param {Date} date Date obj
+ */
+export function renderTime(date)
+{
+  let pad = '';
+  let min = date.getUTCMinutes();
+  let hours = date.getUTCHours();
+
+  if (min < 10)
+  {
+    pad += '0';
+  }
+  
+  return `${date.getUTCHours()}:${date.getUTCMinutes()}${pad}`
+}
+
 export class TimeTree {
     constructor() {
         this.root = null;
@@ -98,6 +121,7 @@ export class TimeTree {
 
     insertTimeNode = (node) => {
         let newNode = { ...node, offset: 0, next: null, down: null, up: null, prev: null };
+
         // this.items.push(newNode);
         if (!this.root) {
             newNode.offset = 0;
@@ -105,13 +129,10 @@ export class TimeTree {
         } else {
             let tempNode = this.root;
 
-            console.log("INSERTING this node [%s, %s]...", 
-                minutesToTimeString(node.startTime), 
-                minutesToTimeString(node.endTime));
+             
             while (tempNode) {
                 /* They overlap entirely */
                 if (this._fullOverlap(tempNode, newNode)) {
-                    console.log("A CASE!");
                     if (!tempNode.down) {
 
                         tempNode.down = newNode;
@@ -123,7 +144,6 @@ export class TimeTree {
                 }
                 /* The new node  overlap the existing node entirely*/
                 else if (this._fullOverlap(newNode, tempNode)) {
-                    console.log("B CASE!");
                     const isRoot = tempNode == this.root;
 
                     if (tempNode.up) {
@@ -160,7 +180,6 @@ export class TimeTree {
                 }
                 /* New node overlaps existing node in the st of existing and et of new */
                 else if (newNode.endTime > tempNode.startTime && newNode.startTime < tempNode.startTime) {
-                    console.log("C CASE!");
                     if (!tempNode.down) {
 
                         tempNode.down = newNode;
@@ -171,7 +190,6 @@ export class TimeTree {
                     }
                 }
                 else if (newNode.startTime > tempNode.endTime && newNode.endTime < tempNode.endTime) {
-                    console.log("D CASE!");
                     if (!tempNode.down) {
 
                         tempNode.down = newNode;
@@ -182,7 +200,6 @@ export class TimeTree {
                     }
                 }
                 else if (newNode.startTime < tempNode.endTime && newNode.endTime > tempNode.endTime) {
-                    console.log("E CASE!");
                     if (!tempNode.down) {
 
                         tempNode.down = newNode;
@@ -195,7 +212,6 @@ export class TimeTree {
                 /* They don't overlap at all */
 
                 else {
-                    console.log("F CASE!");
                     if (!tempNode.next) {
 
                         tempNode.next = newNode;
@@ -207,9 +223,6 @@ export class TimeTree {
                 }
             }
 
-            console.log("DONE with this node [%s, %s]...", 
-                minutesToTimeString(node.startTime), 
-                minutesToTimeString(node.endTime));
         }
     }
 }

@@ -28,6 +28,7 @@ import {
   } from "@chakra-ui/react";
   import { useState } from "react";
   import { v4 as uuidv4 } from 'uuid';
+  import API from "../utils/API.js"
   
   function CoursesModal() {
     const [coursePrefix, setCoursePrefix] = useState('CPT_S');
@@ -107,7 +108,7 @@ import {
       );
     }
   
-    const addCourse = (event) => {
+    const addCourse = async (event) => {
       event.preventDefault();
   
       const courseData = {
@@ -119,6 +120,7 @@ import {
       };
   
       console.log(courseData);
+      await API.addNewCourse(courseData);
   
       toast({
         title: 'Success',

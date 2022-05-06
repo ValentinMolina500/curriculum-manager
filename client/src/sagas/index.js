@@ -3,7 +3,7 @@ import { all, call, put, takeEvery, takeLatest } from "redux-saga/effects"
 import * as types from "../store/actions"
 import { setAuthStatus, authError, loginSuccess } from "../store/authSlice"
 import { semestersError, semestersSuccess, setSelectedSemester, setSemesterStatus } from "../store/semestersSlice"
-import { instructorsError, setInstructorStatus, instructorsSuccess } from "../store/instructorsSlice"
+import { instructorsError, setInstructorStatus, instructorsSuccess, addInstructor } from "../store/instructorsSlice"
 import { coursesError, setCoursesStatus, coursesSuccess } from "../store/coursesSlice"
 import { offeringsError, setOfferingStatus, offeringsSuccess } from "../store/offeringsSlice"
 import API from "../utils/API"
@@ -25,7 +25,7 @@ function* login(action) {
     /* Fetch user sessions */
     yield put({ type: types.FETCH_SEMESTERS });
     yield put({ type: types.FETCH_INSTRUCTORS });
-    yield put({ type: types.FETCH_OFFERINGS });
+    // yield put({ type: types.FETCH_OFFERINGS });
   } catch (error) {
     yield put(authError(error));
   }
@@ -52,13 +52,22 @@ function* watchFetchSemesters() {
 }
 
 function* fetchInstructors(action) {
+  let onSuccess;
+  if (action.payload) {
+    onSuccess = action.payload.onSuccess;
+  }
+
   yield put(setInstructorStatus("loading"));
 
   try {
-    const result = yield call(API.getInstructors);
+    const result = yield call(API.getAllInstructors);
 
-    yield put(instructorsSuccess(result));
+    if (onSuccess) {
+      onSuccess();
+    }
+    yield put(instructorsSuccess({ instructors: result }));
   } catch (error) {
+    console.error("THIS IS ERROR IN FETCH ISNTRU: ", error);
     yield put(instructorsError(error));
   }
 }
@@ -68,12 +77,33 @@ function* watchFetchInstructors() {
 }
 
 function* fetchOfferings(action) {
+  const { semesterId } = action.payload
   yield put(setOfferingStatus("loading"));
-
   try {
-    const result = yield call(API.getOfferings);
+    const result = yield call(API.getAllOfferings);
 
-    yield put(offeringsSuccess(result));
+
+    // Add formatted start/end time out of 2400
+    const formattedResult = result.map(offering => {
+      const rawStartTime = new Date(offering.OffStartTime);
+      const rawEndTime = new Date(offering.OffEndTime);
+
+      const startTime = rawStartTime.getUTCHours() * 60 + rawStartTime.getUTCMinutes();
+      const endTime = rawEndTime.getUTCHours() * 60 + rawEndTime.getUTCMinutes();
+      const className = `${offering.CrsSubject} ${offering.CrsNumber}`;
+
+      return {
+        ...offering,
+        startTime,
+        endTime,
+        className
+      }
+    });
+
+    yield put(offeringsSuccess({
+      semesterId,
+      offerings: formattedResult
+    }));
   } catch (error) {
     yield put(offeringsError(error));
   }
@@ -99,25 +129,29 @@ function* selectSemester(action) {
 
   try {
     const courses = yield call(API.getAllCourses);
-    console.log("COURSES", courses);
     yield put(coursesSuccess({
       semesterId,
       courses
     }));
 
     const instructors = yield call(API.getAllInstructors);
-    console.log("INSTRUCTORS", instructors);
     yield put(instructorsSuccess({
       semesterId,
       instructors
     }));
-    
-    const offerings = yield call(API.getAllOfferings);
-    console.log("OFFERINGS", offerings);
-    yield put(offeringsSuccess({
-      semesterId,
-      offerings
-    }));
+
+    yield put({
+      type: types.FETCH_OFFERINGS,
+      payload: {
+        semesterId
+      }
+    })
+    // const offerings = yield call(API.getAllOfferings);
+    // console.log("OFFERINGS", offerings);
+    // yield put(offeringsSuccess({
+    //   semesterId,
+    //   offerings
+    // }));
 
   } catch (error) {
     console.error(error);
@@ -126,10 +160,58 @@ function* selectSemester(action) {
     yield put(offeringsError(error));
   }
 }
-
 function* watchSelectSemester() {
   yield takeLatest(types.SELECT_SEMESTER, selectSemester);
 }
+
+function* addNewInstructor(action) {
+  const { newInstructor, onSuccess } = action.payload;
+
+  yield put(setInstructorStatus('loading'));
+
+  try {
+    yield call(API.addNewInstructor, newInstructor);
+    yield put({
+      type: types.FETCH_INSTRUCTORS,
+      payload: {
+        onSuccess
+      }
+    });
+
+
+  } catch (error) {
+    console.error("ERROR in addnewInstructor: ", error);
+    yield put(instructorsError(error));
+  }
+}
+
+function* watchAddNewInstructor() {
+  yield takeLatest(types.ADD_INSTRUCTOR, addNewInstructor);
+}
+
+function* deleteInstructor(action) {
+  const { instructorId, onSuccess } = action.payload;
+  yield put(setInstructorStatus('loading'));
+
+  try {
+    // Call endpoint to delete instructor : )
+    yield call(API.deleteInstructor, instructorId);
+    yield put({
+      type: types.FETCH_INSTRUCTORS,
+      payload: {
+        onSuccess
+      }
+    });
+  } catch (error) {
+    console.error("ERROR in deleteInstructor: ", error);
+    yield put(instructorsError(error));
+  }
+}
+
+function* watchDeleteInstructor() {
+  yield takeLatest(types.DELETE_INSTRUCTOR, deleteInstructor);
+}
+
 
 export default function* rootSaga() {
   yield all([
@@ -137,6 +219,8 @@ export default function* rootSaga() {
     watchFetchSemesters(),
     watchFetchInstructors(),
     watchFetchOfferings(),
-    watchSelectSemester()
+    watchSelectSemester(),
+    watchAddNewInstructor(),
+    watchDeleteInstructor()
   ])
 }
