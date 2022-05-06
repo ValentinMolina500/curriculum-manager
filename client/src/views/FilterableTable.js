@@ -39,6 +39,9 @@ export default function FilterableTable(props) {
       itemsToRender = tableItems.filter((item) => 
         tableColumns.some(
           ({ property }) => {
+            if (!item[property]) {
+              return false;
+            }
             const value = item[property].toString();
 
             
